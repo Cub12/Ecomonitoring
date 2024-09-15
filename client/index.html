@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Ecomonitoring</title>
+</head>
+<body>
+<main>
+    <label>Name:</label>
+    <input type="text" id="name_input">
+    <button id="add_name_button">Add name</button>
+
+    <br><br><br>
+    <div>
+        <input placeholder="Search by name" id="search_input">
+        <button id="search_button">Search</button>
+    </div>
+
+    <table id="table">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date added</th>
+        <th>Delete</th>
+        <th>Edit</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <section hidden id="update_row">
+        <label>Name:</label>
+        <input type="text" id="update_name_input">
+        <button id="update_row_button">Update</button>
+    </section>
+</main>
+<script src="index.js"></script>
+</body>
+</html>
