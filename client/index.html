@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Ecomonitoring</title>
 </head>
+
 <body>
+
+<div class="container">
+    <header>
+        <div class="logo">Лабораторна робота №1</div>
+        <nav>
+            <ul>
+                <li><a href="#">ОБ'ЄКТИ</a></li>
+                <li><a href="#">ЗАБРУДНЮВАЧІ</a></li>
+                <li><a href="#">РОЗРАХУНКИ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="text-content">
+            <h1>ЕКО<span class="color">ЛОГІЧНИЙ</span><br>МОНІТОРИНГ</h1>
+            <p>Виконали студенти групи ТР-25: Тараненко Аліна, Кондратенко Сергій</p>
+        </div>
+    </div>
+</div>
+
 <main>
+    <!--
     <label>Name:</label>
     <input type="text" id="name_input">
     <button id="add_name_button">Add name</button>
@@ -16,24 +39,55 @@
         <input placeholder="Search by name" id="search_input">
         <button id="search_button">Search</button>
     </div>
+    -->
 
-    <table id="table">
-        <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Date added</th>
-        <th>Delete</th>
-        <th>Edit</th>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="block1">
+        <div class="overlay-text">
+            <h1>ОБ'ЄКТИ</h1>
+        </div>
 
-    <section hidden id="update_row">
-        <label>Name:</label>
-        <input type="text" id="update_name_input">
-        <button id="update_row_button">Update</button>
-    </section>
+        <div class="table-wrapper">
+            <table id="table">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва підприємства</th>
+                    <th>Керівник підприємства</th>
+                    <th>Адреса підприємства</th>
+                    <th>Вид економічної діяльності</th>
+                    <th>Форма власності</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--
+        <section hidden id="update_row">
+            <label>Name:</label>
+            <input type="text" id="update_name_input">
+            <button id="update_row_button">Update</button>
+        </section>
+        -->
+    </div>
+
+
 </main>
+
 <script src="index.js"></script>
 </body>
 </html>
