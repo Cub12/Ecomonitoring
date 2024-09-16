@@ -26,7 +26,7 @@ class DBService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names;";
+                const query = "SELECT * FROM objects;";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -41,34 +41,32 @@ class DBService {
 
     async insertNewName(name) {
         try {
-            const dateAdded = new Date();
             const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO names (name, date_added) VALUES (?,?);";
+                const query = "INSERT INTO objects (name) VALUES (?);";
 
-                connection.query(query, [name, dateAdded], (err, result) => {
+                connection.query(query, [name], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 });
             });
 
             return {
-                id: insertId,
-                name: name,
-                dateAdded: dateAdded
+                id_Object: insertId,
+                name: name
             };
         } catch (error) {
             console.log(error);
         }
     }
 
-    async deleteRowById(id) {
+    async deleteRowById(id_Object) {
         try {
-            id = parseInt(id, 10);
+            id_Object = parseInt(id_Object, 10);
 
             const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM names WHERE id = ?;";
+                const query = "DELETE FROM objects WHERE id_Object = ?;";
 
-                connection.query(query, [id], (err, result) => {
+                connection.query(query, [id_Object], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.affectedRows);
                 });
@@ -81,14 +79,14 @@ class DBService {
         }
     }
 
-    async updateNameById(id, name) {
+    async updateNameById(id_Object, name) {
         try {
-            id = parseInt(id, 10);
+            id_Object = parseInt(id_Object, 10);
 
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE names SET name = ? WHERE id = ?;";
+                const query = "UPDATE objects SET name = ? WHERE id_Object = ?;";
 
-                connection.query(query, [name, id], (err, result) => {
+                connection.query(query, [name, id_Object], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.affectedRows);
                 });
@@ -104,7 +102,7 @@ class DBService {
     async searchByName(name) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names WHERE name = ?;";
+                const query = "SELECT * FROM objects WHERE name = ?;";
 
                 connection.query(query, [name], (err, results) => {
                     if (err) reject(new Error(err.message));
