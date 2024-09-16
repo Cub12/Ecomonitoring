@@ -47,9 +47,9 @@ class DBService {
 
                 connection.query(query, [name, head, address, economic_activity, form_of_ownership],
                     (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.insertId);
-                });
+                        if (err) reject(new Error(err.message));
+                        resolve(result.insertId);
+                    });
             });
 
             return {
@@ -85,16 +85,23 @@ class DBService {
         }
     }
 
-    async updateNameById(id, name) {
+    async updateRowById(id, name, head, address, economic_activity, form_of_ownership) {
         try {
             id = parseInt(id, 10);
 
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE objects SET name = ? WHERE id = ?;";
+                const query = `UPDATE objects 
+                           SET name = ?, head = ?, address = ?, economic_activity = ?, form_of_ownership = ? 
+                           WHERE id = ?;`;
 
-                connection.query(query, [name, id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.affectedRows);
+                connection.query(query, [name, head, address, economic_activity, form_of_ownership, id],
+                    (err, result) => {
+                    if (err) {
+                        reject(new Error(err.message));
+                    }
+                    else {
+                        resolve(result.affectedRows);
+                    }
                 });
             });
 

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:5000/getAll').then(response => response.json()).
-        then(data => loadHTMLTable(data['data']));
+    then(data => loadHTMLTable(data['data']));
 });
 
 document.querySelector('table tbody').addEventListener('click', function (event) {
@@ -36,11 +36,28 @@ function deleteRowById(id) {
 function handleEditRow(id) {
     const updateRow = document.querySelector('#update_row');
     updateRow.hidden = false;
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+
     document.querySelector('#update_name_input').dataset.id = id;
+    document.querySelector('#update_name_input').value = row.querySelector('.name').textContent;
+    document.querySelector('#update_head_input').value = row.querySelector('.head').textContent;
+    document.querySelector('#update_address_input').value = row.querySelector('.address').textContent;
+    document.querySelector('#update_economic_activity_input').value = row.querySelector('.economic_activity').textContent;
+    document.querySelector('#update_form_of_ownership_input').value = row.querySelector('.form_of_ownership').textContent;
 }
 
 updateButton.onclick = function () {
-    const updateNameInput = document.querySelector('#update_name_input');
+    const id = document.querySelector('#update_name_input').dataset.id;
+    const name = document.querySelector('#update_name_input').value;
+    const head = document.querySelector('#update_head_input').value;
+    const address = document.querySelector('#update_address_input').value;
+    const economicActivity = document.querySelector('#update_economic_activity_input').value;
+    const formOfOwnership = document.querySelector('#update_form_of_ownership_input').value;
+
+    if (!name || !head || !address || !economicActivity || !formOfOwnership) {
+        alert('Будь ласка, заповніть всі поля!');
+        return;
+    }
 
     fetch('http://localhost:5000/update', {
         method: 'PATCH',
@@ -48,8 +65,12 @@ updateButton.onclick = function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id: updateNameInput.dataset.id,
-            name: updateNameInput.value
+            id: id,
+            name: name,
+            head: head,
+            address: address,
+            economic_activity: economicActivity,
+            form_of_ownership: formOfOwnership
         })
     }).then(response => response.json()).then(data => {
         if (data.success) {
@@ -60,7 +81,7 @@ updateButton.onclick = function () {
 
 const addButton = document.querySelector('#add_data_button');
 
-function addName() {
+function addData() {
     const name = document.querySelector('#name_input').value.trim();
     const head = document.querySelector('#head_input').value.trim();
     const address = document.querySelector('#address_input').value.trim();
@@ -88,12 +109,12 @@ function addName() {
 }
 
 addButton.onclick = function () {
-    addName();
+    addData();
 };
 
 nameInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        addName();
+        addData();
     }
 });
 

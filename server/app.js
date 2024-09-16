@@ -11,11 +11,11 @@ app.use(express.urlencoded({extended: false}));
 
 app.post('/insert', (request,
                      response) => {
-    const { name, head, address, economic_activity, form_of_ownership } = request.body;
+    const {name, head, address, economic_activity, form_of_ownership} = request.body;
     const db = dbService.getDBServiceInstance();
     const result = db.insertNewRow(name, head, address, economic_activity, form_of_ownership);
 
-    result.then(data => response.json({ data: data })).catch(err => console.log(err));
+    result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
 app.get('/getAll', (request, response) => {
@@ -27,9 +27,9 @@ app.get('/getAll', (request, response) => {
 
 app.patch('/update', (request,
                       response) => {
-    const {id, name} = request.body;
+    const {id, name, head, address, economic_activity, form_of_ownership} = request.body;
     const db = dbService.getDBServiceInstance();
-    const result = db.updateNameById(id, name);
+    const result = db.updateRowById(id, name, head, address, economic_activity, form_of_ownership);
 
     result.then(data => response.json({success: data})).catch(err => console.log(err));
 });
