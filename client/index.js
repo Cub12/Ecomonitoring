@@ -58,20 +58,33 @@ updateButton.onclick = function () {
     });
 };
 
-const addButton = document.querySelector('#add_name_button');
-const nameInput = document.querySelector('#name_input');
+const addButton = document.querySelector('#add_data_button');
 
 function addName() {
-    const name = nameInput.value;
-    nameInput.value = "";
+    const name = document.querySelector('#name_input').value.trim();
+    const head = document.querySelector('#head_input').value.trim();
+    const address = document.querySelector('#address_input').value.trim();
+    const economicActivity = document.querySelector('#economic_activity_input').value.trim();
+    const formOfOwnership = document.querySelector('#form_of_ownership_input').value.trim();
 
-    fetch(`http://localhost:5000/insert`, {
+    if (!name || !head || !address || !economicActivity || !formOfOwnership) {
+        alert('Будь ласка, заповніть всі поля!');
+        return;
+    }
+
+    fetch('http://localhost:5000/insert', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'POST',
-        body: JSON.stringify({name: name})
-    }).then(response => response.json()).then(data => insertRowIntoTable(data['data']));
+        body: JSON.stringify({
+            name: name,
+            head: head,
+            address: address,
+            economic_activity: economicActivity,
+            form_of_ownership: formOfOwnership
+        })
+    }).then(response => response.json()).then(data => insertRowIntoTable(data.data));
 }
 
 addButton.onclick = function () {
@@ -90,12 +103,12 @@ function insertRowIntoTable(data) {
 
     let tableHTML = "<tr>";
 
-    for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-            tableHTML += `<td>${data[key]}</td>`;
-        }
-    }
-
+    tableHTML += `<td>${data.id}</td>`;
+    tableHTML += `<td>${data.name}</td>`;
+    tableHTML += `<td>${data.head}</td>`;
+    tableHTML += `<td>${data.address}</td>`;
+    tableHTML += `<td>${data.economic_activity}</td>`;
+    tableHTML += `<td>${data.form_of_ownership}</td>`;
     tableHTML += `<td><button class="delete_row_button" data-id=${data.id}>Delete</button></td>`;
     tableHTML += `<td><button class="edit_row_button" data-id=${data.id}>Edit</button></td>`;
     tableHTML += "</tr>";

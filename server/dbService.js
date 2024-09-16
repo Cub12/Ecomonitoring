@@ -39,12 +39,14 @@ class DBService {
         }
     }
 
-    async insertNewName(name) {
+    async insertNewRow(name, head, address, economic_activity, form_of_ownership) {
         try {
             const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO objects (name) VALUES (?);";
+                const query = `INSERT INTO objects (name, head, address, economic_activity, form_of_ownership) 
+                VALUES (?, ?, ?, ?, ?);`;
 
-                connection.query(query, [name], (err, result) => {
+                connection.query(query, [name, head, address, economic_activity, form_of_ownership],
+                    (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 });
@@ -52,7 +54,11 @@ class DBService {
 
             return {
                 id: insertId,
-                name: name
+                name: name,
+                head: head,
+                address: address,
+                economic_activity: economic_activity,
+                form_of_ownership: form_of_ownership
             };
         } catch (error) {
             console.log(error);
