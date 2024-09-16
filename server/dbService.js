@@ -51,7 +51,7 @@ class DBService {
             });
 
             return {
-                id_Object: insertId,
+                id: insertId,
                 name: name
             };
         } catch (error) {
@@ -59,14 +59,14 @@ class DBService {
         }
     }
 
-    async deleteRowById(id_Object) {
+    async deleteRowById(id) {
         try {
-            id_Object = parseInt(id_Object, 10);
+            id = parseInt(id, 10);
 
             const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM objects WHERE id_Object = ?;";
+                const query = "DELETE FROM objects WHERE id = ?;";
 
-                connection.query(query, [id_Object], (err, result) => {
+                connection.query(query, [id], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.affectedRows);
                 });
@@ -79,14 +79,14 @@ class DBService {
         }
     }
 
-    async updateNameById(id_Object, name) {
+    async updateNameById(id, name) {
         try {
-            id_Object = parseInt(id_Object, 10);
+            id = parseInt(id, 10);
 
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE objects SET name = ? WHERE id_Object = ?;";
+                const query = "UPDATE objects SET name = ? WHERE id = ?;";
 
-                connection.query(query, [name, id_Object], (err, result) => {
+                connection.query(query, [name, id], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.affectedRows);
                 });

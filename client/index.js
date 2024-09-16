@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.querySelector('table tbody').addEventListener('click', function (event) {
     if (event.target.className === "delete_row_button") {
-        deleteRowById(event.target.dataset.id_Object);
+        deleteRowById(event.target.dataset.id);
     }
 
     if (event.target.className === "edit_row_button") {
-        handleEditRow(event.target.dataset.id_Object);
+        handleEditRow(event.target.dataset.id);
     }
 });
 
@@ -23,8 +23,8 @@ searchButton.onclick = function () {
         then(data => loadHTMLTable(data['data']));
 };
 
-function deleteRowById(id_Object) {
-    fetch('http://localhost:5000/delete/' + id_Object, {
+function deleteRowById(id) {
+    fetch('http://localhost:5000/delete/' + id, {
         method: 'DELETE'
     }).then(response => response.json()).then(data => {
         if (data.success) {
@@ -33,10 +33,10 @@ function deleteRowById(id_Object) {
     });
 }
 
-function handleEditRow(id_Object) {
+function handleEditRow(id) {
     const updateRow = document.querySelector('#update_row');
     updateRow.hidden = false;
-    document.querySelector('#update_name_input').dataset.id_Object = id_Object;
+    document.querySelector('#update_name_input').dataset.id = id;
 }
 
 updateButton.onclick = function () {
@@ -48,7 +48,7 @@ updateButton.onclick = function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id_Object: updateNameInput.dataset.id_Object,
+            id: updateNameInput.dataset.id,
             name: updateNameInput.value
         })
     }).then(response => response.json()).then(data => {
@@ -96,8 +96,8 @@ function insertRowIntoTable(data) {
         }
     }
 
-    tableHTML += `<td><button class="delete_row_button" data-id=${data.id_Object}>Delete</button></td>`;
-    tableHTML += `<td><button class="edit_row_button" data-id=${data.id_Object}>Edit</button></td>`;
+    tableHTML += `<td><button class="delete_row_button" data-id=${data.id}>Delete</button></td>`;
+    tableHTML += `<td><button class="edit_row_button" data-id=${data.id}>Edit</button></td>`;
     tableHTML += "</tr>";
 
     if (isTableData) {
@@ -117,16 +117,16 @@ function loadHTMLTable(data) {
     }
 
     let tableHTML = "";
-    data.forEach(function ({id_Object, name, head, address, economic_activity, form_of_ownership}) {
+    data.forEach(function ({id, name, head, address, economic_activity, form_of_ownership}) {
         tableHTML += "<tr>";
-        tableHTML += `<td>${id_Object}</td>`;
+        tableHTML += `<td>${id}</td>`;
         tableHTML += `<td>${name}</td>`;
         tableHTML += `<td>${head}</td>`;
         tableHTML += `<td>${address}</td>`;
         tableHTML += `<td>${economic_activity}</td>`;
         tableHTML += `<td>${form_of_ownership}</td>`;
-        tableHTML += `<td><button class="delete_row_button" data-id=${id_Object}>Delete</button></td>`;
-        tableHTML += `<td><button class="edit_row_button" data-id=${id_Object}>Edit</button></td>`;
+        tableHTML += `<td><button class="delete_row_button" data-id=${id}>Delete</button></td>`;
+        tableHTML += `<td><button class="edit_row_button" data-id=${id}>Edit</button></td>`;
         tableHTML += "</tr>";
     });
     table.innerHTML = tableHTML;

@@ -27,18 +27,18 @@ app.get('/getAll', (request, response) => {
 
 app.patch('/update', (request,
                       response) => {
-    const {id_Object, name} = request.body;
+    const {id, name} = request.body;
     const db = dbService.getDBServiceInstance();
-    const result = db.updateNameById(id_Object, name);
+    const result = db.updateNameById(id, name);
 
     result.then(data => response.json({success: data})).catch(err => console.log(err));
 });
 
-app.delete('/delete/:id_Object', (request,
+app.delete('/delete/:id', (request,
                            response) => {
-    const {id_Object} = request.params;
+    const {id} = request.params;
     const db = dbService.getDBServiceInstance();
-    const result = db.deleteRowById(id_Object);
+    const result = db.deleteRowById(id);
 
     result.then(data => response.json({success: data})).catch(err => console.log(err));
 });
