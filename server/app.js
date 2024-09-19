@@ -18,67 +18,96 @@ app.get('/search/:name', (request,
     result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
-app.get('/getAllForTable1', (request, response) => {
+app.get('/getAll/:table', (request, response) => {
+    const {table} = request.params;
     const db = dbService.getDBServiceInstance();
-    const result = db.getAllDataForTable1();
+    let result;
+
+    switch (table) {
+        case 'table1':
+            result = db.getAllDataForTable1();
+            break;
+        case 'table2':
+            result = db.getAllDataForTable2();
+            break;
+        default:
+            return response.status(400).json({error: 'Invalid table name'});
+    }
 
     result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
-app.get('/getAllForTable2', (request, response) => {
+app.post('/insert/:table', (request, response) => {
+    const {table} = request.params;
     const db = dbService.getDBServiceInstance();
-    const result = db.getAllDataForTable2();
+    let result;
+
+    if (table === 'table1') {
+        const {name, head, address, economic_activity, form_of_ownership} = request.body;
+        result = db.insertNewRowInTable1(name, head, address, economic_activity, form_of_ownership);
+    } else if (table === 'table2') {
+        const {name, mass_flow_rate, permissible_emissions, danger_class} = request.body;
+        result = db.insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class);
+    } else {
+        return response.status(400).json({error: 'Invalid table name'});
+    }
 
     result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
-app.post('/insert_table1', (request,
-                            response) => {
-    const {name, head, address, economic_activity, form_of_ownership} = request.body;
+app.patch('/update/:table', (request, response) => {
+    const { table } = request.params;
+    const { id, ...data } = request.body;
     const db = dbService.getDBServiceInstance();
-    const result = db.insertNewRowInTable1(name, head, address, economic_activity, form_of_ownership);
 
-    result.then(data => response.json({data: data})).catch(err => console.log(err));
+    let result;
+    switch (table) {
+        case 'table1':
+            result = db.updateRowInTable1(
+                id,
+                data.name,
+                data.head,
+                data.address,
+                data.economic_activity,
+                data.form_of_ownership
+            );
+            break;
+        case 'table2':
+            result = db.updateRowInTable2(
+                id,
+                data.name,
+                data.mass_flow_rate,
+                data.permissible_emissions,
+                data.danger_class
+            );
+            break;
+        default:
+            return response.status(400).json({ error: 'Invalid table name' });
+    }
+
+    result
+        .then(data => response.json({ success: data }))
+        .catch(err => {
+            console.error(err);
+            response.status(500).json({ error: 'Internal server error' });
+        });
 });
 
-app.post('/insert_table2', (request, response) => {
-    const {name, mass_flow_rate, permissible_emissions, danger_class} = request.body;
+app.delete('/delete/:table/:id', (request, response) => {
+    const {table, id} = request.params;
     const db = dbService.getDBServiceInstance();
-    const result = db.insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class);
+    let result;
 
-    result.then(data => response.json({data: data})).catch(err => console.log(err));
-});
-
-app.patch('/update_table1', (request,
-                             response) => {
-    const {id, name, head, address, economic_activity, form_of_ownership} = request.body;
-    const db = dbService.getDBServiceInstance();
-    const result = db.updateRowInTable1(id, name, head, address, economic_activity, form_of_ownership);
-
-    result.then(data => response.json({success: data})).catch(err => console.log(err));
-});
-
-app.patch('/update_table2', (request, response) => {
-    const {id, name, mass_flow_rate, permissible_emissions, danger_class} = request.body;
-    const db = dbService.getDBServiceInstance();
-    const result = db.updateRowInTable2(id, name, mass_flow_rate, permissible_emissions, danger_class);
-
-    result.then(data => response.json({success: data})).catch(err => console.log(err));
-});
-
-app.delete('/delete_table1/:id', (request,
-                                  response) => {
-    const {id} = request.params;
-    const db = dbService.getDBServiceInstance();
-    const result = db.deleteRowByIdTable1(id);
-
-    result.then(data => response.json({success: data})).catch(err => console.log(err));
-});
-
-app.delete('/delete_table2/:id', (request, response) => {
-    const {id} = request.params;
-    const db = dbService.getDBServiceInstance();
-    const result = db.deleteRowByIdTable2(id);
+    switch (table) {
+        case 'table1':
+            result = db.deleteRowByIdTable1(id);
+            break;
+        case 'table2':
+            result = db.deleteRowByIdTable2(id);
+            break;
+        default:
+            return response.status(400).json({error: 'Invalid table name'});
+    }
 
     result.then(data => response.json({success: data})).catch(err => console.log(err));
 });

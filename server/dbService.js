@@ -40,11 +40,9 @@ class DBService {
         }
     }
 
-    async getAllDataForTable1() {
+    async getData(query) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM objects;";
-
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
@@ -56,119 +54,134 @@ class DBService {
         }
     }
 
-    async getAllDataForTable2() {
-        try {
-            const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM pollutants;";
+    async getAllDataForTable1() {
+        const query = "SELECT * FROM objects;";
+        return this.getData(query);
+    }
 
-                connection.query(query, (err, results) => {
+    async getAllDataForTable2() {
+        const query = "SELECT * FROM pollutants;";
+        return this.getData(query);
+    }
+
+    async insertNewRow(table, values) {
+        try {
+            let query;
+            let params;
+
+            if (table === 'objects') {
+                query = `INSERT INTO objects (name, head, address, economic_activity, form_of_ownership) 
+                     VALUES (?, ?, ?, ?, ?);`;
+                params = values;
+            } else if (table === 'pollutants') {
+                query = `INSERT INTO pollutants (name, mass_flow_rate, permissible_emissions, danger_class) 
+                     VALUES (?, ?, ?, ?);`;
+                params = values;
+            } else {
+                throw new Error('Invalid table name');
+            }
+
+            const insertId = await new Promise((resolve, reject) => {
+                connection.query(query, params, (err, result) => {
                     if (err) reject(new Error(err.message));
-                    resolve(results);
+                    resolve(result.insertId);
                 });
             });
-            return response;
+
+            if (table === 'objects') {
+                return {
+                    id: insertId,
+                    name: values[0],
+                    head: values[1],
+                    address: values[2],
+                    economic_activity: values[3],
+                    form_of_ownership: values[4]
+                };
+            } else {
+                return {
+                    id: insertId,
+                    name: values[0],
+                    mass_flow_rate: values[1],
+                    permissible_emissions: values[2],
+                    danger_class: values[3]
+                };
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     async insertNewRowInTable1(name, head, address, economic_activity, form_of_ownership) {
-        try {
-            const insertId = await new Promise((resolve, reject) => {
-                const query = `INSERT INTO objects (name, head, address, economic_activity, form_of_ownership) 
-                VALUES (?, ?, ?, ?, ?);`;
-
-                connection.query(query, [name, head, address, economic_activity, form_of_ownership],
-                    (err, result) => {
-                        if (err) reject(new Error(err.message));
-                        resolve(result.insertId);
-                    });
-            });
-
-            return {
-                id: insertId,
-                name: name,
-                head: head,
-                address: address,
-                economic_activity: economic_activity,
-                form_of_ownership: form_of_ownership
-            };
-        } catch (error) {
-            console.log(error);
-        }
+        return this.insertNewRow('objects', [name, head, address, economic_activity, form_of_ownership]);
     }
 
     async insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class) {
-        try {
-            const insertId = await new Promise((resolve, reject) => {
-                const query = `INSERT INTO pollutants (name, mass_flow_rate, permissible_emissions, danger_class) 
-                           VALUES (?, ?, ?, ?);`;
-
-                connection.query(query, [name, mass_flow_rate, permissible_emissions, danger_class],
-                    (err, result) => {
-                        if (err) reject(new Error(err.message));
-                        resolve(result.insertId);
-                    });
-            });
-
-            return {
-                id: insertId,
-                name: name,
-                mass_flow_rate: mass_flow_rate,
-                permissible_emissions: permissible_emissions,
-                danger_class: danger_class
-            };
-        } catch (error) {
-            console.log(error);
-        }
+        return this.insertNewRow('pollutants', [name, mass_flow_rate, permissible_emissions, danger_class]);
     }
 
-    async updateRowInTable1(id, name, head, address, economic_activity, form_of_ownership) {
+    async updateRow(table, id, values) {
         try {
             id = parseInt(id, 10);
 
-            const response = await new Promise((resolve, reject) => {
-                const query = `UPDATE objects 
-                           SET name = ?, head = ?, address = ?, economic_activity = ?, form_of_ownership = ? 
-                           WHERE id = ?;`;
+            let query;
+            if (table === 'objects') {
+                query = `UPDATE objects 
+                     SET name = ?, head = ?, address = ?, economic_activity = ?, form_of_ownership = ? 
+                     WHERE id = ?;`;
+            } else if (table === 'pollutants') {
+                query = `UPDATE pollutants 
+                     SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ? 
+                     WHERE id = ?;`;
+            } else {
+                throw new Error('Invalid table name');
+            }
 
-                connection.query(query, [name, head, address, economic_activity, form_of_ownership, id],
-                    (err, result) => {
-                        if (err) {
-                            reject(new Error(err.message));
-                        } else {
-                            resolve(result.affectedRows);
-                        }
-                    });
+            const response = await new Promise((resolve, reject) => {
+                connection.query(query, [...values, id], (err, result) => {
+                    if (err) {
+                        reject(new Error(err.message));
+                    } else {
+                        resolve(result.affectedRows);
+                    }
+                });
             });
 
-            return response === 1 ? true : false;
+            return response === 1;
         } catch (error) {
             console.log(error);
             return false;
         }
     }
 
+    async updateRowInTable1(id, name, head, address, economic_activity, form_of_ownership) {
+        return this.updateRow('objects', id, [name, head, address, economic_activity, form_of_ownership]);
+    }
+
     async updateRowInTable2(id, name, mass_flow_rate, permissible_emissions, danger_class) {
+        return this.updateRow('pollutants', id, [name, mass_flow_rate, permissible_emissions, danger_class]);
+    }
+
+    async deleteRowById(table, id) {
         try {
             id = parseInt(id, 10);
 
-            const response = await new Promise((resolve, reject) => {
-                const query = `UPDATE pollutants 
-                           SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ? 
-                           WHERE id = ?;`;
+            let query;
+            if (table === 'objects') {
+                query = "DELETE FROM objects WHERE id = ?;";
+            } else if (table === 'pollutants') {
+                query = "DELETE FROM pollutants WHERE id = ?;";
+            } else {
+                throw new Error('Invalid table name');
+            }
 
-                connection.query(query, [name, mass_flow_rate, permissible_emissions, danger_class, id],
-                    (err, result) => {
-                        if (err) {
-                            reject(new Error(err.message));
-                        } else {
-                            resolve(result.affectedRows);
-                        }
-                    });
+            const response = await new Promise((resolve, reject) => {
+                connection.query(query, [id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.affectedRows);
+                });
             });
 
-            return response === 1 ? true : false;
+            return response === 1;
         } catch (error) {
             console.log(error);
             return false;
@@ -176,43 +189,11 @@ class DBService {
     }
 
     async deleteRowByIdTable1(id) {
-        try {
-            id = parseInt(id, 10);
-
-            const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM objects WHERE id = ?;";
-
-                connection.query(query, [id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.affectedRows);
-                });
-            });
-
-            return response === 1 ? true : false;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
+        return this.deleteRowById('objects', id);
     }
 
     async deleteRowByIdTable2(id) {
-        try {
-            id = parseInt(id, 10);
-
-            const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM pollutants WHERE id = ?;";
-
-                connection.query(query, [id], (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.affectedRows);
-                });
-            });
-
-            return response === 1 ? true : false;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
+        return this.deleteRowById('pollutants', id);
     }
 }
 
