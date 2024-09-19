@@ -9,13 +9,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.get('/search/:name', (request,
-                          response) => {
-    const {name} = request.params;
+app.get('/search/:table/:column/:value', (request, response) => {
+    const { table, column, value } = request.params;
     const db = dbService.getDBServiceInstance();
-    const result = db.searchByName(name);
+    const result = db.searchByColumn(table, column, value);
 
-    result.then(data => response.json({data: data})).catch(err => console.log(err));
+    result.then(data => response.json({ data: data }))
+        .catch(err => console.log(err));
 });
 
 app.get('/getAll/:table', (request, response) => {
@@ -32,6 +32,20 @@ app.get('/getAll/:table', (request, response) => {
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
+    }
+
+    result.then(data => response.json({data: data})).catch(err => console.log(err));
+});
+
+app.get('/sort/:table/:column/:sortOrder', (request, response) => {
+    const {table, column, sortOrder} = request.params;
+    const db = dbService.getDBServiceInstance();
+    let result;
+
+    if (table === 'table2') {
+        result = db.sortTable2(column, sortOrder);
+    } else {
+        return response.status(400).json({error: 'Invalid table name'});
     }
 
     result.then(data => response.json({data: data})).catch(err => console.log(err));

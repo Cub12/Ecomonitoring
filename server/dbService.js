@@ -23,12 +23,53 @@ class DBService {
         return instance ? instance : new DBService();
     }
 
-    async searchByName(name) {
+    async searchByColumn(table, column, value) {
+        const validColumns = {
+            'table1': ['name', 'head', 'address', 'economic_activity', 'form_of_ownership'],
+            'table2': ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class']
+        };
+
+        if (!validColumns[table]) {
+            throw new Error('Invalid table name');
+        }
+
+        if (!validColumns[table].includes(column)) {
+            throw new Error(`Invalid column name for ${table}`);
+        }
+
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM objects WHERE name = ?;";
+                const query = `SELECT * FROM ${table === 'table1' ? 'objects' : 'pollutants'} WHERE ${column} LIKE ?;`;
+                const searchValue = `${value}%`;
 
-                connection.query(query, [name], (err, results) => {
+                connection.query(query, [searchValue], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async sortTable2(column, sortOrder) {
+        const validColumns = ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'];
+        const numericColumns = ['mass_flow_rate', 'permissible_emissions', 'danger_class'];
+
+        if (!validColumns.includes(column)) {
+            throw new Error('Invalid column name for table2');
+        }
+
+        const orderBy = numericColumns.includes(column) ? `CAST(${column} AS UNSIGNED)` : column;
+        const orderDirection = sortOrder === 'desc' ? 'DESC' : 'ASC';
+
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `SELECT * FROM pollutants ORDER BY ${orderBy} ${orderDirection};`;
+
+                connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 });

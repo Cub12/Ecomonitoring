@@ -14,10 +14,49 @@ document.querySelector('#table2 tbody').addEventListener('click', function (even
     handleTableClick(2, event);
 });
 
-const searchButton = document.querySelector('#search_button');
-searchButton.onclick = function () {
+const searchButton1 = document.querySelector('#search_button');
+searchButton1.onclick = function () {
     const searchValue = document.querySelector('#search_input').value;
-    fetch('http://localhost:5000/search/' + searchValue).then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table'));
+    const searchColumn = document.querySelector('#search_column').value;
+    fetch(`http://localhost:5000/search/table1/${searchColumn}/${searchValue}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table'));
+};
+
+const searchButton2 = document.querySelector('#search_button2');
+searchButton2.onclick = function () {
+    const searchValue = document.querySelector('#search_input2').value;
+    const searchColumn = document.querySelector('#search_column2').value;
+    fetch(`http://localhost:5000/search/table2/${searchColumn}/${searchValue}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table2'));
+};
+
+const resetButton1 = document.querySelector('#reset_button');
+resetButton1.onclick = function() {
+    fetch(`http://localhost:5000/getAll/table1`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table`));
+};
+
+const resetButton2 = document.querySelector('#reset_button2');
+resetButton2.onclick = function() {
+    fetch(`http://localhost:5000/getAll/table2`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table2`));
+};
+
+function handleSort(tableId, sortColumn, sortOrder) {
+    fetch(`http://localhost:5000/sort/table${tableId}/${sortColumn}/${sortOrder}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table${tableId}`));
+}
+
+const sortButton2 = document.querySelector('#sort_button2');
+sortButton2.onclick = function() {
+    const sortColumn = document.querySelector('#sort_column2').value;
+    const sortOrder = document.querySelector('#sort_order2').value;
+    handleSort(2, sortColumn, sortOrder);
 };
 
 const addButton1 = document.querySelector('#add_data_button');

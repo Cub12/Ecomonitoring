@@ -21,8 +21,16 @@
 
     <br><br><br>
     <div>
-        <input placeholder="Search by name" id="search_input">
+        <select id="search_column">
+            <option value="name">name</option>
+            <option value="head">head</option>
+            <option value="address">address</option>
+            <option value="economic_activity">economic_activity</option>
+            <option value="form_of_ownership">form_of_ownership</option>
+        </select>
+        <input placeholder="Enter search value" id="search_input">
         <button id="search_button">Search</button>
+        <button id="reset_button">Reset</button>
     </div>
 
     <table id="table">
@@ -64,6 +72,33 @@
     <label>Danger Class:</label>
     <input type="text" id="danger_class_input">
     <button id="add_data2_button">Add data</button>
+
+    <br><br><br>
+    <div>
+        <select id="search_column2">
+            <option value="name">name</option>
+            <option value="mass_flow_rate">mass_flow_rate</option>
+            <option value="permissible_emissions">permissible_emissions</option>
+            <option value="danger_class">danger_class</option>
+        </select>
+        <input placeholder="Enter search value" id="search_input2">
+        <button id="search_button2">Search</button>
+        <button id="reset_button2">Reset</button>
+
+        <br><br><br>
+        <label for="sort_column2">Sort Column:</label>
+        <select id="sort_column2">
+            <option value="mass_flow_rate">mass_flow_rate</option>
+            <option value="permissible_emissions">permissible_emissions</option>
+            <option value="danger_class">danger_class</option>
+        </select>
+        <label for="sort_order2">Sort Order:</label>
+        <select id="sort_order2">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+        <button id="sort_button2">Sort</button>
+    </div>
 
     <table id="table2">
         <thead>
