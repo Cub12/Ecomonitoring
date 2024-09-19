@@ -173,3 +173,53 @@ button:hover {
     background-color: #45a049;
     color: black;
 }
+
+.form-container {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #49885c;
+    border-radius: 10px;
+    color: white;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: white;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.form-container input {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container button {
+    align-items: center;
+    width: 50%;
+    margin-left: 25%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2b452b;
+    color: #00ff12;
+    border-color: #00ff12;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+    color: black;
+}
