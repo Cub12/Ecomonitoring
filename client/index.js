@@ -129,3 +129,19 @@ function loadHTMLTable(data) {
     });
     table.innerHTML = tableHTML;
 }
+
+
+document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Отримуємо цільовий елемент по атрибуту href
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+

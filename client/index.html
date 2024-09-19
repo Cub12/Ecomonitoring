@@ -14,9 +14,9 @@
         <div class="logo">Лабораторна робота №1</div>
         <nav>
             <ul>
-                <li><a href="#">ОБ'ЄКТИ</a></li>
-                <li><a href="#">ЗАБРУДНЮВАЧІ</a></li>
-                <li><a href="#">РОЗРАХУНКИ</a></li>
+                <li><a href="#objects">ОБ'ЄКТИ</a></li>
+                <li><a href="#pollutants">ЗАБРУДНЮВАЧІ</a></li>
+                <li><a href="#calculations">РОЗРАХУНКИ</a></li>
             </ul>
         </nav>
     </header>
@@ -29,19 +29,8 @@
 </div>
 
 <main>
-    <!--
-    <label>Name:</label>
-    <input type="text" id="name_input">
-    <button id="add_name_button">Add name</button>
 
-    <br><br><br>
-    <div>
-        <input placeholder="Search by name" id="search_input">
-        <button id="search_button">Search</button>
-    </div>
-    -->
-
-    <div class="block1">
+    <div class="block1" id="objects">
 
         <div class="overlay-text">
             <h1>ОБ'ЄКТИ</h1>
@@ -68,7 +57,7 @@
                     <td>2024-09-16</td>
                     <td>2024-09-16</td>
                     <td>2024-09-16</td>
-                    <td>
+                    <td class="button">
                         <button>Редагувати</button>
                         <button>Видалити</button>
                     </td>
@@ -80,7 +69,7 @@
                     <td>2024-09-16</td>
                     <td>2024-09-16</td>
                     <td>2024-09-16</td>
-                    <td>
+                    <td class="button">
                         <button>Редагувати</button>
                         <button>Видалити</button>
                     </td>
@@ -90,16 +79,8 @@
         </div>
 
         <div class="button-container">
-            <button>Натиснути</button>
+            <button>Додати новий об'єкт</button>
         </div>
-
-        <!--
-        <section hidden id="update_row">
-            <label>Name:</label>
-            <input type="text" id="update_name_input">
-            <button id="update_row_button">Update</button>
-        </section>
-        -->
 
     </div>
 
@@ -123,6 +104,117 @@
 
             <button type="submit">Додати підприємство</button>
         </form>
+    </div>
+
+    <div class="block2" id="pollutants">
+
+        <div class="overlay-text">
+            <h1>ЗАБРУДНЮВАЧІ</h1>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва забруднюючої речовини</th>
+                    <th>Величина масової витрати, г/год</th>
+                    <th>Гранично допустимі викиди, мг/м^3</th>
+                    <th>Клас небезпеки</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button> Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button>Додати нову речовину</button>
+        </div>
+
+    </div>
+
+    <div class="block3" id="calculations">
+
+        <div class="overlay-text">
+            <h1>РОЗРАХУНКИ</h1>
+        </div>
+
+        <div class="table-container1">
+            <table>
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва підприємства</th>
+                    <th>Назва забруднюючої речовини</th>
+                    <th>Усього викидів, т/рік</th>
+                    <th>Величина масової витрати, т/рік</th>
+                    <th>Гранично допустимі викиди, мг/м^3</th>
+                    <th>Клас небезпеки</th>
+                    <th>Період</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button>Додати нове забруднення</button>
+        </div>
+
     </div>
 
 </main>
