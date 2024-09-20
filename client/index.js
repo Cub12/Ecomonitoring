@@ -33,14 +33,14 @@ searchButton2.onclick = function () {
 };
 
 const resetButton1 = document.querySelector('#reset_button');
-resetButton1.onclick = function() {
+resetButton1.onclick = function () {
     fetch(`http://localhost:5000/getAll/table1`)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table`));
 };
 
 const resetButton2 = document.querySelector('#reset_button2');
-resetButton2.onclick = function() {
+resetButton2.onclick = function () {
     fetch(`http://localhost:5000/getAll/table2`)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table2`));
@@ -53,7 +53,7 @@ function handleSort(tableId, sortColumn, sortOrder) {
 }
 
 const sortButton2 = document.querySelector('#sort_button2');
-sortButton2.onclick = function() {
+sortButton2.onclick = function () {
     const sortColumn = document.querySelector('#sort_column2').value;
     const sortOrder = document.querySelector('#sort_order2').value;
     handleSort(2, sortColumn, sortOrder);
@@ -99,8 +99,8 @@ function loadHTMLTable(data, tableId) {
         Object.keys(row).forEach(function (key) {
             tableHTML += `<td>${row[key]}</td>`;
         });
-        tableHTML += `<td><button class="delete_row_button" data-id=${row.id}>Delete</button></td>`;
-        tableHTML += `<td><button class="edit_row_button" data-id=${row.id}>Edit</button></td>`;
+        tableHTML += `<td class="button"><button class="edit_row_button" data-id=${row.id}>Редагувати</button>
+            <button class="delete_row_button" data-id=${row.id}>Видалити</button></td>`;
         tableHTML += "</tr>";
     });
     table.innerHTML = tableHTML;
@@ -254,8 +254,8 @@ function insertRowIntoTable(tableSelector, data, columnMapping) {
         tableHTML += `<td class="${column}">${data[column]}</td>`;
     });
 
-    tableHTML += `<td><button class="delete_row_button" data-id="${data.id}">Delete</button></td>`;
-    tableHTML += `<td><button class="edit_row_button" data-id="${data.id}">Edit</button></td>`;
+    tableHTML += `<td class="button"><button class="edit_row_button" data-id=${data.id}>Редагувати</button>
+            <button class="delete_row_button" data-id=${data.id}>Видалити</button></td>`;
     tableHTML += "</tr>";
 
     if (isTableData) {
@@ -267,7 +267,7 @@ function insertRowIntoTable(tableSelector, data, columnMapping) {
 }
 
 function insertRowIntoTable1(data) {
-    insertRowIntoTable('table', data, ['id', 'name', 'head', 'address', 'economic_activity',
+    insertRowIntoTable('#table', data, ['id', 'name', 'head', 'address', 'economic_activity',
         'form_of_ownership']);
 }
 
@@ -275,3 +275,24 @@ function insertRowIntoTable2(data) {
     insertRowIntoTable('#table2', data, ['id', 'name', 'mass_flow_rate', 'permissible_emissions',
         'danger_class']);
 }
+
+document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            targetElement.scrollIntoView({behavior: 'smooth'});
+        }
+    });
+});
+
+const showFormButton = document.querySelector('#show_form_button');
+const formContainer = document.querySelector('#form_container');
+
+showFormButton.onclick = function () {
+    console.log('showFormButton');
+    formContainer.classList.toggle('hidden');
+};

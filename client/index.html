@@ -6,20 +6,190 @@
     <title>Ecomonitoring</title>
 </head>
 <body>
-<main>
-    <label>Name:</label>
-    <input type="text" id="name_input">
-    <label>Head:</label>
-    <input type="text" id="head_input">
-    <label>Address:</label>
-    <input type="text" id="address_input">
-    <label>Economic Activity:</label>
-    <input type="text" id="economic_activity_input">
-    <label>Form of Ownership:</label>
-    <input type="text" id="form_of_ownership_input">
-    <button id="add_data_button">Add data</button>
 
-    <br><br><br>
+<div class="container">
+    <header>
+        <div class="logo">Лабораторна робота №1</div>
+        <nav>
+            <ul>
+                <li><a href="#objects">ОБ'ЄКТИ</a></li>
+                <li><a href="#pollutants">ЗАБРУДНЮВАЧІ</a></li>
+                <li><a href="#calculations">РОЗРАХУНКИ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="text-content">
+            <h1>ЕКО<span class="color">ЛОГІЧНИЙ</span><br>МОНІТОРИНГ</h1>
+            <p>Виконали студенти групи ТР-25: Тараненко Аліна, Кондратенко Сергій</p>
+        </div>
+    </div>
+</div>
+
+<!--<main>
+    <div class="block2" id="pollutants">
+
+        <div class="overlay-text">
+            <h1>ЗАБРУДНЮВАЧІ</h1>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва забруднюючої речовини</th>
+                    <th>Величина масової витрати, г/год</th>
+                    <th>Гранично допустимі викиди, мг/м^3</th>
+                    <th>Клас небезпеки</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button> Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button>Додати нову речовину</button>
+        </div>
+
+    </div>
+
+    <div class="block3" id="calculations">
+
+        <div class="overlay-text">
+            <h1>РОЗРАХУНКИ</h1>
+        </div>
+
+        <div class="table-container1">
+            <table>
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва підприємства</th>
+                    <th>Назва забруднюючої речовини</th>
+                    <th>Усього викидів, т/рік</th>
+                    <th>Величина масової витрати, т/рік</th>
+                    <th>Гранично допустимі викиди, мг/м^3</th>
+                    <th>Клас небезпеки</th>
+                    <th>Період</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Example Name</td>
+                    <td>Example Name</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td>2024-09-16</td>
+                    <td class="button">
+                        <button>Редагувати</button>
+                        <button>Видалити</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button>Додати нове забруднення</button>
+        </div>
+
+    </div>
+
+</main>-->
+
+<main>
+    <div class="block1" id="objects">
+
+        <div class="overlay-text">
+            <h1>ОБ'ЄКТИ</h1>
+        </div>
+
+        <div class="table-container">
+            <table id="table">
+                <thead>
+                <th>№</th>
+                <th>Назва підприємства</th>
+                <th>Керівник підприємства</th>
+                <th>Адреса підприємства</th>
+                <th>Вид економічної діяльності</th>
+                <th>Форма власності</th>
+                <th>Дії</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button id="show_form_button">Додати новий об'єкт</button>
+        </div>
+    </div>
+
+    <div class="form-container hidden" id="form_container">
+        <h2>Додати нове підприємство</h2>
+
+        <form id="add-enterprise-form">
+            <label for="name_input">Назва підприємства:</label>
+            <input type="text" id="name_input" name="name_input" required>
+
+            <label for="head_input">Керівник підприємства:</label>
+            <input type="text" id="head_input" name="head_input" required>
+
+            <label for="address_input">Адреса підприємства:</label>
+            <input type="text" id="address_input" name="address_input" required>
+
+            <label for="economic_activity_input">Вид економічної діяльності:</label>
+            <input type="text" id="economic_activity_input" name="economic_activity_input" required>
+
+            <label for="form_of_ownership_input">Форма власності:</label>
+            <input type="text" id="form_of_ownership_input" name="form_of_ownership_input" required>
+
+            <button id="add_data_button" type="submit">Додати підприємство</button>
+        </form>
+    </div>
+
     <div>
         <select id="search_column">
             <option value="name">name</option>
@@ -32,20 +202,6 @@
         <button id="search_button">Search</button>
         <button id="reset_button">Reset</button>
     </div>
-
-    <table id="table">
-        <thead>
-        <th>id</th>
-        <th>name</th>
-        <th>head</th>
-        <th>address</th>
-        <th>economic_activity</th>
-        <th>form_of_ownership</th>
-        <th>Delete</th>
-        <th>Edit</th>
-        </thead>
-        <tbody></tbody>
-    </table>
 
     <section hidden id="update_row">
         <label>Name:</label>
@@ -100,6 +256,7 @@
         <button id="sort_button2">Sort</button>
     </div>
 
+    <br><br><br><br><br><br><br><br><br><br><br><br>
     <table id="table2">
         <thead>
         <th>id</th>
