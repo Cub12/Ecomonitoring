@@ -79,12 +79,6 @@ addButton2.onclick = function () {
     );
 };
 
-const updateButton1 = document.querySelector('#update_row_button');
-updateButton1.onclick = () => handleUpdate('table1');
-
-const updateButton2 = document.querySelector('#update_row2_button');
-updateButton2.onclick = () => handleUpdate('table2');
-
 function loadHTMLTable(data, tableId) {
     const table = document.querySelector(`#${tableId} tbody`);
 
@@ -136,7 +130,7 @@ function handleEditRow(id, tableId) {
 
     const fields = {
         1: {
-            idInput: '#update_name_input',
+            idInput: '#name_input',
             fields: [
                 {name: 'name', selector: '.name'},
                 {name: 'head', selector: '.head'},
@@ -146,7 +140,7 @@ function handleEditRow(id, tableId) {
             ]
         },
         2: {
-            idInput: '#update_name2_input',
+            idInput: '#name2_input',
             fields: [
                 {name: 'name', selector: '.name'},
                 {name: 'mass_flow_rate', selector: '.mass_flow_rate'},
@@ -199,17 +193,17 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
 function handleUpdate(tableId) {
     const fields = {
         table1: [
-            {name: 'name', id: 'update_name_input'},
-            {name: 'head', id: 'update_head_input'},
+            {name: 'name', id: 'name_input'},
+            {name: 'head', id: 'head_input'},
             {name: 'address', id: 'update_address_input'},
-            {name: 'economic_activity', id: 'update_economic_activity_input'},
-            {name: 'form_of_ownership', id: 'update_form_of_ownership_input'}
+            {name: 'economic_activity', id: 'economic_activity_input'},
+            {name: 'form_of_ownership', id: 'form_of_ownership_input'}
         ],
         table2: [
-            {name: 'name', id: 'update_name2_input'},
-            {name: 'mass_flow_rate', id: 'update_mass_flow_rate_input'},
-            {name: 'permissible_emissions', id: 'update_permissible_emissions_input'},
-            {name: 'danger_class', id: 'update_danger_class_input'}
+            {name: 'name', id: 'name2_input'},
+            {name: 'mass_flow_rate', id: 'mass_flow_rate_input'},
+            {name: 'permissible_emissions', id: 'permissible_emissions_input'},
+            {name: 'danger_class', id: 'danger_class_input'}
         ]
     };
 
@@ -220,12 +214,6 @@ function handleUpdate(tableId) {
     fieldDefinitions.forEach(field => {
         formData[field.name] = document.querySelector(`#${field.id}`).value.trim();
     });
-
-    const emptyFields = Object.values(formData).some(value => !value);
-    if (emptyFields) {
-        alert('Будь ласка, заповніть всі поля!');
-        return;
-    }
 
     fetch(`http://localhost:5000/update/${tableId}`, {
         method: 'PATCH',
@@ -290,9 +278,34 @@ document.querySelectorAll('nav ul li a').forEach(link => {
 });
 
 const showFormButton = document.querySelector('#show_form_button');
-const formContainer = document.querySelector('#form_container');
-
 showFormButton.onclick = function () {
-    console.log('showFormButton');
+    const formContainer = document.querySelector('#form_container');
+
+    changeForm('#form_title', 'Додати нове підприємство');
+    changeForm('#add_data_button', 'Додати нове підприємство');
+    document.querySelector('#add-enterprise-form').reset();
     formContainer.classList.toggle('hidden');
 };
+
+function changeForm(id, newText) {
+    const formText = document.querySelector(id);
+    formText.textContent = newText;
+}
+
+function changeButtonId(newId) {
+    const button = document.querySelector('#add_data_button');
+    button.id = newId;
+}
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('edit_row_button')) {
+        changeForm('#form_title', 'Редагувати дані підприємства');
+        changeForm('#add_data_button', 'Зберегти зміни');
+        changeButtonId('update_row_button');
+
+        const updateButton = document.querySelector('#update_row_button');
+        updateButton.onclick = () => handleUpdate('table1');
+
+        document.querySelector('#form_container').classList.toggle('hidden');
+    }
+});
