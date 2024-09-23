@@ -33,6 +33,9 @@ searchButton2.onclick = function () {
 };
 
 const resetButton1 = document.querySelector('#reset_button');
+resetButton1.addEventListener('click', function() {
+    document.querySelector('#search_input').value = '';
+});
 resetButton1.onclick = function () {
     fetch(`http://localhost:5000/getAll/table1`)
         .then(response => response.json())
@@ -40,7 +43,20 @@ resetButton1.onclick = function () {
 };
 
 const resetButton2 = document.querySelector('#reset_button2');
+resetButton2.addEventListener('click', function() {
+    document.querySelector('#search_input2').value = '';
+});
 resetButton2.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table2`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table2`));
+};
+
+const resetButton3 = document.querySelector('#reset_button3');
+resetButton3.addEventListener('click', function() {
+    document.querySelector('#search_input3').value = '';
+});
+resetButton3.onclick = function () {
     fetch(`http://localhost:5000/getAll/table2`)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table2`));
@@ -52,10 +68,10 @@ function handleSort(tableId, sortColumn, sortOrder) {
         .then(data => loadHTMLTable(data['data'], `table${tableId}`));
 }
 
-const sortButton2 = document.querySelector('#sort_button2');
-sortButton2.onclick = function () {
-    const sortColumn = document.querySelector('#sort_column2').value;
-    const sortOrder = document.querySelector('#sort_order2').value;
+const sortButton = document.querySelector('#sort_button');
+sortButton.onclick = function () {
+    const sortColumn = document.querySelector('#sort_column').value;
+    const sortOrder = document.querySelector('#sort_order').value;
     handleSort(2, sortColumn, sortOrder);
 };
 
@@ -91,7 +107,12 @@ function loadHTMLTable(data, tableId) {
     data.forEach(function (row) {
         tableHTML += "<tr>";
         Object.keys(row).forEach(function (key) {
-            tableHTML += `<td>${row[key]}</td>`;
+            let value = row[key];
+            if (typeof value === 'number' && value === -1) {
+                value = '-';
+            }
+
+            tableHTML += `<td>${value}</td>`;
         });
         tableHTML += `<td class="button"><button class="edit_row_button" data-id=${row.id}>Редагувати</button>
             <button class="delete_row_button" data-id=${row.id}>Видалити</button></td>`;

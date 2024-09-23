@@ -33,6 +33,19 @@
             <h1>ОБ'ЄКТИ</h1>
         </div>
 
+        <div class="search">
+            <select id="search_column">
+                <option value="name">Назва підприємства</option>
+                <option value="head">Керівник підприємства</option>
+                <option value="address">Адреса підприємства</option>
+                <option value="economic_activity">Вид економічної діяльності</option>
+                <option value="form_of_ownership">Форма власності</option>
+            </select>
+            <input placeholder="Уведіть пошукове значення" id="search_input">
+            <button id="search_button">Знайти</button>
+            <button id="reset_button">Скинути</button>
+        </div>
+
         <div class="table-container">
             <table id="table">
                 <thead>
@@ -76,25 +89,40 @@
         </form>
     </div>
 
-    <div>
-        <select id="search_column">
-            <option value="name">name</option>
-            <option value="head">head</option>
-            <option value="address">address</option>
-            <option value="economic_activity">economic_activity</option>
-            <option value="form_of_ownership">form_of_ownership</option>
-        </select>
-        <input placeholder="Enter search value" id="search_input">
-        <button id="search_button">Search</button>
-        <button id="reset_button">Reset</button>
-    </div>
-
     <div class="block2" id="pollutants">
         <div class="overlay-text">
             <h1>ЗАБРУДНЮВАЧІ</h1>
         </div>
 
-        <div class="table-container">
+        <div class="search">
+            <select id="search_column2">
+                <option value="name">Назва забруднюючої речовини</option>
+                <option value="mass_flow_rate">Величина масової витрати</option>
+                <option value="permissible_emissions">Гранично допустимі викиди</option>
+                <option value="danger_class">Клас небезпеки</option>
+            </select>
+            <input placeholder="Уведіть пошукове значення" id="search_input2">
+            <button id="search_button2">Знайти</button>
+            <button id="reset_button2">Скинути</button>
+        </div>
+
+        <div class="sort">
+            <label for="sort_column">Стовпець для сортування:</label>
+            <select id="sort_column">
+                <option value="mass_flow_rate">Величина масової витрати</option>
+                <option value="permissible_emissions">Гранично допустимі викиди</option>
+                <option value="danger_class">Клас небезпеки</option>
+            </select>
+            <label for="sort_order">Порядок сортування:</label>
+            <select id="sort_order">
+                <option value="asc">Зростання</option>
+                <option value="desc">Спадання</option>
+            </select>
+            <button id="sort_button">Сортувати</button>
+            <button id="reset_button3">Скинути</button>
+        </div>
+
+        <div class="table-container2">
             <table id="table2">
                 <thead>
                 <th>№</th>
@@ -110,33 +138,6 @@
 
         <div class="button-container">
             <button id="show_form_button2">Додати нову речовину</button>
-        </div>
-
-        <div>
-            <select id="search_column2">
-                <option value="name">name</option>
-                <option value="mass_flow_rate">mass_flow_rate</option>
-                <option value="permissible_emissions">permissible_emissions</option>
-                <option value="danger_class">danger_class</option>
-            </select>
-            <input placeholder="Enter search value" id="search_input2">
-            <button id="search_button2">Search</button>
-            <button id="reset_button2">Reset</button>
-        </div>
-
-        <div>
-            <label for="sort_column2">Sort Column:</label>
-            <select id="sort_column2">
-                <option value="mass_flow_rate">mass_flow_rate</option>
-                <option value="permissible_emissions">permissible_emissions</option>
-                <option value="danger_class">danger_class</option>
-            </select>
-            <label for="sort_order2">Sort Order:</label>
-            <select id="sort_order2">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-            </select>
-            <button id="sort_button2">Sort</button>
         </div>
     </div>
 

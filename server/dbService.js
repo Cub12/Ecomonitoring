@@ -54,7 +54,7 @@ class DBService {
         }
     }
 
-    async sortTable2(column, sortOrder) {
+    async sortTable(column, sortOrder) {
         const validColumns = ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'];
         const numericColumns = ['mass_flow_rate', 'permissible_emissions', 'danger_class'];
 
@@ -62,7 +62,8 @@ class DBService {
             throw new Error('Invalid column name for table2');
         }
 
-        const orderBy = numericColumns.includes(column) ? `CAST(${column} AS UNSIGNED)` : column;
+        const orderBy = numericColumns.includes(column) ? `CASE WHEN ${column} = -1 THEN NULL ELSE ${column} 
+        END` : column;
         const orderDirection = sortOrder === 'desc' ? 'DESC' : 'ASC';
 
         try {
