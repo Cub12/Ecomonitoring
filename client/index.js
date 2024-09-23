@@ -1,104 +1,268 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch('http://localhost:5000/getAll').then(response => response.json()).then(data => loadHTMLTable(data['data']));
+    fetch('http://localhost:5000/getAll/table1').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table'));
+
+    fetch('http://localhost:5000/getAll/table2').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table2'));
 });
 
-document.querySelector('table tbody').addEventListener('click', function (event) {
+document.querySelector('#table tbody').addEventListener('click', function (event) {
+    handleTableClick(1, event);
+});
+
+document.querySelector('#table2 tbody').addEventListener('click', function (event) {
+    handleTableClick(2, event);
+});
+
+const searchButton1 = document.querySelector('#search_button');
+searchButton1.onclick = function () {
+    const searchValue = document.querySelector('#search_input').value;
+    const searchColumn = document.querySelector('#search_column').value;
+    fetch(`http://localhost:5000/search/table1/${searchColumn}/${searchValue}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table'));
+};
+
+const searchButton2 = document.querySelector('#search_button2');
+searchButton2.onclick = function () {
+    const searchValue = document.querySelector('#search_input2').value;
+    const searchColumn = document.querySelector('#search_column2').value;
+    fetch(`http://localhost:5000/search/table2/${searchColumn}/${searchValue}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table2'));
+};
+
+const resetButton1 = document.querySelector('#reset_button');
+resetButton1.addEventListener('click', function() {
+    document.querySelector('#search_input').value = '';
+});
+resetButton1.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table1`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table`));
+};
+
+const resetButton2 = document.querySelector('#reset_button2');
+resetButton2.addEventListener('click', function() {
+    document.querySelector('#search_input2').value = '';
+});
+resetButton2.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table2`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table2`));
+};
+
+const resetButton3 = document.querySelector('#reset_button3');
+resetButton3.addEventListener('click', function() {
+    document.querySelector('#search_input3').value = '';
+});
+resetButton3.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table2`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table2`));
+};
+
+function handleSort(tableId, sortColumn, sortOrder) {
+    fetch(`http://localhost:5000/sort/table${tableId}/${sortColumn}/${sortOrder}`)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table${tableId}`));
+}
+
+const sortButton = document.querySelector('#sort_button');
+sortButton.onclick = function () {
+    const sortColumn = document.querySelector('#sort_column').value;
+    const sortOrder = document.querySelector('#sort_order').value;
+    handleSort(2, sortColumn, sortOrder);
+};
+
+const addButton1 = document.querySelector('#add_data_button');
+addButton1.onclick = function () {
+    handleAddButton(
+        1,
+        ['#name_input', '#head_input', '#address_input', '#economic_activity_input', '#form_of_ownership_input'],
+        'http://localhost:5000/insert/table1',
+        insertRowIntoTable1
+    );
+};
+
+const addButton2 = document.querySelector('#add_data2_button');
+addButton2.onclick = function () {
+    handleAddButton(
+        2,
+        ['#name2_input', '#mass_flow_rate_input', '#permissible_emissions_input', '#danger_class_input'],
+        'http://localhost:5000/insert/table2',
+        insertRowIntoTable2
+    );
+};
+
+function loadHTMLTable(data, tableId) {
+    const table = document.querySelector(`#${tableId} tbody`);
+
+    if (data.length === 0) {
+        table.innerHTML = "<tr><td class='no_data' colspan='6'>No data</td></tr>";
+        return;
+    }
+
+    let tableHTML = "";
+    data.forEach(function (row) {
+        tableHTML += "<tr>";
+        Object.keys(row).forEach(function (key) {
+            let value = row[key];
+            if (typeof value === 'number' && value === -1) {
+                value = '-';
+            }
+
+            tableHTML += `<td>${value}</td>`;
+        });
+        tableHTML += `<td class="button"><button class="edit_row_button" data-id=${row.id}>Редагувати</button>
+            <button class="delete_row_button" data-id=${row.id}>Видалити</button></td>`;
+        tableHTML += "</tr>";
+    });
+    table.innerHTML = tableHTML;
+}
+
+function handleTableClick(tableId, event) {
     if (event.target.className === "delete_row_button") {
-        deleteRowById(event.target.dataset.id);
+        deleteRowById(event.target.dataset.id, tableId);
     }
 
     if (event.target.className === "edit_row_button") {
-        handleEditRow(event.target.dataset.id);
+        handleEditRow(event.target.dataset.id, tableId);
     }
-});
+}
 
-const updateButton = document.querySelector('#update_row_button');
-const searchButton = document.querySelector('#search_button');
+function deleteRowById(id, tableId) {
+    const table = tableId === 1 ? 'table1' : 'table2';
+    const url = `http://localhost:5000/delete/${table}/${id}`;
 
-searchButton.onclick = function () {
-    const searchValue = document.querySelector('#search_input').value;
-
-    fetch('http://localhost:5000/search/' + searchValue).then(response => response.json()).then(data => loadHTMLTable(data['data']));
-};
-
-function deleteRowById(id) {
-    fetch('http://localhost:5000/delete/' + id, {
+    fetch(url, {
         method: 'DELETE'
     }).then(response => response.json()).then(data => {
         if (data.success) {
             location.reload();
         }
+    }).catch(err => console.log(err));
+}
+
+function handleEditRow(id, tableId) {
+    const row = document.querySelector(`table${tableId === 1 ? '' : '#table2'} tr[data-id="${id}"]`);
+
+    const fields = {
+        1: {
+            idInput: '#name_input',
+            fields: [
+                {name: 'name', selector: '.name'},
+                {name: 'head', selector: '.head'},
+                {name: 'address', selector: '.address'},
+                {name: 'economic_activity', selector: '.economic_activity'},
+                {name: 'form_of_ownership', selector: '.form_of_ownership'}
+            ]
+        },
+        2: {
+            idInput: '#name2_input',
+            fields: [
+                {name: 'name', selector: '.name'},
+                {name: 'mass_flow_rate', selector: '.mass_flow_rate'},
+                {name: 'permissible_emissions', selector: '.permissible_emissions'},
+                {name: 'danger_class', selector: '.danger_class'}
+            ]
+        }
+    };
+
+    const {idInput, fields: fieldDefinitions} = fields[tableId];
+    document.querySelector(idInput).dataset.id = id;
+
+    fieldDefinitions.forEach(field => {
+        document.querySelector(`#${field.name}_input`).value = row.querySelector(field.selector).textContent;
     });
 }
 
-function handleEditRow(id) {
-    const updateRow = document.querySelector('#update_row');
-    updateRow.hidden = false;
-    document.querySelector('#update_name_input').dataset.id = id;
+function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
+    const values = inputSelectors.map(selector => document.querySelector(selector).value.trim());
+
+    if (values.some(value => !value)) {
+        alert('Будь ласка, заповніть всі поля!');
+        return;
+    }
+
+    const requestData = tableId === 1
+        ? {
+            name: values[0],
+            head: values[1],
+            address: values[2],
+            economic_activity: values[3],
+            form_of_ownership: values[4]
+        }
+        : {
+            name: values[0],
+            mass_flow_rate: values[1],
+            permissible_emissions: values[2],
+            danger_class: values[3]
+        };
+
+    fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    }).then(response => response.json()).then(data => insertRowFunction(data.data));
 }
 
-updateButton.onclick = function () {
-    const updateNameInput = document.querySelector('#update_name_input');
+function handleUpdate(tableId) {
+    const fields = {
+        table1: [
+            {name: 'name', id: 'name_input'},
+            {name: 'head', id: 'head_input'},
+            {name: 'address', id: 'address_input'},
+            {name: 'economic_activity', id: 'economic_activity_input'},
+            {name: 'form_of_ownership', id: 'form_of_ownership_input'}
+        ],
+        table2: [
+            {name: 'name', id: 'name2_input'},
+            {name: 'mass_flow_rate', id: 'mass_flow_rate_input'},
+            {name: 'permissible_emissions', id: 'permissible_emissions_input'},
+            {name: 'danger_class', id: 'danger_class_input'}
+        ]
+    };
 
-    fetch('http://localhost:5000/update', {
+    const fieldDefinitions = fields[tableId];
+    const id = document.querySelector(`#${fieldDefinitions[0].id}`).dataset.id;
+    const formData = {};
+
+    fieldDefinitions.forEach(field => {
+        formData[field.name] = document.querySelector(`#${field.id}`).value.trim();
+    });
+
+    fetch(`http://localhost:5000/update/${tableId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id: updateNameInput.dataset.id,
-            name: updateNameInput.value
+            id: id,
+            ...formData
         })
     }).then(response => response.json()).then(data => {
         if (data.success) {
             location.reload();
         }
+    }).catch(error => {
+        console.error('Update error:', error);
     });
-};
-
-const addButton = document.querySelector('#add_name_button');
-const nameInput = document.querySelector('#name_input');
-
-function addName() {
-    const name = nameInput.value;
-    nameInput.value = "";
-
-    fetch(`http://localhost:5000/insert`, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({name: name})
-    }).then(response => response.json()).then(data => insertRowIntoTable(data['data']));
 }
 
-addButton.onclick = function () {
-    addName();
-};
-
-nameInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        addName();
-    }
-});
-
-function insertRowIntoTable(data) {
-    const table = document.querySelector('table tbody');
+function insertRowIntoTable(tableSelector, data, columnMapping) {
+    const table = document.querySelector(tableSelector + ' tbody');
     const isTableData = table.querySelector('.no_data');
-
     let tableHTML = "<tr>";
 
-    for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-            if (key === 'dateAdded') {
-                data[key] = new Date(data[key]).toLocaleString();
-            }
-            tableHTML += `<td>${data[key]}</td>`;
-        }
-    }
+    columnMapping.forEach(column => {
+        tableHTML += `<td class="${column}">${data[column]}</td>`;
+    });
 
-    tableHTML += `<td><button class="delete_row_button" data-id=${data.id}>Delete</button></td>`;
-    tableHTML += `<td><button class="edit_row_button" data-id=${data.id}>Edit</button></td>`;
+    tableHTML += `<td class="button"><button class="edit_row_button" data-id=${data.id}>Редагувати</button>
+            <button class="delete_row_button" data-id=${data.id}>Видалити</button></td>`;
     tableHTML += "</tr>";
 
     if (isTableData) {
@@ -109,39 +273,73 @@ function insertRowIntoTable(data) {
     }
 }
 
-function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
-
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no_data' colspan='5'>No data</td></tr>";
-        return;
-    }
-
-    let tableHTML = "";
-    data.forEach(function ({id, name, date_added}) {
-        tableHTML += "<tr>";
-        tableHTML += `<td>${id}</td>`;
-        tableHTML += `<td>${name}</td>`;
-        tableHTML += `<td>${new Date(date_added).toLocaleString()}</td>`;
-        tableHTML += `<td><button class="delete_row_button" data-id=${id}>Delete</button></td>`;
-        tableHTML += `<td><button class="edit_row_button" data-id=${id}>Edit</button></td>`;
-        tableHTML += "</tr>";
-    });
-    table.innerHTML = tableHTML;
+function insertRowIntoTable1(data) {
+    insertRowIntoTable('#table', data, ['id', 'name', 'head', 'address', 'economic_activity',
+        'form_of_ownership']);
 }
 
+function insertRowIntoTable2(data) {
+    insertRowIntoTable('#table2', data, ['id', 'name', 'mass_flow_rate', 'permissible_emissions',
+        'danger_class']);
+}
 
 document.querySelectorAll('nav ul li a').forEach(link => {
-    link.addEventListener('click', function(event) {
+    link.addEventListener('click', function (event) {
         event.preventDefault();
 
-        // Отримуємо цільовий елемент по атрибуту href
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
+            targetElement.scrollIntoView({behavior: 'smooth'});
         }
     });
 });
 
+function changeForm(id, newText) {
+    const formText = document.querySelector(id);
+    formText.textContent = newText;
+}
+
+const showFormButton = document.querySelector('#show_form_button');
+showFormButton.onclick = function () {
+    const formContainer = document.querySelector('#form_container');
+
+    changeForm('#form_title', 'Додати нове підприємство');
+    changeForm('#add_data_button', 'Додати нове підприємство');
+    document.querySelector('#add-enterprise-form').reset();
+    formContainer.classList.toggle('hidden');
+};
+
+const showFormButton2 = document.querySelector('#show_form_button2');
+showFormButton2.onclick = function () {
+    const formContainer = document.querySelector('#form_container2');
+
+    changeForm('#form_title2', 'Додати нову речовину');
+    changeForm('#add_data2_button', 'Додати нову речовину');
+    document.querySelector('#add-substance-form').reset();
+    formContainer.classList.toggle('hidden');
+};
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('edit_row_button')) {
+        changeForm('#form_title', 'Редагувати дані підприємства');
+        changeForm('#add_data_button', 'Зберегти зміни');
+        const button = document.querySelector('#add_data_button');
+        button.id = 'update_row_button';
+
+        const updateButton = document.querySelector('#update_row_button');
+        updateButton.onclick = () => handleUpdate('table1');
+        document.querySelector('#form_container').classList.toggle('hidden');
+
+
+        changeForm('#form_title2', 'Редагувати дані речовини');
+        changeForm('#add_data2_button', 'Зберегти зміни');
+        const button2 = document.querySelector('#add_data2_button');
+        button2.id = 'update_row2_button';
+
+        const updateButton2 = document.querySelector('#update_row2_button');
+        updateButton2.onclick = () => handleUpdate('table2');
+        document.querySelector('#form_container2').classList.toggle('hidden');
+    }
+});
