@@ -124,9 +124,7 @@ function deleteRowById(id, tableId) {
 }
 
 function handleEditRow(id, tableId) {
-    const updateRow = document.querySelector(tableId === 1 ? '#update_row' : '#update_row2');
-    updateRow.hidden = false;
-    const row = document.querySelector(`table${tableId === 1 ? '' : '#table2'} tr[data-id="${id}"]`);
+    const row = document.querySelector(`table${tableId === 1 ? '' : '2'} tr[data-id="${id}"]`);
 
     const fields = {
         1: {
@@ -160,11 +158,6 @@ function handleEditRow(id, tableId) {
 
 function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
     const values = inputSelectors.map(selector => document.querySelector(selector).value.trim());
-
-    if (values.some(value => !value)) {
-        alert('Будь ласка, заповніть всі поля!');
-        return;
-    }
 
     const requestData = tableId === 1
         ? {
@@ -277,6 +270,15 @@ document.querySelectorAll('nav ul li a').forEach(link => {
     });
 });
 
+function changeForm(id, newText) {
+    const formText = document.querySelector(id);
+    formText.textContent = newText;
+}
+
+function changeButtonId(oldId, newId) {
+    oldId.id = newId;
+}
+
 const showFormButton = document.querySelector('#show_form_button');
 showFormButton.onclick = function () {
     const formContainer = document.querySelector('#form_container');
@@ -287,25 +289,33 @@ showFormButton.onclick = function () {
     formContainer.classList.toggle('hidden');
 };
 
-function changeForm(id, newText) {
-    const formText = document.querySelector(id);
-    formText.textContent = newText;
-}
+const showFormButton2 = document.querySelector('#show_form_button2');
+showFormButton2.onclick = function () {
+    const formContainer = document.querySelector('#form_container2');
 
-function changeButtonId(newId) {
-    const button = document.querySelector('#add_data_button');
-    button.id = newId;
-}
+    changeForm('#form_title2', 'Додати нову речовину');
+    changeForm('#add_data2_button', 'Додати нову речовину');
+    document.querySelector('#add-substance-form').reset();
+    formContainer.classList.toggle('hidden');
+};
 
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
         changeForm('#form_title', 'Редагувати дані підприємства');
         changeForm('#add_data_button', 'Зберегти зміни');
-        changeButtonId('update_row_button');
+
+        changeForm('form_title2', 'Редагувати дані речовини');
+        changeForm('add_data2_button', 'Зберегти зміни');
+
+        changeButtonId('add_data_button', 'update_row_button');
+        changeButtonId('add_data2_button', 'update_row2_button');
 
         const updateButton = document.querySelector('#update_row_button');
         updateButton.onclick = () => handleUpdate('table1');
-
         document.querySelector('#form_container').classList.toggle('hidden');
+
+        const updateButton2 = document.querySelector('#update_row2_button');
+        updateButton2.onclick = () => handleUpdate('table2');
+        document.querySelector('#form_container2').classList.toggle('hidden');
     }
 });

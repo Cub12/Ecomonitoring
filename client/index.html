@@ -27,59 +27,7 @@
 </div>
 
 <!--<main>
-    <div class="block2" id="pollutants">
-
-        <div class="overlay-text">
-            <h1>ЗАБРУДНЮВАЧІ</h1>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Назва забруднюючої речовини</th>
-                    <th>Величина масової витрати, г/год</th>
-                    <th>Гранично допустимі викиди, мг/м^3</th>
-                    <th>Клас небезпеки</th>
-                    <th>Дії</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Example Name</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td class="button">
-                        <button>Редагувати</button>
-                        <button>Видалити</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Example Name</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td class="button">
-                        <button> Редагувати</button>
-                        <button>Видалити</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="button-container">
-            <button>Додати нову речовину</button>
-        </div>
-
-    </div>
-
     <div class="block3" id="calculations">
-
         <div class="overlay-text">
             <h1>РОЗРАХУНКИ</h1>
         </div>
@@ -97,52 +45,19 @@
                     <th>Клас небезпеки</th>
                     <th>Період</th>
                     <th>Дії</th>
-                </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Example Name</td>
-                    <td>Example Name</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td class="button">
-                        <button>Редагувати</button>
-                        <button>Видалити</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Example Name</td>
-                    <td>Example Name</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td>2024-09-16</td>
-                    <td class="button">
-                        <button>Редагувати</button>
-                        <button>Видалити</button>
-                    </td>
-                </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
 
         <div class="button-container">
             <button>Додати нове забруднення</button>
         </div>
-
     </div>
-
 </main>-->
 
 <main>
     <div class="block1" id="objects">
-
         <div class="overlay-text">
             <h1>ОБ'ЄКТИ</h1>
         </div>
@@ -165,11 +80,23 @@
         <div class="button-container">
             <button id="show_form_button">Додати новий об'єкт</button>
         </div>
+
+        <div>
+            <select id="search_column">
+                <option value="name">name</option>
+                <option value="head">head</option>
+                <option value="address">address</option>
+                <option value="economic_activity">economic_activity</option>
+                <option value="form_of_ownership">form_of_ownership</option>
+            </select>
+            <input placeholder="Enter search value" id="search_input">
+            <button id="search_button">Search</button>
+            <button id="reset_button">Reset</button>
+        </div>
     </div>
 
     <div class="form-container hidden" id="form_container">
         <h2 id="form_title"></h2>
-
         <form id="add-enterprise-form">
             <label for="name_input">Назва підприємства:</label>
             <input type="text" id="name_input" name="name_input" required>
@@ -185,102 +112,79 @@
 
             <label for="form_of_ownership_input">Форма власності:</label>
             <input type="text" id="form_of_ownership_input" name="form_of_ownership_input" required>
-
             <button id="add_data_button" type="submit"></button>
         </form>
     </div>
 
-    <div>
-        <select id="search_column">
-            <option value="name">name</option>
-            <option value="head">head</option>
-            <option value="address">address</option>
-            <option value="economic_activity">economic_activity</option>
-            <option value="form_of_ownership">form_of_ownership</option>
-        </select>
-        <input placeholder="Enter search value" id="search_input">
-        <button id="search_button">Search</button>
-        <button id="reset_button">Reset</button>
+    <br><br><br>
+    <div class="block2" id="pollutants">
+        <div class="overlay-text">
+            <h1>ЗАБРУДНЮВАЧІ</h1>
+        </div>
+
+        <div class="table-container">
+            <table id="table2">
+                <thead>
+                <th>№</th>
+                <th>Назва забруднюючої речовини</th>
+                <th>Величина масової витрати, г/год</th>
+                <th>Гранично допустимі викиди, мг/м^3</th>
+                <th>Клас небезпеки</th>
+                <th>Дії</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button id="show_form_button2">Додати нову речовину</button>
+        </div>
+
+        <div>
+            <select id="search_column2">
+                <option value="name">name</option>
+                <option value="mass_flow_rate">mass_flow_rate</option>
+                <option value="permissible_emissions">permissible_emissions</option>
+                <option value="danger_class">danger_class</option>
+            </select>
+            <input placeholder="Enter search value" id="search_input2">
+            <button id="search_button2">Search</button>
+            <button id="reset_button2">Reset</button>
+        </div>
+
+        <div>
+            <label for="sort_column2">Sort Column:</label>
+            <select id="sort_column2">
+                <option value="mass_flow_rate">mass_flow_rate</option>
+                <option value="permissible_emissions">permissible_emissions</option>
+                <option value="danger_class">danger_class</option>
+            </select>
+            <label for="sort_order2">Sort Order:</label>
+            <select id="sort_order2">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button id="sort_button2">Sort</button>
+        </div>
     </div>
 
-    <section hidden id="update_row">
-        <label>Name:</label>
-        <input type="text" id="update_name_input">
-        <label>Head:</label>
-        <input type="text" id="update_head_input">
-        <label>Address:</label>
-        <input type="text" id="update_address_input">
-        <label>Economic Activity:</label>
-        <input type="text" id="update_economic_activity_input">
-        <label>Form of Ownership:</label>
-        <input type="text" id="update_form_of_ownership_input">
-        <button id="update_row_button">Update</button>
-    </section>
+    <div class="form-container hidden" id="form_container2">
+        <h2 id="form_title2"></h2>
+        <form id="add-substance-form">
+            <label for="name2_input">Назва забруднюючої речовини:</label>
+            <input type="text" id="name2_input" name="name2_input" required>
 
-    <br><br><br>
+            <label for="mass_flow_rate_input">Величина масової витрати, г/год:</label>
+            <input type="text" id="mass_flow_rate_input" name="mass_flow_rate_input" required>
 
-    <label>Name:</label>
-    <input type="text" id="name2_input">
-    <label>Mass Flow Rate:</label>
-    <input type="text" id="mass_flow_rate_input">
-    <label>Permissible Emissions:</label>
-    <input type="text" id="permissible_emissions_input">
-    <label>Danger Class:</label>
-    <input type="text" id="danger_class_input">
-    <button id="add_data2_button">Add data</button>
+            <label for="permissible_emissions_input">Гранично допустимі викиди, мг/м^3:</label>
+            <input type="text" id="permissible_emissions_input" name="permissible_emissions_input" required>
 
-    <br><br><br>
-    <div>
-        <select id="search_column2">
-            <option value="name">name</option>
-            <option value="mass_flow_rate">mass_flow_rate</option>
-            <option value="permissible_emissions">permissible_emissions</option>
-            <option value="danger_class">danger_class</option>
-        </select>
-        <input placeholder="Enter search value" id="search_input2">
-        <button id="search_button2">Search</button>
-        <button id="reset_button2">Reset</button>
-
-        <br><br><br>
-        <label for="sort_column2">Sort Column:</label>
-        <select id="sort_column2">
-            <option value="mass_flow_rate">mass_flow_rate</option>
-            <option value="permissible_emissions">permissible_emissions</option>
-            <option value="danger_class">danger_class</option>
-        </select>
-        <label for="sort_order2">Sort Order:</label>
-        <select id="sort_order2">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-        </select>
-        <button id="sort_button2">Sort</button>
+            <label for="danger_class_input">Клас небезпеки:</label>
+            <input type="text" id="danger_class_input" name="danger_class_input" required>
+            <button id="add_data2_button" type="submit"></button>
+        </form>
     </div>
-
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-    <table id="table2">
-        <thead>
-        <th>id</th>
-        <th>name</th>
-        <th>mass_flow_rate</th>
-        <th>permissible_emissions</th>
-        <th>danger_class</th>
-        <th>Delete</th>
-        <th>Edit</th>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <section hidden id="update_row2">
-        <label>Name:</label>
-        <input type="text" id="update_name2_input">
-        <label>Mass Flow Rate:</label>
-        <input type="text" id="update_mass_flow_rate_input">
-        <label>Permissible Emissions:</label>
-        <input type="text" id="update_permissible_emissions_input">
-        <label>Danger Class:</label>
-        <input type="text" id="update_danger_class_input">
-        <button id="update_row2_button">Update</button>
-    </section>
 </main>
 <script src="index.js"></script>
 </body>
