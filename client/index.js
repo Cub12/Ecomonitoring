@@ -124,7 +124,7 @@ function deleteRowById(id, tableId) {
 }
 
 function handleEditRow(id, tableId) {
-    const row = document.querySelector(`table${tableId === 1 ? '' : '2'} tr[data-id="${id}"]`);
+    const row = document.querySelector(`table${tableId === 1 ? '' : '#table2'} tr[data-id="${id}"]`);
 
     const fields = {
         1: {
@@ -159,6 +159,11 @@ function handleEditRow(id, tableId) {
 function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
     const values = inputSelectors.map(selector => document.querySelector(selector).value.trim());
 
+    if (values.some(value => !value)) {
+        alert('Будь ласка, заповніть всі поля!');
+        return;
+    }
+
     const requestData = tableId === 1
         ? {
             name: values[0],
@@ -188,7 +193,7 @@ function handleUpdate(tableId) {
         table1: [
             {name: 'name', id: 'name_input'},
             {name: 'head', id: 'head_input'},
-            {name: 'address', id: 'update_address_input'},
+            {name: 'address', id: 'address_input'},
             {name: 'economic_activity', id: 'economic_activity_input'},
             {name: 'form_of_ownership', id: 'form_of_ownership_input'}
         ],
@@ -275,10 +280,6 @@ function changeForm(id, newText) {
     formText.textContent = newText;
 }
 
-function changeButtonId(oldId, newId) {
-    oldId.id = newId;
-}
-
 const showFormButton = document.querySelector('#show_form_button');
 showFormButton.onclick = function () {
     const formContainer = document.querySelector('#form_container');
@@ -303,16 +304,18 @@ document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
         changeForm('#form_title', 'Редагувати дані підприємства');
         changeForm('#add_data_button', 'Зберегти зміни');
-
-        changeForm('form_title2', 'Редагувати дані речовини');
-        changeForm('add_data2_button', 'Зберегти зміни');
-
-        changeButtonId('add_data_button', 'update_row_button');
-        changeButtonId('add_data2_button', 'update_row2_button');
+        const button = document.querySelector('#add_data_button');
+        button.id = 'update_row_button';
 
         const updateButton = document.querySelector('#update_row_button');
         updateButton.onclick = () => handleUpdate('table1');
         document.querySelector('#form_container').classList.toggle('hidden');
+
+
+        changeForm('#form_title2', 'Редагувати дані речовини');
+        changeForm('#add_data2_button', 'Зберегти зміни');
+        const button2 = document.querySelector('#add_data2_button');
+        button2.id = 'update_row2_button';
 
         const updateButton2 = document.querySelector('#update_row2_button');
         updateButton2.onclick = () => handleUpdate('table2');

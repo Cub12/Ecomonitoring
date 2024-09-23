@@ -26,38 +26,9 @@
     </div>
 </div>
 
-<!--<main>
-    <div class="block3" id="calculations">
-        <div class="overlay-text">
-            <h1>РОЗРАХУНКИ</h1>
-        </div>
-
-        <div class="table-container1">
-            <table>
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Назва підприємства</th>
-                    <th>Назва забруднюючої речовини</th>
-                    <th>Усього викидів, т/рік</th>
-                    <th>Величина масової витрати, т/рік</th>
-                    <th>Гранично допустимі викиди, мг/м^3</th>
-                    <th>Клас небезпеки</th>
-                    <th>Період</th>
-                    <th>Дії</th>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div class="button-container">
-            <button>Додати нове забруднення</button>
-        </div>
-    </div>
-</main>-->
-
 <main>
     <div class="block1" id="objects">
+
         <div class="overlay-text">
             <h1>ОБ'ЄКТИ</h1>
         </div>
@@ -80,23 +51,11 @@
         <div class="button-container">
             <button id="show_form_button">Додати новий об'єкт</button>
         </div>
-
-        <div>
-            <select id="search_column">
-                <option value="name">name</option>
-                <option value="head">head</option>
-                <option value="address">address</option>
-                <option value="economic_activity">economic_activity</option>
-                <option value="form_of_ownership">form_of_ownership</option>
-            </select>
-            <input placeholder="Enter search value" id="search_input">
-            <button id="search_button">Search</button>
-            <button id="reset_button">Reset</button>
-        </div>
     </div>
 
     <div class="form-container hidden" id="form_container">
         <h2 id="form_title"></h2>
+
         <form id="add-enterprise-form">
             <label for="name_input">Назва підприємства:</label>
             <input type="text" id="name_input" name="name_input" required>
@@ -112,11 +71,24 @@
 
             <label for="form_of_ownership_input">Форма власності:</label>
             <input type="text" id="form_of_ownership_input" name="form_of_ownership_input" required>
+
             <button id="add_data_button" type="submit"></button>
         </form>
     </div>
 
-    <br><br><br>
+    <div>
+        <select id="search_column">
+            <option value="name">name</option>
+            <option value="head">head</option>
+            <option value="address">address</option>
+            <option value="economic_activity">economic_activity</option>
+            <option value="form_of_ownership">form_of_ownership</option>
+        </select>
+        <input placeholder="Enter search value" id="search_input">
+        <button id="search_button">Search</button>
+        <button id="reset_button">Reset</button>
+    </div>
+
     <div class="block2" id="pollutants">
         <div class="overlay-text">
             <h1>ЗАБРУДНЮВАЧІ</h1>
