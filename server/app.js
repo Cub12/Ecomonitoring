@@ -30,6 +30,9 @@ app.get('/getAll/:table', (request, response) => {
         case 'table2':
             result = db.getAllDataForTable2();
             break;
+        case 'table3':
+            result = db.getAllDataForTable3();
+            break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
     }

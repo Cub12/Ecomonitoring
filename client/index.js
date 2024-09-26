@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('http://localhost:5000/getAll/table2').then(response => response.json())
         .then(data => loadHTMLTable(data['data'], 'table2'));
+
+    fetch('http://localhost:5000/getAll/table3').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table3'));
 });
 
 document.querySelector('#table tbody').addEventListener('click', function (event) {
@@ -12,6 +15,10 @@ document.querySelector('#table tbody').addEventListener('click', function (event
 
 document.querySelector('#table2 tbody').addEventListener('click', function (event) {
     handleTableClick(2, event);
+});
+
+document.querySelector('#table3 tbody').addEventListener('click', function (event) {
+    handleTableClick(3, event);
 });
 
 const searchButton1 = document.querySelector('#search_button');

@@ -106,6 +106,24 @@ class DBService {
         return this.getData(query);
     }
 
+    async getAllDataForTable3() {
+        const query = "SELECT calculations.id,\n" +
+            "    objects.name AS object_name,\n" +
+            "    pollutants.name AS pollutant_name,\n" +
+            "    calculations.general_emissions,\n" +
+            "    pollutants.mass_flow_rate,\n" +
+            "    pollutants.permissible_emissions,\n" +
+            "    pollutants.danger_class,\n" +
+            "    calculations.date\n" +
+            "FROM \n" +
+            "    calculations\n" +
+            "JOIN \n" +
+            "    objects ON calculations.Objects_id = objects.id\n" +
+            "JOIN \n" +
+            "    pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;\n";
+        return this.getData(query);
+    }
+
     async insertNewRow(table, values) {
         try {
             let query;
