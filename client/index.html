@@ -164,6 +164,39 @@
             <h1>РОЗРАХУНКИ</h1>
         </div>
 
+        <div class="search">
+            <select id="search_column3">
+                <option value="objects_name">Назва підприємства</option>
+                <option value="pollutants_name">Назва забруднюючої речовини</option>
+                <option value="calculations_general_emissions">Усього викидів</option>
+                <option value="pollutants_mass_flow_rate">Величина масової витрати</option>
+                <option value="pollutants_permissible_emissions">Гранично допустимі викиди</option>
+                <option value="pollutants_danger_class">Клас небезпеки</option>
+                <option value="calculations_date">Період</option>
+            </select>
+            <input placeholder="Уведіть пошукове значення" id="search_input3">
+            <button id="search_button3">Знайти</button>
+            <button id="reset_button4">Скинути</button>
+        </div>
+
+        <div class="sort">
+            <label for="sort_column2">Стовпець для сортування:</label>
+            <select id="sort_column2">
+                <option value="calculations_general_emissions">Усього викидів</option>
+                <option value="pollutants_mass_flow_rate">Величина масової витрати</option>
+                <option value="pollutants_permissible_emissions">Гранично допустимі викиди</option>
+                <option value="pollutants_danger_class">Клас небезпеки</option>
+                <option value="calculations_date">Період</option>
+            </select>
+            <label for="sort_order2">Порядок сортування:</label>
+            <select id="sort_order2">
+                <option value="asc">Зростання</option>
+                <option value="desc">Спадання</option>
+            </select>
+            <button id="sort_button2">Сортувати</button>
+            <button id="reset_button5">Скинути</button>
+        </div>
+
         <div class="table-container3">
             <table id="table3">
                 <thead>
@@ -175,7 +208,6 @@
                 <th>Гранично допустимі викиди, мг/м^3</th>
                 <th>Клас небезпеки</th>
                 <th>Період</th>
-                <th>Дії</th>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -184,6 +216,34 @@
         <div class="button-container">
             <button id="show_form_button3">Додати нове забруднення</button>
         </div>
+    </div>
+
+    <div class="form-container hidden" id="form_container3">
+        <h2 id="form_title3"></h2>
+        <form id="add-calculation-form">
+            <label for="name3_input">Назва підприємства:</label>
+            <input type="text" id="name3_input" name="name3_input" required>
+
+            <label for="name4_input">Назва забруднюючої речовини:</label>
+            <input type="text" id="name4_input" name="name4_input" required>
+
+            <label for="general_emissions_input">Усього викидів, т/рік:</label>
+            <input type="text" id="general_emissions_input" name="general_emissions_input" required>
+
+            <label for="mass_flow_rate2_input">Величина масової витрати, г/год:</label>
+            <input type="text" id="mass_flow_rate2_input" name="mass_flow_rate2_input" required>
+
+            <label for="permissible_emissions2_input">Гранично допустимі викиди, мг/м^3:</label>
+            <input type="text" id="permissible_emissions2_input" name="permissible_emissions2_input" required>
+
+            <label for="danger_class2_input">Клас небезпеки:</label>
+            <input type="text" id="danger_class2_input" name="danger_class2_input" required>
+
+            <label for="date_input">Період:</label>
+            <input type="text" id="date_input" name="date_input" required>
+
+            <button id="add_data3_button" type="submit"></button>
+        </form>
     </div>
 </main>
 <script src="index.js"></script>
