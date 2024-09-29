@@ -135,21 +135,21 @@ p {
     font-family: "Times New Roman", serif;
 }
 
-.table-container {
+.table-container, .table-container2 {
     max-height: 400px;
     overflow-y: auto;
     margin: 20px auto;
     width: 80%;
 }
 
-.table-container2 {
+.table-container3 {
     max-height: 400px;
     overflow-y: auto;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
 }
 
-.table-container2 table th, .table-container2 table td {
+.table-container2 table th, .table-container2 table td, .table-container3 table th, .table-container3 table td {
     text-align: center;
     padding: 10px;
     border: 1px solid #ddd;
@@ -282,10 +282,6 @@ button:hover {
     display: none;
 }
 
-
-
-
-
 .search {
     display: flex;
     justify-content: center;
@@ -330,19 +326,17 @@ button:hover {
     font-size: 14px;
 }
 
-.search button#reset_button, button#reset_button2, button#reset_button3 {
+.search button#reset_button, button#reset_button2, button#reset_button3, button#reset_button4, button#reset_button5 {
     margin-left: 10px;
     background-color: #64ffae;
     color: black;
 }
 
-.search button#reset_button:hover, button#reset_button2:hover, button#reset_button3:hover {
+.search button#reset_button:hover, button#reset_button2:hover, button#reset_button3:hover, button#reset_button4:hover,
+button#reset_button5:hover {
     background-color: #21aa64;
     color: black;
 }
-
-
-
 
 .sort {
     display: flex;
