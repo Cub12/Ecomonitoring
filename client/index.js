@@ -273,9 +273,7 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
             Pollutants_id: values[1],
             general_emissions: values[2],
             date: values[3]
-        } : {
-
-        }
+        } : {}
 
     fetch(endpoint, {
         method: 'POST',

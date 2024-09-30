@@ -131,20 +131,12 @@ class DBService {
     }
 
     async getAllDataForTable3() {
-        const query = "SELECT calculations.id,\n" +
-            "    objects.name AS object_name,\n" +
-            "    pollutants.name AS pollutant_name,\n" +
-            "    calculations.general_emissions,\n" +
-            "    pollutants.mass_flow_rate,\n" +
-            "    pollutants.permissible_emissions,\n" +
-            "    pollutants.danger_class,\n" +
-            "    calculations.date\n" +
-            "FROM \n" +
-            "    calculations\n" +
-            "JOIN \n" +
-            "    objects ON calculations.Objects_id = objects.id\n" +
-            "JOIN \n" +
-            "    pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;\n";
+        const query = `SELECT calculations.id, objects.name AS object_name, pollutants.name AS pollutant_name, 
+            calculations.general_emissions, pollutants.mass_flow_rate, pollutants.permissible_emissions, 
+            pollutants.danger_class, calculations.date 
+            FROM calculations 
+            JOIN objects ON calculations.Objects_id = objects.id 
+            JOIN pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;`;
         return this.getData(query);
     }
 
