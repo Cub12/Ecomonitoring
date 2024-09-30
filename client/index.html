@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Ecomonitoring</title>
 </head>
+
 <body>
 
 <div class="container">
@@ -28,6 +30,7 @@
 </div>
 
 <main>
+
     <div class="block1" id="objects">
         <div class="overlay-text">
             <h1>ОБ'ЄКТИ</h1>
@@ -49,7 +52,7 @@
         <div class="table-container1">
             <table id="table1">
                 <thead>
-                <th>№</th>
+                <th>ID</th>
                 <th>Назва підприємства</th>
                 <th>Керівник підприємства</th>
                 <th>Адреса підприємства</th>
@@ -125,7 +128,7 @@
         <div class="table-container2">
             <table id="table2">
                 <thead>
-                <th>№</th>
+                <th>ID</th>
                 <th>Назва забруднюючої речовини</th>
                 <th>Величина масової витрати, г/год</th>
                 <th>Гранично допустимі викиди, мг/м^3</th>
@@ -195,8 +198,8 @@
             <table id="table4">
                 <thead>
                 <th>№</th>
-                <th>Назва підприємства</th>
-                <th>Назва забруднюючої речовини</th>
+                <th>ID підприємства</th>
+                <th>ID забруднюючої речовини</th>
                 <th>Усього викидів, т/рік</th>
                 <th>Період</th>
                 <th>Дії</th>
@@ -213,10 +216,10 @@
     <div class="form-container hidden" id="form_container4">
         <h2 id="form_title4"></h2>
         <form id="add-pollutions-form">
-            <label for="Objects_id_input">Назва підприємства:</label>
+            <label for="Objects_id_input">ID підприємства:</label>
             <input type="text" id="Objects_id_input" name="Objects_id_input" required>
 
-            <label for="Pollutants_id_input">Назва забруднюючої речовини:</label>
+            <label for="Pollutants_id_input">ID забруднюючої речовини:</label>
             <input type="text" id="Pollutants_id_input" name="Pollutants_id_input" required>
 
             <label for="general_emissions_input">Усього викидів:</label>
@@ -249,7 +252,10 @@
             </table>
         </div>
     </div>
+
 </main>
+
 <script src="index.js"></script>
+
 </body>
 </html>

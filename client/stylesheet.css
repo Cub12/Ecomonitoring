@@ -88,7 +88,7 @@ p {
     rgba(0, 0, 0, 3.7)),
     url(https://suret.pics/uploads/posts/2023-09/1695302777_2-46.jpg) no-repeat center center;
     background-size: cover;
-    height: 100vh;
+    height: 90vh;
     align-items: center;
     justify-content: center;
     margin-top: 100px;
@@ -101,7 +101,7 @@ p {
     rgba(0, 0, 0, 3.7)),
     url(https://topshare.vn/wp-content/uploads/2020/07/Hinh-nen-thien-nhien-dep-20.jpg) no-repeat center center;
     background-size: cover;
-    height: 100vh;
+    height: 90vh;
     align-items: center;
     justify-content: center;
     margin-top: 100px;
@@ -120,6 +120,20 @@ p {
     justify-content: center;
     margin-top: 100px;
     padding-top: 80px;
+}
+
+.block4 {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 3.7), rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 3.7)),
+    url(https://b6.3ddd.ru/media/images/tinymce_images/09f35937452425678e22d126e8421538.jpeg) no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    padding-top: 80px;
+    margin-bottom: 80px;
 }
 
 .overlay-text {
