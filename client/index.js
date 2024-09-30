@@ -1,15 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:5000/getAll/table1').then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table'));
+        .then(data => loadHTMLTable(data['data'], 'table1'));
 
     fetch('http://localhost:5000/getAll/table2').then(response => response.json())
         .then(data => loadHTMLTable(data['data'], 'table2'));
 
     fetch('http://localhost:5000/getAll/table3').then(response => response.json())
         .then(data => loadHTMLTable(data['data'], 'table3'));
+
+    fetch('http://localhost:5000/getAll/table4').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table4'));
 });
 
-document.querySelector('#table tbody').addEventListener('click', function (event) {
+document.querySelector('#table1 tbody').addEventListener('click', function (event) {
     handleTableClick(1, event);
 });
 
@@ -21,13 +24,17 @@ document.querySelector('#table3 tbody').addEventListener('click', function (even
     handleTableClick(3, event);
 });
 
-const searchButton1 = document.querySelector('#search_button');
+document.querySelector('#table4 tbody').addEventListener('click', function (event) {
+    handleTableClick(4, event);
+});
+
+const searchButton1 = document.querySelector('#search_button1');
 searchButton1.onclick = function () {
-    const searchValue = document.querySelector('#search_input').value;
-    const searchColumn = document.querySelector('#search_column').value;
+    const searchValue = document.querySelector('#search_input1').value;
+    const searchColumn = document.querySelector('#search_column1').value;
     fetch(`http://localhost:5000/search/table1/${searchColumn}/${searchValue}`)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table'));
+        .then(data => loadHTMLTable(data['data'], 'table1'));
 };
 
 const searchButton2 = document.querySelector('#search_button2');
@@ -39,23 +46,23 @@ searchButton2.onclick = function () {
         .then(data => loadHTMLTable(data['data'], 'table2'));
 };
 
-const searchButton3 = document.querySelector('#search_button3');
-searchButton3.onclick = function () {
-    const searchValue = document.querySelector('#search_input3').value;
-    const searchColumn = document.querySelector('#search_column3').value;
-    fetch(`http://localhost:5000/search/table3/${searchColumn}/${searchValue}`)
+const searchButton4 = document.querySelector('#search_button4');
+searchButton4.onclick = function () {
+    const searchValue = document.querySelector('#search_input4').value;
+    const searchColumn = document.querySelector('#search_column4').value;
+    fetch(`http://localhost:5000/search/table4/${searchColumn}/${searchValue}`)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table3'));
+        .then(data => loadHTMLTable(data['data'], 'table4'));
 };
 
-const resetButton1 = document.querySelector('#reset_button');
+const resetButton1 = document.querySelector('#reset_button1');
 resetButton1.addEventListener('click', function () {
-    document.querySelector('#search_input').value = '';
+    document.querySelector('#search_input1').value = '';
 });
 resetButton1.onclick = function () {
     fetch(`http://localhost:5000/getAll/table1`)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], `table`));
+        .then(data => loadHTMLTable(data['data'], `table1`));
 };
 
 const resetButton2 = document.querySelector('#reset_button2');
@@ -68,11 +75,11 @@ resetButton2.onclick = function () {
         .then(data => loadHTMLTable(data['data'], `table2`));
 };
 
-const resetButton3 = document.querySelector('#reset_button3');
-resetButton3.addEventListener('click', function () {
+const resetButton2_2 = document.querySelector('#reset_button2_2');
+resetButton2_2.addEventListener('click', function () {
     document.querySelector('#search_input2').value = '';
 });
-resetButton3.onclick = function () {
+resetButton2_2.onclick = function () {
     fetch(`http://localhost:5000/getAll/table2`)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table2`));
@@ -80,22 +87,22 @@ resetButton3.onclick = function () {
 
 const resetButton4 = document.querySelector('#reset_button4');
 resetButton4.addEventListener('click', function () {
-    document.querySelector('#search_input3').value = '';
+    document.querySelector('#search_input4').value = '';
 });
 resetButton4.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table3`)
+    fetch(`http://localhost:5000/getAll/table4`)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], `table3`));
+        .then(data => loadHTMLTable(data['data'], `table4`));
 };
 
-const resetButton5 = document.querySelector('#reset_button5');
-resetButton5.addEventListener('click', function () {
-    document.querySelector('#search_input3').value = '';
+const resetButton4_2 = document.querySelector('#reset_button4_2');
+resetButton4_2.addEventListener('click', function () {
+    document.querySelector('#search_input4').value = '';
 });
-resetButton5.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table3`)
+resetButton4_2.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table4`)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], `table3`));
+        .then(data => loadHTMLTable(data['data'], `table4`));
 };
 
 function handleSort(tableId, sortColumn, sortOrder) {
@@ -104,13 +111,6 @@ function handleSort(tableId, sortColumn, sortOrder) {
         .then(data => loadHTMLTable(data['data'], `table${tableId}`));
 }
 
-const sortButton = document.querySelector('#sort_button');
-sortButton.onclick = function () {
-    const sortColumn = document.querySelector('#sort_column').value;
-    const sortOrder = document.querySelector('#sort_order').value;
-    handleSort(2, sortColumn, sortOrder);
-};
-
 const sortButton2 = document.querySelector('#sort_button2');
 sortButton2.onclick = function () {
     const sortColumn = document.querySelector('#sort_column2').value;
@@ -118,7 +118,14 @@ sortButton2.onclick = function () {
     handleSort(2, sortColumn, sortOrder);
 };
 
-const addButton1 = document.querySelector('#add_data_button');
+const sortButton4 = document.querySelector('#sort_button4');
+sortButton4.onclick = function () {
+    const sortColumn = document.querySelector('#sort_column4').value;
+    const sortOrder = document.querySelector('#sort_order4').value;
+    handleSort(4, sortColumn, sortOrder);
+};
+
+const addButton1 = document.querySelector('#add_data1_button');
 addButton1.onclick = function () {
     handleAddButton(
         1,
@@ -138,24 +145,18 @@ addButton2.onclick = function () {
     );
 };
 
-const addButton3 = document.querySelector('#add_data3_button');
-addButton3.onclick = function () {
+const addButton4 = document.querySelector('#add_data4_button');
+addButton4.onclick = function () {
     handleAddButton(
-        3,
-        ['#name3_input', '#name4_input', '#general_emissions_input', '#mass_flow_rate_input2',
-            '#permissible_emissions_input2', '#danger_class_input2', '#date_input'],
-        'http://localhost:5000/insert/table3',
-        insertRowIntoTable3
+        4,
+        ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input', '#date_input'],
+        'http://localhost:5000/insert/table4',
+        insertRowIntoTable4
     );
 };
 
 function loadHTMLTable(data, tableId) {
     const table = document.querySelector(`#${tableId} tbody`);
-
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no_data' colspan='6'>No data</td></tr>";
-        return;
-    }
 
     let tableHTML = "";
     data.forEach(function (row) {
@@ -194,8 +195,8 @@ function deleteRowById(id, tableId) {
         table = 'table1';
     } else if (tableId === 2) {
         table = 'table2';
-    } else {
-        table = 'table3';
+    } else if (tableId === 4) {
+        table = 'table4';
     }
 
     const url = `http://localhost:5000/delete/${table}/${id}`;
@@ -210,7 +211,7 @@ function deleteRowById(id, tableId) {
 }
 
 function handleEditRow(id, tableId) {
-    const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' : '#table3'} 
+    const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' : '#table4'} 
         tr[data-id="${id}"]`);
 
     const fields = {
@@ -233,15 +234,12 @@ function handleEditRow(id, tableId) {
                 {name: 'danger_class', selector: '.danger_class'}
             ]
         },
-        3: {
-            idInput: '#name3_input',
+        4: {
+            idInput: '#Objects_id_input',
             fields: [
-                {name: 'name4', selector: '.name4'},
+                {name: 'Pollutants_id', selector: '.Pollutants_id'},
                 {name: 'general_emissions', selector: '.general_emissions'},
-                {name: 'mass_flow_rate2', selector: '.mass_flow_rate2'},
-                {name: 'permissible_emissions2', selector: '.permissible_emissions2'},
-                {name: 'danger_class2', selector: '.danger_class2'},
-                {name: 'date_input', selector: '.date_input'}
+                {name: 'date', selector: '.date'}
             ]
         }
     };
@@ -265,22 +263,19 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
             economic_activity: values[3],
             form_of_ownership: values[4]
         }
-        : tableId === 2
-            ? {
-                name: values[0],
-                mass_flow_rate: values[1],
-                permissible_emissions: values[2],
-                danger_class: values[3]
-            }
-            : {
-                objects_name: values[0],
-                pollutants_name: values[1],
-                calculations_general_emissions: values[2],
-                pollutants_mass_flow_rate: values[3],
-                pollutants_permissible_emissions: values[4],
-                pollutants_danger_class: values[5],
-                calculations_date: values[6]
-            };
+        : tableId === 2 ? {
+            name: values[0],
+            mass_flow_rate: values[1],
+            permissible_emissions: values[2],
+            danger_class: values[3]
+        } : tableId === 4 ? {
+            Objects_id: values[0],
+            Pollutants_id: values[1],
+            general_emissions: values[2],
+            date: values[3]
+        } : {
+
+        }
 
     fetch(endpoint, {
         method: 'POST',
@@ -306,14 +301,11 @@ function handleUpdate(tableId) {
             {name: 'permissible_emissions', id: 'permissible_emissions_input'},
             {name: 'danger_class', id: 'danger_class_input'}
         ],
-        table3: [
-            {name: 'objects_name', id: 'name3_input'},
-            {name: 'pollutants_name', id: 'name4_input'},
-            {name: 'calculations_general_emissions', id: 'general_emissions_input'},
-            {name: 'pollutants_mass_flow_rate', id: 'mass_flow_rate2_input'},
-            {name: 'pollutants_permissible_emissions', id: 'permissible_emissions2_input'},
-            {name: 'pollutants_danger_class', id: 'danger_class2_input'},
-            {name: 'calculations_date', id: 'date_input'}
+        table4: [
+            {name: 'Objects_id', id: 'Objects_id_input'},
+            {name: 'Pollutants_id', id: 'Pollutants_id_input'},
+            {name: 'general_emissions', id: 'general_emissions_input'},
+            {name: 'date', id: 'date_input'}
         ]
     };
 
@@ -353,9 +345,9 @@ function insertRowIntoTable(tableSelector, data, columnMapping) {
     });
 
     if (tableSelector !== '#table3') {
-    tableHTML += `<td class="button"><button class="edit_row_button" data-id=${data.id}>Редагувати</button>
+        tableHTML += `<td class="button"><button class="edit_row_button" data-id=${data.id}>Редагувати</button>
             <button class="delete_row_button" data-id=${data.id}>Видалити</button></td>`;
-    tableHTML += "</tr>";
+        tableHTML += "</tr>";
     }
 
     if (isTableData) {
@@ -367,7 +359,7 @@ function insertRowIntoTable(tableSelector, data, columnMapping) {
 }
 
 function insertRowIntoTable1(data) {
-    insertRowIntoTable('#table', data, ['id', 'name', 'head', 'address', 'economic_activity',
+    insertRowIntoTable('#table1', data, ['id', 'name', 'head', 'address', 'economic_activity',
         'form_of_ownership']);
 }
 
@@ -376,10 +368,9 @@ function insertRowIntoTable2(data) {
         'danger_class']);
 }
 
-function insertRowIntoTable3(data) {
-    insertRowIntoTable('#table3', data, ['id', 'objects_name', 'pollutants_name',
-        'calculations_general_emissions', 'pollutants_mass_flow_rate', 'pollutants_permissible_emissions',
-        'pollutants_danger_class', 'calculations_date']);
+function insertRowIntoTable4(data) {
+    insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
+        'date']);
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
@@ -400,12 +391,12 @@ function changeForm(id, newText) {
     formText.textContent = newText;
 }
 
-const showFormButton = document.querySelector('#show_form_button');
-showFormButton.onclick = function () {
-    const formContainer = document.querySelector('#form_container');
+const showFormButton1 = document.querySelector('#show_form_button1');
+showFormButton1.onclick = function () {
+    const formContainer = document.querySelector('#form_container1');
 
-    changeForm('#form_title', 'Додати нове підприємство');
-    changeForm('#add_data_button', 'Додати нове підприємство');
+    changeForm('#form_title1', 'Додати нове підприємство');
+    changeForm('#add_data1_button', 'Додати нове підприємство');
     document.querySelector('#add-enterprise-form').reset();
     formContainer.classList.toggle('hidden');
 };
@@ -420,26 +411,26 @@ showFormButton2.onclick = function () {
     formContainer.classList.toggle('hidden');
 };
 
-const showFormButton3 = document.querySelector('#show_form_button3');
-showFormButton3.onclick = function () {
-    const formContainer = document.querySelector('#form_container3');
+const showFormButton4 = document.querySelector('#show_form_button4');
+showFormButton4.onclick = function () {
+    const formContainer = document.querySelector('#form_container4');
 
-    changeForm('#form_title3', 'Додати нове забруднення');
-    changeForm('#add_data3_button', 'Додати нове забруднення');
-    document.querySelector('#add-calculation-form').reset();
+    changeForm('#form_title4', 'Додати нове забруднення');
+    changeForm('#add_data4_button', 'Додати нове забруднення');
+    document.querySelector('#add-pollutions-form').reset();
     formContainer.classList.toggle('hidden');
 };
 
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
-        changeForm('#form_title', 'Редагувати дані підприємства');
-        changeForm('#add_data_button', 'Зберегти зміни');
-        const button = document.querySelector('#add_data_button');
-        button.id = 'update_row_button';
+        changeForm('#form_title1', 'Редагувати дані підприємства');
+        changeForm('#add_data1_button', 'Зберегти зміни');
+        const button = document.querySelector('#add_data1_button');
+        button.id = 'update_row1_button';
 
-        const updateButton = document.querySelector('#update_row_button');
-        updateButton.onclick = () => handleUpdate('table1');
-        document.querySelector('#form_container').classList.toggle('hidden');
+        const updateButton1 = document.querySelector('#update_row1_button');
+        updateButton1.onclick = () => handleUpdate('table1');
+        document.querySelector('#form_container1').classList.toggle('hidden');
 
 
         changeForm('#form_title2', 'Редагувати дані речовини');
@@ -451,13 +442,13 @@ document.addEventListener('click', function (event) {
         updateButton2.onclick = () => handleUpdate('table2');
         document.querySelector('#form_container2').classList.toggle('hidden');
 
-        changeForm('#form_title3', 'Редагувати дані забруднення');
-        changeForm('#add_data3_button', 'Зберегти зміни');
-        const button3 = document.querySelector('#add_data3_button');
-        button3.id = 'update_row3_button';
+        changeForm('#form_title4', 'Редагувати дані забруднення');
+        changeForm('#add_data4_button', 'Зберегти зміни');
+        const button4 = document.querySelector('#add_data4_button');
+        button4.id = 'update_row4_button';
 
-        const updateButton3 = document.querySelector('#update_row3_button');
-        updateButton3.onclick = () => handleUpdate('table3');
-        document.querySelector('#form_container3').classList.toggle('hidden');
+        const updateButton4 = document.querySelector('#update_row4_button');
+        updateButton4.onclick = () => handleUpdate('table4');
+        document.querySelector('#form_container4').classList.toggle('hidden');
     }
 });
