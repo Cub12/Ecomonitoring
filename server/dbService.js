@@ -27,8 +27,7 @@ class DBService {
         const validColumns = {
             'table1': ['name', 'head', 'address', 'economic_activity', 'form_of_ownership'],
             'table2': ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'],
-            'table3': ['objects_name', 'pollutants_name', 'calculations_general_emissions', 'pollutants_mass_flow_rate',
-                'pollutants_permissible_emissions', 'pollutants_danger_class', 'calculations_date']
+            'table4': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date']
         };
 
         if (!validColumns[table]) {
@@ -44,7 +43,7 @@ class DBService {
                 const tableMapping = {
                     table1: 'objects',
                     table2: 'pollutants',
-                    table3: 'calculations'
+                    table4: 'calculations'
                 };
 
                 const selectedTable = tableMapping[table] || 'objects';
@@ -89,23 +88,19 @@ class DBService {
         }
     }
 
-    async sortTable(column, sortOrder) {
+    async sortTable2(column, sortOrder) {
         const validColumns = ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'];
         const numericColumns = ['mass_flow_rate', 'permissible_emissions', 'danger_class'];
 
         return this.sortTableGeneric('pollutants', validColumns, numericColumns, column, sortOrder);
     }
 
-    async sortTable2(column, sortOrder) {
+    async sortTable4(column, sortOrder) {
         const validColumns = [
-            'objects_name', 'pollutants_name', 'calculations_general_emissions',
-            'pollutants_mass_flow_rate', 'pollutants_permissible_emissions',
-            'pollutants_danger_class', 'calculations_date'
+            'Objects_id', 'Pollutants_id', 'general_emissions', 'date'
         ];
         const numericColumns = [
-            'calculations_general_emissions', 'pollutants_mass_flow_rate',
-            'pollutants_permissible_emissions', 'pollutants_danger_class',
-            'calculations_date'
+            'general_emissions', 'date'
         ];
 
         return this.sortTableGeneric('calculations', validColumns, numericColumns, column, sortOrder);
@@ -136,20 +131,17 @@ class DBService {
     }
 
     async getAllDataForTable3() {
-        const query = "SELECT calculations.id,\n" +
-            "    objects.name AS object_name,\n" +
-            "    pollutants.name AS pollutant_name,\n" +
-            "    calculations.general_emissions,\n" +
-            "    pollutants.mass_flow_rate,\n" +
-            "    pollutants.permissible_emissions,\n" +
-            "    pollutants.danger_class,\n" +
-            "    calculations.date\n" +
-            "FROM \n" +
-            "    calculations\n" +
-            "JOIN \n" +
-            "    objects ON calculations.Objects_id = objects.id\n" +
-            "JOIN \n" +
-            "    pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;\n";
+        const query = `SELECT calculations.id, objects.name AS object_name, pollutants.name AS pollutant_name, 
+            calculations.general_emissions, pollutants.mass_flow_rate, pollutants.permissible_emissions, 
+            pollutants.danger_class, calculations.date 
+            FROM calculations 
+            JOIN objects ON calculations.Objects_id = objects.id 
+            JOIN pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;`;
+        return this.getData(query);
+    }
+
+    async getAllDataForTable4() {
+        const query = "SELECT * FROM calculations;";
         return this.getData(query);
     }
 
@@ -167,9 +159,8 @@ class DBService {
                      VALUES (?, ?, ?, ?);`;
                 params = values;
             } else if (table === 'calculations') {
-                query = `INSERT INTO calculations (objects_name, pollutants_name, calculations_general_emissions, 
-                    pollutants_mass_flow_rate, pollutants_permissible_emissions, pollutants_danger_class, 
-                    calculations_date) VALUES (?, ?, ?, ?, ?, ?, ?);`;
+                query = `INSERT INTO calculations (Objects_id, Pollutants_id, general_emissions, date)
+                     VALUES (?, ?, ?, ?);`;
                 params = values;
             } else {
                 throw new Error('Invalid table name');
@@ -202,14 +193,11 @@ class DBService {
             } else if (table === 'calculations') {
                 return {
                     id: insertId,
-                    objects_name: values[0],
-                    pollutants_name: values[1],
-                    calculations_general_emissions: values[2],
-                    pollutants_mass_flow_rate: values[3],
-                    pollutants_permissible_emissions: values[4],
-                    pollutants_danger_class: values[5],
-                    calculations_date: values[6]
-                }
+                    Objects_id: values[0],
+                    Pollutants_id: values[1],
+                    general_emissions: values[2],
+                    date: values[3]
+                };
             }
         } catch (error) {
             console.log(error);
@@ -224,10 +212,8 @@ class DBService {
         return this.insertNewRow('pollutants', [name, mass_flow_rate, permissible_emissions, danger_class]);
     }
 
-    async insertNewRowInTable3(objects_name, pollutants_name, calculations_general_emissions, pollutants_mass_flow_rate,
-                               pollutants_permissible_emissions, pollutants_danger_class, calculations_date) {
-        return this.insertNewRow('calculations', [objects_name, pollutants_name, calculations_general_emissions,
-            pollutants_mass_flow_rate, pollutants_permissible_emissions, pollutants_danger_class, calculations_date]);
+    async insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date) {
+        return this.insertNewRow('calculations', [Objects_id, Pollutants_id, general_emissions, date]);
     }
 
     async updateRow(table, id, values) {
@@ -243,20 +229,10 @@ class DBService {
                 query = `UPDATE pollutants 
                      SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ? 
                      WHERE id = ?;`;
-            } else if (table === 'calculations') {
-                query = `START TRANSACTION;
-                UPDATE objects
-                SET name = ?
-                WHERE id = 1;
-                
-                UPDATE pollutants
-                SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ?
-                WHERE id = 2;
-
-                UPDATE calculations
-                SET general_emissions = ?, date = ?
-                WHERE id = 3;
-                COMMIT;`;
+            }  else if (table === 'calculations') {
+                query = `UPDATE calculations
+                     SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ? 
+                     WHERE id = ?;`;
             } else {
                 throw new Error('Invalid table name');
             }
@@ -286,10 +262,8 @@ class DBService {
         return this.updateRow('pollutants', id, [name, mass_flow_rate, permissible_emissions, danger_class]);
     }
 
-    async updateRowInTable3(id, objects_name, pollutants_name, calculations_general_emissions, pollutants_mass_flow_rate,
-                            pollutants_permissible_emissions, pollutants_danger_class, calculations_date) {
-        return this.updateRow('calculations', id, [objects_name, pollutants_name, calculations_general_emissions, pollutants_mass_flow_rate,
-            pollutants_permissible_emissions, pollutants_danger_class, calculations_date]);
+    async updateRowInTable4(id, Objects_id, Pollutants_id, general_emissions, date) {
+        return this.updateRow('calculations', id, [Objects_id, Pollutants_id, general_emissions, date]);
     }
 
     async deleteRowById(table, id) {
@@ -301,7 +275,7 @@ class DBService {
                 query = "DELETE FROM objects WHERE id = ?;";
             } else if (table === 'pollutants') {
                 query = "DELETE FROM pollutants WHERE id = ?;";
-            } else if (table === 'calculations') {
+            }  else if (table === 'calculations') {
                 query = "DELETE FROM calculations WHERE id = ?;";
             } else {
                 throw new Error('Invalid table name');
@@ -329,7 +303,7 @@ class DBService {
         return this.deleteRowById('pollutants', id);
     }
 
-    async deleteRowByIdTable3(id) {
+    async deleteRowByIdTable4(id) {
         return this.deleteRowById('calculations', id);
     }
 }

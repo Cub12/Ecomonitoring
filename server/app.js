@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.get('/search/:table/:column/:value', (request, response) => {
-    const { table, column, value } = request.params;
+    const {table, column, value} = request.params;
     const db = dbService.getDBServiceInstance();
     const result = db.searchByColumn(table, column, value);
 
-    result.then(data => response.json({ data: data }))
+    result.then(data => response.json({data: data}))
         .catch(err => console.log(err));
 });
 
@@ -33,6 +33,9 @@ app.get('/getAll/:table', (request, response) => {
         case 'table3':
             result = db.getAllDataForTable3();
             break;
+        case 'table4':
+            result = db.getAllDataForTable4();
+            break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
     }
@@ -46,9 +49,9 @@ app.get('/sort/:table/:column/:sortOrder', (request, response) => {
     let result;
 
     if (table === 'table2') {
-        result = db.sortTable(column, sortOrder);
-    } else if (table === 'table3') {
         result = db.sortTable2(column, sortOrder);
+    } else if (table === 'table4') {
+        result = db.sortTable4(column, sortOrder);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -67,11 +70,9 @@ app.post('/insert/:table', (request, response) => {
     } else if (table === 'table2') {
         const {name, mass_flow_rate, permissible_emissions, danger_class} = request.body;
         result = db.insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class);
-    } else if (table === 'table3') {
-        const {objects_name, pollutants_name, calculations_general_emissions, pollutants_mass_flow_rate,
-            pollutants_permissible_emissions, pollutants_danger_class, calculations_date} = request.body;
-        result = db.insertNewRowInTable3(objects_name, pollutants_name, calculations_general_emissions,
-            pollutants_mass_flow_rate, pollutants_permissible_emissions, pollutants_danger_class, calculations_date);
+    } else if (table === 'table4') {
+        const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
+        result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -80,8 +81,8 @@ app.post('/insert/:table', (request, response) => {
 });
 
 app.patch('/update/:table', (request, response) => {
-    const { table } = request.params;
-    const { id, ...data } = request.body;
+    const {table} = request.params;
+    const {id, ...data} = request.body;
     const db = dbService.getDBServiceInstance();
 
     let result;
@@ -105,27 +106,24 @@ app.patch('/update/:table', (request, response) => {
                 data.danger_class
             );
             break;
-        case 'table3':
-            result = db.updateRowInTable3(
+        case 'table4':
+            result = db.updateRowInTable4(
                 id,
-                data.objects_name,
-                data.pollutants_name,
-                data.calculations_general_emissions,
-                data.pollutants_mass_flow_rate,
-                data.pollutants_permissible_emissions,
-                data.pollutants_danger_class,
-                data.calculations_date
+                data.Objects_id,
+                data.Pollutants_id,
+                data.general_emissions,
+                data.date
             );
             break;
         default:
-            return response.status(400).json({ error: 'Invalid table name' });
+            return response.status(400).json({error: 'Invalid table name'});
     }
 
     result
-        .then(data => response.json({ success: data }))
+        .then(data => response.json({success: data}))
         .catch(err => {
             console.error(err);
-            response.status(500).json({ error: 'Internal server error' });
+            response.status(500).json({error: 'Internal server error'});
         });
 });
 
@@ -141,8 +139,8 @@ app.delete('/delete/:table/:id', (request, response) => {
         case 'table2':
             result = db.deleteRowByIdTable2(id);
             break;
-        case 'table3':
-            result = db.deleteRowByIdTable3(id);
+        case 'table4':
+            result = db.deleteRowByIdTable4(id);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
