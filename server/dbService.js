@@ -168,7 +168,7 @@ class DBService {
 
             const insertId = await new Promise((resolve, reject) => {
                 connection.query(query, params, (err, result) => {
-                    if (err) reject(new Error(err.message));
+                    if (err) reject({ message: 'Помилка при виконанні запиту', error: err.message });
                     resolve(result.insertId);
                 });
             });

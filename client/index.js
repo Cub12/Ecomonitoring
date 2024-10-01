@@ -281,7 +281,13 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestData)
-    }).then(response => response.json()).then(data => insertRowFunction(data.data));
+    }).then(response => response.json()).catch(error => {
+        alert(`        Не існує підприємства або речовини з такою ID,
+        перевірте введені значення та, якщо потрібно,
+        спочатку додайте нове підприємство або речовину у
+        відповідні таблиці`);
+        throw error;
+    }).then(data => insertRowFunction(data.data));
 }
 
 function handleUpdate(tableId) {
