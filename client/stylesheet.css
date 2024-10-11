@@ -128,7 +128,7 @@ p {
     rgba(0, 0, 0, 3.7)),
     url(https://b6.3ddd.ru/media/images/tinymce_images/09f35937452425678e22d126e8421538.jpeg) no-repeat center center;
     background-size: cover;
-    height: 100vh;
+    height: 120vh;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
@@ -152,7 +152,7 @@ p {
     max-height: 400px;
     overflow-y: auto;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
 }
 
 .table-container3 {
@@ -341,14 +341,14 @@ button:hover {
 }
 
 .search button#reset_button1, button#reset_button2, button#reset_button3, button#reset_button4, button#reset_button2_2,
-button#reset_button3_2, button#reset_button4_2 {
+button#reset_button3_2, button#reset_button4_2, button#reset_button4_3 {
     margin-left: 10px;
     background-color: #64ffae;
     color: black;
 }
 
 .search button#reset_button1:hover, button#reset_button2:hover, button#reset_button3:hover, button#reset_button4:hover,
-button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover {
+button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover, button#reset_button4_3:hover {
     background-color: #21aa64;
     color: black;
 }
@@ -391,6 +391,119 @@ button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4
 }
 
 .sort button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.tax {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    width: 77%;
+    margin: 20px auto;
+}
+
+.tax label {
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.tax select {
+    margin-right: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.tax button {
+    background-color: #2b452b;
+    color: #00ff12;
+    border-color: #00ff12;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tax button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.water_coef {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: Georgia, sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+.water_coef > label {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.coef-option {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.coef-option input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ff12;
+    border-radius: 4px;
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.coef-option input[type="checkbox"]:checked::before {
+    content: '\2714';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff12;
+    font-size: 16px;
+}
+
+.coef-option label {
+    cursor: pointer;
+}
+
+#calculate_water_button {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 10px;
+    font-size: 16px;
+    color: #00ff12;
+    background-color: #2b452b;
+    border: 1px solid #00ff12;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#calculate_water_button:hover {
     background-color: #45a049;
     color: black;
 }

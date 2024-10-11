@@ -452,4 +452,26 @@ document.addEventListener('click', function (event) {
         updateButton4.onclick = () => handleUpdate('table4');
         document.querySelector('#form_container4').classList.toggle('hidden');
     }
+
+    if (event.target.classList.contains('tax_button')) {
+        const selectedTaxType = document.querySelector('#tax_type').value;
+
+        if (selectedTaxType === 'tax_water') {
+            document.querySelector('#water_coef').classList.toggle('hidden');
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.water_coef input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
 });

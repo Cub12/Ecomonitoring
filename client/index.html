@@ -189,6 +189,35 @@
             <button id="reset_button4_2">Скинути</button>
         </div>
 
+        <div class="tax">
+            <label for="tax_type">Тип податку:</label>
+            <select id="tax_type">
+                <option value="tax_air">Податок за викиди в атмосферне повітря</option>
+                <option value="tax_water">Податок за скиди у водні об'єкти</option>
+                <option value="tax_placement">Податок за розміщення відходів</option>
+                <option value="tax_generation_radioactive">Податок за утворення радіоактивних відходів</option>
+                <option value="tax_temporary_storage">Податок за тимчасове зберігання радіоактивних відходів</option>
+            </select>
+            <button class="tax_button" id="tax_button">Розрахувати</button>
+            <button id="reset_button4_3">Скинути</button>
+        </div>
+
+        <div class="water_coef hidden" id="water_coef">
+            <label for="water_coef">Оберіть коефіцієнт</label><br>
+
+            <div class="coef-option">
+                <input type="checkbox" id="coef_lake" name="coef_lake" value="1.5">
+                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки і озера)</label>
+            </div>
+
+            <div class="coef-option">
+                <input type="checkbox" id="coef_river" name=coef_river" value="1">
+                <label for="coef_river">Коефіцієнт 1 (застосовується у інших випадках)</label>
+            </div>
+
+            <button id="calculate_water_button" type="submit">Розрахувати</button>
+        </div>
+
         <div class="table-container4">
             <table id="table4">
                 <thead>
@@ -197,6 +226,7 @@
                 <th>Назва забруднюючої речовини</th>
                 <th>Усього викидів, т/рік</th>
                 <th>Період</th>
+                <th>Ставка податку, гривень за 1 тонну</th>
                 <th>Сума податку, грн</th>
                 <th>Дії</th>
                 </thead>
