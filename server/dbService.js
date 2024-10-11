@@ -310,6 +310,20 @@ class DBService {
     async deleteRowByIdTable4(id) {
         return this.deleteRowById('calculations', id);
     }
+
+    async updateTaxInCalculations() {
+        const query = `
+        UPDATE calculations c
+        JOIN pollutants p ON c.Pollutants_id = p.id
+        SET c.tax = ROUND(c.general_emissions * p.tax_rate, 2);
+    `;
+        try {
+            const result = await this.getData(query);
+            return result;
+        } catch (error) {
+            console.error('Error updating tax in calculations:', error);
+        }
+    }
 }
 
 module.exports = DBService;

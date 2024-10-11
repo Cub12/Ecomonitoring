@@ -146,7 +146,7 @@ addButton2.onclick = function () {
 };
 
 const addButton4 = document.querySelector('#add_data4_button');
-addButton4.onclick = async function () {
+addButton4.onclick = function () {
     handleAddButton(
         4,
         ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input', '#date_input'],

@@ -35,6 +35,7 @@ app.get('/getAll/:table', (request, response) => {
             break;
         case 'table4':
             result = db.getAllDataForTable4();
+            db.updateTaxInCalculations();
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
