@@ -141,7 +141,21 @@ class DBService {
     }
 
     async getAllDataForTable4() {
-        const query = "SELECT * FROM calculations;";
+        const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+        c.date
+        FROM calculations c
+        JOIN objects o ON c.Objects_id = o.id
+        JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY c.id;`;
+        return this.getData(query);
+    }
+
+    async getAllObjects() {
+        const query = "SELECT id, name FROM objects;"; // Вибираємо лише id та name
+        return this.getData(query);
+    }
+
+    async getAllPollutants() {
+        const query = "SELECT id, name FROM pollutants;"; // Вибираємо лише id та name
         return this.getData(query);
     }
 
@@ -168,7 +182,7 @@ class DBService {
 
             const insertId = await new Promise((resolve, reject) => {
                 connection.query(query, params, (err, result) => {
-                    if (err) reject({ message: 'Помилка при виконанні запиту', error: err.message });
+                    if (err) reject({message: 'Помилка при виконанні запиту', error: err.message});
                     resolve(result.insertId);
                 });
             });
@@ -229,7 +243,7 @@ class DBService {
                 query = `UPDATE pollutants 
                      SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ? 
                      WHERE id = ?;`;
-            }  else if (table === 'calculations') {
+            } else if (table === 'calculations') {
                 query = `UPDATE calculations
                      SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ? 
                      WHERE id = ?;`;
@@ -275,7 +289,7 @@ class DBService {
                 query = "DELETE FROM objects WHERE id = ?;";
             } else if (table === 'pollutants') {
                 query = "DELETE FROM pollutants WHERE id = ?;";
-            }  else if (table === 'calculations') {
+            } else if (table === 'calculations') {
                 query = "DELETE FROM calculations WHERE id = ?;";
             } else {
                 throw new Error('Invalid table name');
