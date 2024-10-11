@@ -69,8 +69,8 @@ app.post('/insert/:table', (request, response) => {
         const {name, head, address, economic_activity, form_of_ownership} = request.body;
         result = db.insertNewRowInTable1(name, head, address, economic_activity, form_of_ownership);
     } else if (table === 'table2') {
-        const {name, mass_flow_rate, permissible_emissions, danger_class} = request.body;
-        result = db.insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class);
+        const {name, permissible_emissions, danger_class} = request.body;
+        result = db.insertNewRowInTable2(name, permissible_emissions, danger_class);
     } else if (table === 'table4') {
         const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
         result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date);
@@ -102,7 +102,6 @@ app.patch('/update/:table', (request, response) => {
             result = db.updateRowInTable2(
                 id,
                 data.name,
-                data.mass_flow_rate,
                 data.permissible_emissions,
                 data.danger_class
             );

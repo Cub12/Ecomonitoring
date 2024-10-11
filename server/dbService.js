@@ -26,7 +26,7 @@ class DBService {
     async searchByColumn(table, column, value) {
         const validColumns = {
             'table1': ['name', 'head', 'address', 'economic_activity', 'form_of_ownership'],
-            'table2': ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'],
+            'table2': ['name', 'permissible_emissions', 'danger_class'],
             'table4': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date']
         };
 
@@ -89,8 +89,8 @@ class DBService {
     }
 
     async sortTable2(column, sortOrder) {
-        const validColumns = ['name', 'mass_flow_rate', 'permissible_emissions', 'danger_class'];
-        const numericColumns = ['mass_flow_rate', 'permissible_emissions', 'danger_class'];
+        const validColumns = ['name', 'permissible_emissions', 'danger_class'];
+        const numericColumns = ['permissible_emissions', 'danger_class'];
 
         return this.sortTableGeneric('pollutants', validColumns, numericColumns, column, sortOrder);
     }
@@ -132,8 +132,8 @@ class DBService {
 
     async getAllDataForTable3() {
         const query = `SELECT calculations.id, objects.name AS object_name, pollutants.name AS pollutant_name, 
-            calculations.general_emissions, pollutants.mass_flow_rate, pollutants.permissible_emissions, 
-            pollutants.danger_class, calculations.date 
+            calculations.general_emissions, pollutants.permissible_emissions, pollutants.danger_class, 
+            calculations.date, calculations.tax
             FROM calculations 
             JOIN objects ON calculations.Objects_id = objects.id 
             JOIN pollutants ON calculations.Pollutants_id = pollutants.id ORDER BY calculations.id;`;
@@ -159,8 +159,8 @@ class DBService {
                      VALUES (?, ?, ?, ?, ?);`;
                 params = values;
             } else if (table === 'pollutants') {
-                query = `INSERT INTO pollutants (name, mass_flow_rate, permissible_emissions, danger_class) 
-                     VALUES (?, ?, ?, ?);`;
+                query = `INSERT INTO pollutants (name, permissible_emissions, danger_class) 
+                     VALUES (?, ?, ?);`;
                 params = values;
             } else if (table === 'calculations') {
                 query = `INSERT INTO calculations (Objects_id, Pollutants_id, general_emissions, date)
@@ -190,9 +190,8 @@ class DBService {
                 return {
                     id: insertId,
                     name: values[0],
-                    mass_flow_rate: values[1],
-                    permissible_emissions: values[2],
-                    danger_class: values[3]
+                    permissible_emissions: values[1],
+                    danger_class: values[2]
                 };
             } else if (table === 'calculations') {
                 return {
@@ -213,7 +212,7 @@ class DBService {
     }
 
     async insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class) {
-        return this.insertNewRow('pollutants', [name, mass_flow_rate, permissible_emissions, danger_class]);
+        return this.insertNewRow('pollutants', [name, permissible_emissions, danger_class]);
     }
 
     async insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date) {
@@ -231,7 +230,7 @@ class DBService {
                      WHERE id = ?;`;
             } else if (table === 'pollutants') {
                 query = `UPDATE pollutants 
-                     SET name = ?, mass_flow_rate = ?, permissible_emissions = ?, danger_class = ? 
+                     SET name = ?, permissible_emissions = ?, danger_class = ? 
                      WHERE id = ?;`;
             } else if (table === 'calculations') {
                 query = `UPDATE calculations
@@ -262,8 +261,8 @@ class DBService {
         return this.updateRow('objects', id, [name, head, address, economic_activity, form_of_ownership]);
     }
 
-    async updateRowInTable2(id, name, mass_flow_rate, permissible_emissions, danger_class) {
-        return this.updateRow('pollutants', id, [name, mass_flow_rate, permissible_emissions, danger_class]);
+    async updateRowInTable2(id, name, permissible_emissions, danger_class) {
+        return this.updateRow('pollutants', id, [name, permissible_emissions, danger_class]);
     }
 
     async updateRowInTable4(id, Objects_id, Pollutants_id, general_emissions, date) {

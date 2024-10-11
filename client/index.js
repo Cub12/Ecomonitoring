@@ -139,7 +139,7 @@ const addButton2 = document.querySelector('#add_data2_button');
 addButton2.onclick = function () {
     handleAddButton(
         2,
-        ['#name2_input', '#mass_flow_rate_input', '#permissible_emissions_input', '#danger_class_input'],
+        ['#name2_input', '#permissible_emissions_input', '#danger_class_input'],
         'http://localhost:5000/insert/table2',
         insertRowIntoTable2
     );
@@ -229,7 +229,6 @@ function handleEditRow(id, tableId) {
             idInput: '#name2_input',
             fields: [
                 {name: 'name', selector: '.name'},
-                {name: 'mass_flow_rate', selector: '.mass_flow_rate'},
                 {name: 'permissible_emissions', selector: '.permissible_emissions'},
                 {name: 'danger_class', selector: '.danger_class'}
             ]
@@ -265,9 +264,8 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
         }
         : tableId === 2 ? {
             name: values[0],
-            mass_flow_rate: values[1],
-            permissible_emissions: values[2],
-            danger_class: values[3]
+            permissible_emissions: values[1],
+            danger_class: values[2]
         } : tableId === 4 ? {
             Objects_id: values[0],
             Pollutants_id: values[1],
@@ -301,7 +299,6 @@ function handleUpdate(tableId) {
         ],
         table2: [
             {name: 'name', id: 'name2_input'},
-            {name: 'mass_flow_rate', id: 'mass_flow_rate_input'},
             {name: 'permissible_emissions', id: 'permissible_emissions_input'},
             {name: 'danger_class', id: 'danger_class_input'}
         ],
