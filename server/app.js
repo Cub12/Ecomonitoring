@@ -43,20 +43,6 @@ app.get('/getAll/:table', (request, response) => {
     result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
-app.get('/getAllObjects', (request, response) => {
-    const db = dbService.getDBServiceInstance();
-    db.getAllObjects()
-        .then(data => response.json({ data }))
-        .catch(err => console.log(err));
-});
-
-app.get('/getAllPollutants', (request, response) => {
-    const db = dbService.getDBServiceInstance();
-    db.getAllPollutants()
-        .then(data => response.json({ data }))
-        .catch(err => console.log(err));
-});
-
 app.get('/sort/:table/:column/:sortOrder', (request, response) => {
     const {table, column, sortOrder} = request.params;
     const db = dbService.getDBServiceInstance();

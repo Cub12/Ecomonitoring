@@ -146,7 +146,7 @@ addButton2.onclick = function () {
 };
 
 const addButton4 = document.querySelector('#add_data4_button');
-addButton4.onclick = function () {
+addButton4.onclick = async function () {
     handleAddButton(
         4,
         ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input', '#date_input'],
@@ -423,45 +423,7 @@ showFormButton4.onclick = async function () {
     changeForm('#add_data4_button', 'Додати нове забруднення');
     document.querySelector('#add-pollutions-form').reset();
     formContainer.classList.toggle('hidden');
-
-    await loadDropdownData();
 };
-
-async function loadDropdownData() {
-    try {
-        const objectsResponse = await fetch('/getAllObjects');
-        const pollutantsResponse = await fetch('/getAllPollutants');
-
-        const objectsData = await objectsResponse.json();
-        const pollutantsData = await pollutantsResponse.json();
-
-        console.log('Objects data:', objectsData);
-        console.log('Pollutants data:', pollutantsData);
-
-        const objectsSelect = document.getElementById('Objects_id_input');
-        const pollutantsSelect = document.getElementById('Pollutants_id_input');
-
-        objectsSelect.innerHTML = '';
-        pollutantsSelect.innerHTML = '';
-
-        objectsData.data.forEach(object => {
-            const option = document.createElement('option');
-            option.value = object.id;
-            option.textContent = object.name;
-            objectsSelect.appendChild(option);
-        });
-
-        pollutantsData.data.forEach(pollutant => {
-            const option = document.createElement('option');
-            option.value = pollutant.id;
-            option.textContent = pollutant.name;
-            pollutantsSelect.appendChild(option);
-        });
-
-    } catch (error) {
-        console.error('Error loading dropdown data:', error);
-    }
-}
 
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
