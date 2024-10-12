@@ -175,49 +175,87 @@
         </div>
 
         <div class="search">
-            <select id="search_column4">
+            <select id="search_column4" class="hidden">
                 <option value="Objects_id">Назва підприємства</option>
                 <option value="Pollutants_id">Назва забруднюючої речовини</option>
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
-            <input placeholder="Уведіть пошукове значення" id="search_input4">
+            <input placeholder="Уведіть пошукове значення" id="search_input4" class="hidden">
 
-            <button id="search_button4">Знайти</button>
-            <button id="reset_button4">Скинути</button>
+            <button id="search_button4" class="hidden">Знайти</button>
+            <button id="reset_button4" class="hidden">Скинути</button>
+
+            <select id="search_column5" class="hidden">
+                <option value="Objects_id">Назва підприємства</option>
+                <option value="Pollutants_id">Назва забруднюючої речовини</option>
+                <option value="general_emissions">Усього викидів</option>
+                <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
+            </select>
+            <input placeholder="Уведіть пошукове значення" id="search_input5" class="hidden">
+
+            <button id="search_button5" class="hidden">Знайти</button>
+            <button id="reset_button5" class="hidden">Скинути</button>
         </div>
 
         <div class="sort">
-            <label for="sort_column4">Стовпець для сортування:</label>
-            <select id="sort_column4">
+            <label for="sort_column4" class="hidden">Стовпець для сортування:</label>
+            <select id="sort_column4" class="hidden">
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
 
-            <label for="sort_order4">Порядок сортування:</label>
-            <select id="sort_order4">
+            <label for="sort_order4" class="hidden">Порядок сортування:</label>
+            <select id="sort_order4" class="hidden">
                 <option value="asc">Зростання</option>
                 <option value="desc">Спадання</option>
             </select>
 
-            <button id="sort_button4">Сортувати</button>
-            <button id="reset_button4_2">Скинути</button>
+            <button id="sort_button4" class="hidden">Сортувати</button>
+            <button id="reset_button4_2" class="hidden">Скинути</button>
+
+            <label for="sort_column5" class="hidden">Стовпець для сортування:</label>
+            <select id="sort_column5" class="hidden">
+                <option value="general_emissions">Усього викидів</option>
+                <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
+            </select>
+
+            <label for="sort_order5" class="hidden">Порядок сортування:</label>
+            <select id="sort_order5" class="hidden">
+                <option value="asc">Зростання</option>
+                <option value="desc">Спадання</option>
+            </select>
+
+            <button id="sort_button5" class="hidden">Сортувати</button>
+            <button id="reset_button5_2" class="hidden">Скинути</button>
         </div>
 
         <div class="tax">
-            <label for="tax_type">Тип податку:</label>
-            <select id="tax_type">
+            <label for="tax_type" class="hidden">Тип податку:</label>
+            <select id="tax_type" class="hidden">
                 <option value="tax_air">За викиди в атмосферне повітря</option>
+                <option value="tax_placement">За розміщення відходів</option>
+                <option value="tax_generation_radioactive">За утворення радіоактивних відходів</option>
+                <option value="tax_temporary_storage">За тимчасове зберігання радіоактивних відходів</option>
+            </select>
+
+            <button class="tax_button hidden" id="tax_button">Розрахувати</button>
+            <button id="reset_button4_3" class="hidden">Скинути</button>
+
+            <label for="tax_type2" class="hidden">Тип податку:</label>
+            <select id="tax_type2" class="hidden">
                 <option value="tax_water">За скиди у водні об'єкти</option>
                 <option value="tax_placement">За розміщення відходів</option>
                 <option value="tax_generation_radioactive">За утворення радіоактивних відходів</option>
                 <option value="tax_temporary_storage">За тимчасове зберігання радіоактивних відходів</option>
             </select>
 
-            <button class="tax_button" id="tax_button">Розрахувати</button>
-            <button id="reset_button4_3">Скинути</button>
+            <button class="tax_button2 hidden" id="tax_button2">Розрахувати</button>
+            <button id="reset_button5_3" class="hidden">Скинути</button>
         </div>
 
         <div class="water_coef hidden" id="water_coef">
@@ -292,6 +330,29 @@
             <input type="text" id="tax_input" name="tax_input" required>
 
             <button id="add_data4_button" type="submit"></button>
+        </form>
+    </div>
+
+    <div class="form-container hidden" id="form_container5">
+        <h2 id="form_title5"></h2>
+
+        <form id="add-pollutions2-form">
+            <label for="Objects_id_input">ID підприємства:</label>
+            <input type="text" id="Objects_id2_input" name="Objects_id_input" required>
+
+            <label for="Pollutants_id_input">ID забруднюючої речовини:</label>
+            <input type="text" id="Pollutants_id2_input" name="Pollutants_id_input" required>
+
+            <label for="general_emissions_input">Усього викидів, т/рік:</label>
+            <input type="text" id="general_emissions2_input" name="general_emissions_input" required>
+
+            <label for="date_input">Період:</label>
+            <input type="text" id="date2_input" name="date_input" required>
+
+            <label for="tax_input">Сума податку:</label>
+            <input type="text" id="tax2_input" name="tax_input" required>
+
+            <button id="add_data5_button" type="submit"></button>
         </form>
     </div>
 

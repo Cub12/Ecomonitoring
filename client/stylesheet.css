@@ -149,7 +149,7 @@ p {
     font-family: "Times New Roman", serif;
 }
 
-.table-container1, .table-container2, .table-container4 {
+.table-container1, .table-container2, .table-container4, .table-container5 {
     max-height: 400px;
     overflow-y: auto;
     margin: 20px auto;
@@ -164,7 +164,7 @@ p {
 }
 
 .table-container2 table th, .table-container2 table td, .table-container3 table th, .table-container3 table td,
-.table-container4 table th, .table-container4 table td {
+.table-container4 table th, .table-container4 table td, .table-container5 table th, .table-container5 table td {
     text-align: center;
     padding: 10px;
     border: 1px solid #ddd;
@@ -342,14 +342,16 @@ button:hover {
 }
 
 .search button#reset_button1, button#reset_button2, button#reset_button3, button#reset_button4, button#reset_button2_2,
-button#reset_button3_2, button#reset_button4_2, button#reset_button4_3 {
+button#reset_button3_2, button#reset_button4_2, button#reset_button4_3, button#reset_button5, button#reset_button5_2,
+button#reset_button5_3 {
     margin-left: 10px;
     background-color: #64ffae;
     color: black;
 }
 
 .search button#reset_button1:hover, button#reset_button2:hover, button#reset_button3:hover, button#reset_button4:hover,
-button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover, button#reset_button4_3:hover {
+button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover, button#reset_button4_3:hover,
+button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3:hover {
     background-color: #21aa64;
     color: black;
 }

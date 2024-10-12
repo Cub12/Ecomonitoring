@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('http://localhost:5000/getAll/table4').then(response => response.json())
         .then(data => loadHTMLTable(data['data'], 'table4'));
+
+    fetch('http://localhost:5000/getAll/table5').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table5'));
 });
 
 document.querySelector('#table1 tbody').addEventListener('click', function (event) {
@@ -26,6 +29,10 @@ document.querySelector('#table3 tbody').addEventListener('click', function (even
 
 document.querySelector('#table4 tbody').addEventListener('click', function (event) {
     handleTableClick(4, event);
+});
+
+document.querySelector('#table5 tbody').addEventListener('click', function (event) {
+    handleTableClick(5, event);
 });
 
 const searchButton1 = document.querySelector('#search_button1');
@@ -50,6 +57,14 @@ searchButton4.onclick = function () {
     const searchColumn = document.querySelector('#search_column4').value;
     fetch(`http://localhost:5000/search/table4/${searchColumn}/${searchValue}`)
         .then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table4'));
+};
+
+const searchButton5 = document.querySelector('#search_button5');
+searchButton5.onclick = function () {
+    const searchValue = document.querySelector('#search_input5').value;
+    const searchColumn = document.querySelector('#search_column5').value;
+    fetch(`http://localhost:5000/search/table5/${searchColumn}/${searchValue}`)
+        .then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table5'));
 };
 
 const resetButton1 = document.querySelector('#reset_button1');
@@ -108,6 +123,35 @@ resetButton4_3.onclick = function () {
         .then(data => loadHTMLTable(data['data'], `table4`));
 };
 
+const resetButton5 = document.querySelector('#reset_button5');
+resetButton5.addEventListener('click', function () {
+    document.querySelector('#search_input5').value = '';
+});
+resetButton5.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table5`).then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table5`));
+};
+
+const resetButton5_2 = document.querySelector('#reset_button5_2');
+resetButton5_2.addEventListener('click', function () {
+    document.querySelector('#search_input5').value = '';
+});
+resetButton5_2.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table5`).then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table5`));
+};
+
+const resetButton5_3 = document.querySelector('#reset_button5_3');
+resetButton5_3.addEventListener('click', function () {
+    document.querySelector('#search_input5').value = '';
+    document.querySelector('#tax_type2').selectedIndex = 0;
+    document.querySelector('#water_coef').classList.add('hidden');
+});
+resetButton5_3.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table5`).then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table5`));
+};
+
 function handleSort(tableId, sortColumn, sortOrder) {
     fetch(`http://localhost:5000/sort/table${tableId}/${sortColumn}/${sortOrder}`)
         .then(response => response.json()).then(data => loadHTMLTable(data['data'], `table${tableId}`));
@@ -127,6 +171,13 @@ sortButton4.onclick = function () {
     handleSort(4, sortColumn, sortOrder);
 };
 
+const sortButton5 = document.querySelector('#sort_button5');
+sortButton5.onclick = function () {
+    const sortColumn = document.querySelector('#sort_column5').value;
+    const sortOrder = document.querySelector('#sort_order5').value;
+    handleSort(5, sortColumn, sortOrder);
+};
+
 const addButton1 = document.querySelector('#add_data1_button');
 addButton1.onclick = function () {
     handleAddButton(1, ['#name_input', '#head_input', '#address_input', '#economic_activity_input',
@@ -143,6 +194,12 @@ const addButton4 = document.querySelector('#add_data4_button');
 addButton4.onclick = function () {
     handleAddButton(4, ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input',
         '#date_input', '#tax_input'], 'http://localhost:5000/insert/table4', insertRowIntoTable4);
+};
+
+const addButton5 = document.querySelector('#add_data5_button');
+addButton5.onclick = function () {
+    handleAddButton(5, ['#Objects_id2_input', '#Pollutants_id2_input', '#general_emissions2_input',
+        '#date2_input', '#tax2_input'], 'http://localhost:5000/insert/table5', insertRowIntoTable5);
 };
 
 function loadHTMLTable(data, tableId) {
@@ -189,6 +246,8 @@ function deleteRowById(id, tableId) {
         table = 'table2';
     } else if (tableId === 4) {
         table = 'table4';
+    } else if (tableId === 5) {
+        table = 'table5';
     }
 
     const url = `http://localhost:5000/delete/${table}/${id}`;
@@ -202,7 +261,7 @@ function deleteRowById(id, tableId) {
 
 function handleEditRow(id, tableId) {
     const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' :
-        '#table4'} tr[data-id="${id}"]`);
+        '#table4' ? '#table5' : ''} tr[data-id="${id}"]`);
 
     const fields = {
         1: {
@@ -233,6 +292,15 @@ function handleEditRow(id, tableId) {
                 {name: 'date', selector: '.date'},
                 {name: 'tax', selector: '.tax'}
             ]
+        },
+        5: {
+            idInput: '#Objects_id2_input',
+            fields: [
+                {name: 'Pollutants_id', selector: '.Pollutants_id'},
+                {name: 'general_emissions', selector: '.general_emissions'},
+                {name: 'date', selector: '.date'},
+                {name: 'tax', selector: '.tax'}
+            ]
         }
     };
 
@@ -257,9 +325,13 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
                     tax_rate_aw: values[3], tax_rate_p: values[4]
                 }
                 : tableId === 4 ? {
-                    Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
-                    date: values[3], tax: values[4]
-                } : {}
+                        Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
+                        date: values[3], tax: values[4]
+                    }
+                    : {
+                        Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
+                        date: values[3], tax: values[4]
+                    }
 
     fetch(endpoint, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
@@ -292,6 +364,13 @@ function handleUpdate(tableId) {
             {name: 'general_emissions', id: 'general_emissions_input'},
             {name: 'date', id: 'date_input'},
             {name: 'tax', id: 'tax_input'}
+        ],
+        table5: [
+            {name: 'Objects_id', id: 'Objects_id2_input'},
+            {name: 'Pollutants_id', id: 'Pollutants_id2_input'},
+            {name: 'general_emissions', id: 'general_emissions2_input'},
+            {name: 'date', id: 'date2_input'},
+            {name: 'tax', id: 'tax2_input'}
         ]
     };
 
@@ -355,6 +434,11 @@ function insertRowIntoTable4(data) {
         'date', 'tax']);
 }
 
+function insertRowIntoTable5(data) {
+    insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
+        'date', 'tax']);
+}
+
 document.querySelectorAll('nav ul li a').forEach(link => {
     link.addEventListener('click', function (event) {
         event.preventDefault();
@@ -404,6 +488,17 @@ showFormButton4.onclick = async function () {
     formContainer.classList.toggle('hidden');
 };
 
+const showFormButton5 = document.querySelector('#show_form_button5');
+showFormButton5.onclick = async function () {
+    const formContainer = document.querySelector('#form_container5');
+
+    changeForm('#form_title5', 'Додати нове забруднення');
+    changeForm('#add_data5_button', 'Додати нове забруднення');
+
+    document.querySelector('#add-pollutions2-form').reset();
+    formContainer.classList.toggle('hidden');
+};
+
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
         changeForm('#form_title1', 'Редагувати дані підприємства');
@@ -427,6 +522,7 @@ document.addEventListener('click', function (event) {
         updateButton2.onclick = () => handleUpdate('table2');
         document.querySelector('#form_container2').classList.toggle('hidden');
 
+
         changeForm('#form_title4', 'Редагувати дані забруднення');
         changeForm('#add_data4_button', 'Зберегти зміни');
 
@@ -436,6 +532,17 @@ document.addEventListener('click', function (event) {
         const updateButton4 = document.querySelector('#update_row4_button');
         updateButton4.onclick = () => handleUpdate('table4');
         document.querySelector('#form_container4').classList.toggle('hidden');
+
+
+        changeForm('#form_title5', 'Редагувати дані забруднення');
+        changeForm('#add_data5_button', 'Зберегти зміни');
+
+        const button5 = document.querySelector('#add_data5_button');
+        button5.id = 'update_row5_button';
+
+        const updateButton5 = document.querySelector('#update_row5_button');
+        updateButton5.onclick = () => handleUpdate('table5');
+        document.querySelector('#form_container5').classList.toggle('hidden');
     }
 });
 
@@ -446,7 +553,11 @@ document.addEventListener('click', function (event) {
         if (selectedTaxType === 'tax_air') {
             const taxButton = document.querySelector('#tax_button');
             taxButton.id = 'calculate_air_button';
-        } else if (selectedTaxType === 'tax_water') {
+        }
+    } else if (event.target.classList.contains('tax_button2')) {
+        const selectedTaxType = document.querySelector('#tax_type2').value;
+
+        if (selectedTaxType === 'tax_water') {
             document.querySelector('#water_coef').classList.toggle('hidden');
         }
     }
@@ -455,11 +566,33 @@ document.addEventListener('click', function (event) {
 document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#table-container4').classList.toggle('hidden');
     document.querySelector('#show_form_button4').classList.toggle('hidden');
+    document.querySelector('#search_column4').classList.toggle('hidden');
+    document.querySelector('#search_input4').classList.toggle('hidden');
+    document.querySelector('#search_button4').classList.toggle('hidden');
+    document.querySelector('#reset_button4').classList.toggle('hidden');
+    document.querySelector('#sort_column4').classList.toggle('hidden');
+    document.querySelector('#sort_order4').classList.toggle('hidden');
+    document.querySelector('#sort_button4').classList.toggle('hidden');
+    document.querySelector('#reset_button4_2').classList.toggle('hidden');
+    document.querySelector('#tax_type').classList.toggle('hidden');
+    document.querySelector('#tax_button').classList.toggle('hidden');
+    document.querySelector('#reset_button4_3').classList.toggle('hidden');
 });
 
 document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#table-container5').classList.toggle('hidden');
     document.querySelector('#show_form_button5').classList.toggle('hidden');
+    document.querySelector('#search_column5').classList.toggle('hidden');
+    document.querySelector('#search_input5').classList.toggle('hidden');
+    document.querySelector('#search_button5').classList.toggle('hidden');
+    document.querySelector('#reset_button5').classList.toggle('hidden');
+    document.querySelector('#sort_column5').classList.toggle('hidden');
+    document.querySelector('#sort_order5').classList.toggle('hidden');
+    document.querySelector('#sort_button5').classList.toggle('hidden');
+    document.querySelector('#reset_button5_2').classList.toggle('hidden');
+    document.querySelector('#tax_type2').classList.toggle('hidden');
+    document.querySelector('#tax_button2').classList.toggle('hidden');
+    document.querySelector('#reset_button5_3').classList.toggle('hidden');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -476,8 +609,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.getElementById('calculate_air_button').addEventListener('click', function () {
-    calculateTax('calculate_air_button');
+document.addEventListener('click', function (event) {
+    if (event.target.id === 'calculate_air_button') {
+        calculateTax('calculate_air_button');
+    }
 });
 
 function calculateTax(type_tax_button) {

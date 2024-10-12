@@ -35,6 +35,9 @@ app.get('/getAll/:table', (request, response) => {
         case 'table4':
             result = db.getAllDataForTable4();
             break;
+        case 'table5':
+            result = db.getAllDataForTable5();
+            break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
     }
@@ -51,6 +54,8 @@ app.get('/sort/:table/:column/:sortOrder', (request, response) => {
         result = db.sortTable2(column, sortOrder);
     } else if (table === 'table4') {
         result = db.sortTable4(column, sortOrder);
+    } else if (table === 'table5') {
+        result = db.sortTable5(column, sortOrder);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -72,7 +77,10 @@ app.post('/insert/:table', (request, response) => {
     } else if (table === 'table4') {
         const {Objects_id, Pollutants_id, general_emissions, date, tax} = request.body;
         result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date, tax);
-    } else {
+    } else if (table === 'table5') {
+        const {Objects_id, Pollutants_id, general_emissions, date, tax} = request.body;
+        result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date, tax);
+    }  else {
         return response.status(400).json({error: 'Invalid table name'});
     }
 
@@ -96,6 +104,10 @@ app.patch('/update/:table', (request, response) => {
             break;
         case 'table4':
             result = db.updateRowInTable4(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date,
+                data.tax);
+            break;
+        case 'table5':
+            result = db.updateRowInTable5(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date,
                 data.tax);
             break;
         default:
@@ -140,6 +152,9 @@ app.delete('/delete/:table/:id', (request, response) => {
             break;
         case 'table4':
             result = db.deleteRowByIdTable4(id);
+            break;
+        case 'table5':
+            result = db.deleteRowByIdTable5(id);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
