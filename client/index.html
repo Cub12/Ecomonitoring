@@ -130,7 +130,8 @@
                 <th>Назва забруднюючої речовини</th>
                 <th>Гранично допустимі викиди, мг/м^3</th>
                 <th>Клас небезпеки</th>
-                <th>Ставка податку, гривень за 1 тонну</th>
+                <th>Ставка податку, гривень за 1 тонну <br>(повітря, вода)<br></th>
+                <th>Ставка податку, гривень за 1 тонну <br>(за розміщення)<br></th>
                 <th>Дії</th>
                 </thead>
                 <tbody></tbody>
@@ -160,6 +161,16 @@
     <div class="block4" id="pollutions">
         <div class="overlay-text">
             <h1>РОЗРАХУНКИ</h1>
+        </div>
+
+        <div class="buttons_aw" id="air-water">
+            <div class="button_air">
+                <button id="button_air">Повітря</button>
+            </div>
+
+            <div class="button_water">
+                <button id="button_water">Вода</button>
+            </div>
         </div>
 
         <div class="search">
@@ -207,7 +218,8 @@
 
             <div class="coef-option">
                 <input type="checkbox" id="coef_lake" name="coef_lake" value="1.5">
-                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки і озера)</label>
+                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки і
+                    озера)</label>
             </div>
 
             <div class="coef-option">

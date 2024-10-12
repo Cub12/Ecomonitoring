@@ -507,3 +507,28 @@ button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4
     background-color: #45a049;
     color: black;
 }
+
+.buttons_aw {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+#button_air, #button_water {
+    margin: 0 10px;
+    background-color: #062006;
+    color: #00ff12;
+    width: 200px;
+    padding: 20px 30px;
+    font-size: 18px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#button_air:hover, #button_water:hover {
+    background-color: #45a049;
+    color: black;
+}
