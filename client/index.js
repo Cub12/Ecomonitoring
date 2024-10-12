@@ -33,8 +33,7 @@ searchButton1.onclick = function () {
     const searchValue = document.querySelector('#search_input1').value;
     const searchColumn = document.querySelector('#search_column1').value;
     fetch(`http://localhost:5000/search/table1/${searchColumn}/${searchValue}`)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table1'));
+        .then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table1'));
 };
 
 const searchButton2 = document.querySelector('#search_button2');
@@ -42,8 +41,7 @@ searchButton2.onclick = function () {
     const searchValue = document.querySelector('#search_input2').value;
     const searchColumn = document.querySelector('#search_column2').value;
     fetch(`http://localhost:5000/search/table2/${searchColumn}/${searchValue}`)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table2'));
+        .then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table2'));
 };
 
 const searchButton4 = document.querySelector('#search_button4');
@@ -51,8 +49,7 @@ searchButton4.onclick = function () {
     const searchValue = document.querySelector('#search_input4').value;
     const searchColumn = document.querySelector('#search_column4').value;
     fetch(`http://localhost:5000/search/table4/${searchColumn}/${searchValue}`)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], 'table4'));
+        .then(response => response.json()).then(data => loadHTMLTable(data['data'], 'table4'));
 };
 
 const resetButton1 = document.querySelector('#reset_button1');
@@ -60,8 +57,7 @@ resetButton1.addEventListener('click', function () {
     document.querySelector('#search_input1').value = '';
 });
 resetButton1.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table1`)
-        .then(response => response.json())
+    fetch(`http://localhost:5000/getAll/table1`).then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table1`));
 };
 
@@ -70,8 +66,7 @@ resetButton2.addEventListener('click', function () {
     document.querySelector('#search_input2').value = '';
 });
 resetButton2.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table2`)
-        .then(response => response.json())
+    fetch(`http://localhost:5000/getAll/table2`).then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table2`));
 };
 
@@ -80,8 +75,7 @@ resetButton2_2.addEventListener('click', function () {
     document.querySelector('#search_input2').value = '';
 });
 resetButton2_2.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table2`)
-        .then(response => response.json())
+    fetch(`http://localhost:5000/getAll/table2`).then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table2`));
 };
 
@@ -90,8 +84,7 @@ resetButton4.addEventListener('click', function () {
     document.querySelector('#search_input4').value = '';
 });
 resetButton4.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table4`)
-        .then(response => response.json())
+    fetch(`http://localhost:5000/getAll/table4`).then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table4`));
 };
 
@@ -100,15 +93,24 @@ resetButton4_2.addEventListener('click', function () {
     document.querySelector('#search_input4').value = '';
 });
 resetButton4_2.onclick = function () {
-    fetch(`http://localhost:5000/getAll/table4`)
-        .then(response => response.json())
+    fetch(`http://localhost:5000/getAll/table4`).then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], `table4`));
+};
+
+const resetButton4_3 = document.querySelector('#reset_button4_3');
+resetButton4_3.addEventListener('click', function () {
+    document.querySelector('#search_input4').value = '';
+    document.querySelector('#tax_type').selectedIndex = 0;
+    document.querySelector('#water_coef').classList.add('hidden');
+});
+resetButton4_3.onclick = function () {
+    fetch(`http://localhost:5000/getAll/table4`).then(response => response.json())
         .then(data => loadHTMLTable(data['data'], `table4`));
 };
 
 function handleSort(tableId, sortColumn, sortOrder) {
     fetch(`http://localhost:5000/sort/table${tableId}/${sortColumn}/${sortOrder}`)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'], `table${tableId}`));
+        .then(response => response.json()).then(data => loadHTMLTable(data['data'], `table${tableId}`));
 }
 
 const sortButton2 = document.querySelector('#sort_button2');
@@ -127,42 +129,32 @@ sortButton4.onclick = function () {
 
 const addButton1 = document.querySelector('#add_data1_button');
 addButton1.onclick = function () {
-    handleAddButton(
-        1,
-        ['#name_input', '#head_input', '#address_input', '#economic_activity_input', '#form_of_ownership_input'],
-        'http://localhost:5000/insert/table1',
-        insertRowIntoTable1
-    );
+    handleAddButton(1, ['#name_input', '#head_input', '#address_input', '#economic_activity_input',
+        '#form_of_ownership_input'], 'http://localhost:5000/insert/table1', insertRowIntoTable1);
 };
 
 const addButton2 = document.querySelector('#add_data2_button');
 addButton2.onclick = function () {
-    handleAddButton(
-        2,
-        ['#name2_input', '#permissible_emissions_input', '#danger_class_input'],
-        'http://localhost:5000/insert/table2',
-        insertRowIntoTable2
-    );
+    handleAddButton(2, ['#name2_input', '#permissible_emissions_input', '#danger_class_input',
+        '#tax_rate_aw_input', '#tax_rate_p_input'], 'http://localhost:5000/insert/table2', insertRowIntoTable2);
 };
 
 const addButton4 = document.querySelector('#add_data4_button');
 addButton4.onclick = function () {
-    handleAddButton(
-        4,
-        ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input', '#date_input'],
-        'http://localhost:5000/insert/table4',
-        insertRowIntoTable4
-    );
+    handleAddButton(4, ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input',
+        '#date_input', '#tax_input'], 'http://localhost:5000/insert/table4', insertRowIntoTable4);
 };
 
 function loadHTMLTable(data, tableId) {
     const table = document.querySelector(`#${tableId} tbody`);
-
     let tableHTML = "";
+
     data.forEach(function (row) {
         tableHTML += "<tr>";
+
         Object.keys(row).forEach(function (key) {
             let value = row[key];
+
             if (typeof value === 'number' && value === -1) {
                 value = '-';
             }
@@ -176,21 +168,21 @@ function loadHTMLTable(data, tableId) {
             tableHTML += "</tr>";
         }
     });
+
     table.innerHTML = tableHTML;
 }
 
 function handleTableClick(tableId, event) {
     if (event.target.className === "delete_row_button") {
         deleteRowById(event.target.dataset.id, tableId);
-    }
-
-    if (event.target.className === "edit_row_button") {
+    } else if (event.target.className === "edit_row_button") {
         handleEditRow(event.target.dataset.id, tableId);
     }
 }
 
 function deleteRowById(id, tableId) {
     let table = '';
+
     if (tableId === 1) {
         table = 'table1';
     } else if (tableId === 2) {
@@ -201,9 +193,7 @@ function deleteRowById(id, tableId) {
 
     const url = `http://localhost:5000/delete/${table}/${id}`;
 
-    fetch(url, {
-        method: 'DELETE'
-    }).then(response => response.json()).then(data => {
+    fetch(url, {method: 'DELETE'}).then(response => response.json()).then(data => {
         if (data.success) {
             location.reload();
         }
@@ -211,8 +201,8 @@ function deleteRowById(id, tableId) {
 }
 
 function handleEditRow(id, tableId) {
-    const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' : '#table4'} 
-        tr[data-id="${id}"]`);
+    const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' :
+        '#table4'} tr[data-id="${id}"]`);
 
     const fields = {
         1: {
@@ -230,7 +220,9 @@ function handleEditRow(id, tableId) {
             fields: [
                 {name: 'name', selector: '.name'},
                 {name: 'permissible_emissions', selector: '.permissible_emissions'},
-                {name: 'danger_class', selector: '.danger_class'}
+                {name: 'danger_class', selector: '.danger_class'},
+                {name: 'tax_rate_aw', selector: '.tax_rate_aw'},
+                {name: 'tax_rate_p', selector: '.tax_rate_p'}
             ]
         },
         4: {
@@ -238,7 +230,8 @@ function handleEditRow(id, tableId) {
             fields: [
                 {name: 'Pollutants_id', selector: '.Pollutants_id'},
                 {name: 'general_emissions', selector: '.general_emissions'},
-                {name: 'date', selector: '.date'}
+                {name: 'date', selector: '.date'},
+                {name: 'tax', selector: '.tax'}
             ]
         }
     };
@@ -254,36 +247,23 @@ function handleEditRow(id, tableId) {
 function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
     const values = inputSelectors.map(selector => document.querySelector(selector).value.trim());
 
-    const requestData = tableId === 1
-        ? {
-            name: values[0],
-            head: values[1],
-            address: values[2],
-            economic_activity: values[3],
-            form_of_ownership: values[4]
-        }
-        : tableId === 2 ? {
-            name: values[0],
-            permissible_emissions: values[1],
-            danger_class: values[2]
-        } : tableId === 4 ? {
-            Objects_id: values[0],
-            Pollutants_id: values[1],
-            general_emissions: values[2],
-            date: values[3]
-        } : {}
+    const requestData =
+        tableId === 1 ? {
+                name: values[0], head: values[1], address: values[2], economic_activity: values[3],
+                form_of_ownership: values[4]
+            }
+            : tableId === 2 ? {
+                    name: values[0], permissible_emissions: values[1], danger_class: values[2],
+                    tax_rate_aw: values[3], tax_rate_p: values[4]
+                }
+                : tableId === 4 ? {
+                    Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
+                    date: values[3], tax: values[4]
+                } : {}
 
-    fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    }).then(response => response.json()).catch(error => {
-        alert(`        Не існує підприємства або речовини з такою ID,
-        перевірте введені значення та, якщо потрібно,
-        спочатку додайте нове підприємство або речовину у
-        відповідні таблиці`);
+    fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(requestData)})
+        .then(response => response.json()).catch(error => {
         throw error;
     }).then(data => insertRowFunction(data.data));
 }
@@ -300,13 +280,16 @@ function handleUpdate(tableId) {
         table2: [
             {name: 'name', id: 'name2_input'},
             {name: 'permissible_emissions', id: 'permissible_emissions_input'},
-            {name: 'danger_class', id: 'danger_class_input'}
+            {name: 'danger_class', id: 'danger_class_input'},
+            {name: 'tax_rate_aw', selector: 'tax_rate_aw_input'},
+            {name: 'tax_rate_p', selector: 'tax_rate_p_input'}
         ],
         table4: [
             {name: 'Objects_id', id: 'Objects_id_input'},
             {name: 'Pollutants_id', id: 'Pollutants_id_input'},
             {name: 'general_emissions', id: 'general_emissions_input'},
-            {name: 'date', id: 'date_input'}
+            {name: 'date', id: 'date_input'},
+            {name: 'tax', id: 'tax_input'}
         ]
     };
 
@@ -319,15 +302,11 @@ function handleUpdate(tableId) {
     });
 
     fetch(`http://localhost:5000/update/${tableId}`, {
-        method: 'PATCH',
-        headers: {
+        method: 'PATCH', headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: id,
-            ...formData
-        })
-    }).then(response => response.json()).then(data => {
+        }, body: JSON.stringify({id: id, ...formData})
+    })
+        .then(response => response.json()).then(data => {
         if (data.success) {
             location.reload();
         }
@@ -366,12 +345,12 @@ function insertRowIntoTable1(data) {
 
 function insertRowIntoTable2(data) {
     insertRowIntoTable('#table2', data, ['id', 'name', 'mass_flow_rate', 'permissible_emissions',
-        'danger_class']);
+        'danger_class', 'tax_rate_aw', 'tax_rate_p']);
 }
 
 function insertRowIntoTable4(data) {
     insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
-        'date']);
+        'date', 'tax']);
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
@@ -381,9 +360,7 @@ document.querySelectorAll('nav ul li a').forEach(link => {
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
 
-        if (targetElement) {
-            targetElement.scrollIntoView({behavior: 'smooth'});
-        }
+        if (targetElement) targetElement.scrollIntoView({behavior: 'smooth'});
     });
 });
 
@@ -398,6 +375,7 @@ showFormButton1.onclick = function () {
 
     changeForm('#form_title1', 'Додати нове підприємство');
     changeForm('#add_data1_button', 'Додати нове підприємство');
+
     document.querySelector('#add-enterprise-form').reset();
     formContainer.classList.toggle('hidden');
 };
@@ -408,6 +386,7 @@ showFormButton2.onclick = function () {
 
     changeForm('#form_title2', 'Додати нову речовину');
     changeForm('#add_data2_button', 'Додати нову речовину');
+
     document.querySelector('#add-substance-form').reset();
     formContainer.classList.toggle('hidden');
 };
@@ -418,6 +397,7 @@ showFormButton4.onclick = async function () {
 
     changeForm('#form_title4', 'Додати нове забруднення');
     changeForm('#add_data4_button', 'Додати нове забруднення');
+
     document.querySelector('#add-pollutions-form').reset();
     formContainer.classList.toggle('hidden');
 };
@@ -426,6 +406,7 @@ document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
         changeForm('#form_title1', 'Редагувати дані підприємства');
         changeForm('#add_data1_button', 'Зберегти зміни');
+
         const button = document.querySelector('#add_data1_button');
         button.id = 'update_row1_button';
 
@@ -436,6 +417,7 @@ document.addEventListener('click', function (event) {
 
         changeForm('#form_title2', 'Редагувати дані речовини');
         changeForm('#add_data2_button', 'Зберегти зміни');
+
         const button2 = document.querySelector('#add_data2_button');
         button2.id = 'update_row2_button';
 
@@ -445,6 +427,7 @@ document.addEventListener('click', function (event) {
 
         changeForm('#form_title4', 'Редагувати дані забруднення');
         changeForm('#add_data4_button', 'Зберегти зміни');
+
         const button4 = document.querySelector('#add_data4_button');
         button4.id = 'update_row4_button';
 
@@ -452,7 +435,9 @@ document.addEventListener('click', function (event) {
         updateButton4.onclick = () => handleUpdate('table4');
         document.querySelector('#form_container4').classList.toggle('hidden');
     }
+});
 
+document.addEventListener('click', function (event) {
     if (event.target.classList.contains('tax_button')) {
         const selectedTaxType = document.querySelector('#tax_type').value;
 
@@ -462,11 +447,15 @@ document.addEventListener('click', function (event) {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.getElementById('button_air').addEventListener('click', function() {
+    document.querySelector('#table-container4').classList.toggle('hidden');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.water_coef input[type="checkbox"]');
 
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
+        checkbox.addEventListener('change', function () {
             if (this.checked) {
                 checkboxes.forEach(cb => {
                     if (cb !== this) cb.checked = false;
@@ -475,3 +464,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.getElementById('calculate_water_button').addEventListener('click', function() {
+    calculateTax('calculate_water_button');
+});
+
+function calculateTax(type_tax_button) {
+    fetch(`http://localhost:5000/calculateTax`, {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({type_tax_button: type_tax_button}),
+    }).then(response => response.json()).then(data => {
+            console.log('Податок успішно обчислено:', data);
+            alert('Податок обчислено');
+        }).catch((error) => {
+            console.error('Помилка при обчисленні податку:', error);
+            alert('Не вдалося обчислити податок');
+        });
+}

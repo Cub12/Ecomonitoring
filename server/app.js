@@ -14,8 +14,7 @@ app.get('/search/:table/:column/:value', (request, response) => {
     const db = dbService.getDBServiceInstance();
     const result = db.searchByColumn(table, column, value);
 
-    result.then(data => response.json({data: data}))
-        .catch(err => console.log(err));
+    result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
 app.get('/getAll/:table', (request, response) => {
@@ -35,7 +34,6 @@ app.get('/getAll/:table', (request, response) => {
             break;
         case 'table4':
             result = db.getAllDataForTable4();
-            db.updateTaxInCalculations();
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
@@ -69,11 +67,11 @@ app.post('/insert/:table', (request, response) => {
         const {name, head, address, economic_activity, form_of_ownership} = request.body;
         result = db.insertNewRowInTable1(name, head, address, economic_activity, form_of_ownership);
     } else if (table === 'table2') {
-        const {name, permissible_emissions, danger_class} = request.body;
-        result = db.insertNewRowInTable2(name, permissible_emissions, danger_class);
+        const {name, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p} = request.body;
+        result = db.insertNewRowInTable2(name, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p);
     } else if (table === 'table4') {
-        const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
-        result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date);
+        const {Objects_id, Pollutants_id, general_emissions, date, tax} = request.body;
+        result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date, tax);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -89,42 +87,43 @@ app.patch('/update/:table', (request, response) => {
     let result;
     switch (table) {
         case 'table1':
-            result = db.updateRowInTable1(
-                id,
-                data.name,
-                data.head,
-                data.address,
-                data.economic_activity,
-                data.form_of_ownership
-            );
+            result = db.updateRowInTable1(id, data.name, data.head, data.address, data.economic_activity,
+                data.form_of_ownership);
             break;
         case 'table2':
-            result = db.updateRowInTable2(
-                id,
-                data.name,
-                data.permissible_emissions,
-                data.danger_class
-            );
+            result = db.updateRowInTable2(id, data.name, data.permissible_emissions, data.danger_class, data.tax_rate_aw,
+                data.tax_rate_p);
             break;
         case 'table4':
-            result = db.updateRowInTable4(
-                id,
-                data.Objects_id,
-                data.Pollutants_id,
-                data.general_emissions,
-                data.date
-            );
+            result = db.updateRowInTable4(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date,
+                data.tax);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
     }
 
-    result
-        .then(data => response.json({success: data}))
-        .catch(err => {
+    result.then(data => response.json({success: data})).catch(err => {
             console.error(err);
             response.status(500).json({error: 'Internal server error'});
         });
+});
+
+app.post('/calculateTax', async (req, res) => {
+    const { type_tax_button } = req.body;
+    const db = dbService.getDBServiceInstance();
+
+    try {
+        let result;
+
+        if (type_tax_button === 'calculate_water_button') {
+            result = await db.calculateTax('calculate_water_button');
+        }
+
+        res.json({ success: true, data: result });
+    } catch (error) {
+        console.error('Error in calculateTax route:', error);
+        res.status(500).json({ message: 'Error calculating tax' });
+    }
 });
 
 app.delete('/delete/:table/:id', (request, response) => {

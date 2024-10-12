@@ -21,6 +21,7 @@
             </ul>
         </nav>
     </header>
+
     <div class="content">
         <div class="text-content">
             <h1>ЕКО<span class="color">ЛОГІЧНИЙ</span><br>МОНІТОРИНГ</h1>
@@ -30,11 +31,8 @@
 </div>
 
 <main>
-
     <div class="block1" id="objects">
-        <div class="overlay-text">
-            <h1>ОБ'ЄКТИ</h1>
-        </div>
+        <div class="overlay-text"><h1>ОБ'ЄКТИ</h1></div>
 
         <div class="search">
             <select id="search_column1">
@@ -45,6 +43,7 @@
                 <option value="form_of_ownership">Форма власності</option>
             </select>
             <input placeholder="Уведіть пошукове значення" id="search_input1">
+
             <button id="search_button1">Знайти</button>
             <button id="reset_button1">Скинути</button>
         </div>
@@ -64,9 +63,7 @@
             </table>
         </div>
 
-        <div class="button-container">
-            <button id="show_form_button1">Додати новий об'єкт</button>
-        </div>
+        <div class="button-container"><button id="show_form_button1">Додати новий об'єкт</button></div>
     </div>
 
     <div class="form-container hidden" id="form_container1">
@@ -93,17 +90,18 @@
     </div>
 
     <div class="block2" id="pollutants">
-        <div class="overlay-text">
-            <h1>ЗАБРУДНЮВАЧІ</h1>
-        </div>
+        <div class="overlay-text"><h1>ЗАБРУДНЮВАЧІ</h1></div>
 
         <div class="search">
             <select id="search_column2">
                 <option value="name">Назва забруднюючої речовини</option>
                 <option value="permissible_emissions">Гранично допустимі викиди</option>
                 <option value="danger_class">Клас небезпеки</option>
+                <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
+                <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
             <input placeholder="Уведіть пошукове значення" id="search_input2">
+
             <button id="search_button2">Знайти</button>
             <button id="reset_button2">Скинути</button>
         </div>
@@ -113,12 +111,16 @@
             <select id="sort_column2">
                 <option value="permissible_emissions">Гранично допустимі викиди</option>
                 <option value="danger_class">Клас небезпеки</option>
+                <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
+                <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
+
             <label for="sort_order2">Порядок сортування:</label>
             <select id="sort_order2">
                 <option value="asc">Зростання</option>
                 <option value="desc">Спадання</option>
             </select>
+
             <button id="sort_button2">Сортувати</button>
             <button id="reset_button2_2">Скинути</button>
         </div>
@@ -130,21 +132,20 @@
                 <th>Назва забруднюючої речовини</th>
                 <th>Гранично допустимі викиди, мг/м^3</th>
                 <th>Клас небезпеки</th>
-                <th>Ставка податку, гривень за 1 тонну <br>(повітря, вода)<br></th>
-                <th>Ставка податку, гривень за 1 тонну <br>(за розміщення)<br></th>
+                <th>Ставка податку, грн/т <br>(повітря, вода)<br></th>
+                <th>Ставка податку, грн/т <br>(за розміщенням)<br></th>
                 <th>Дії</th>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
 
-        <div class="button-container">
-            <button id="show_form_button2">Додати нову речовину</button>
-        </div>
+        <div class="button-container"><button id="show_form_button2">Додати нову речовину</button></div>
     </div>
 
     <div class="form-container hidden" id="form_container2">
         <h2 id="form_title2"></h2>
+
         <form id="add-substance-form">
             <label for="name2_input">Назва забруднюючої речовини:</label>
             <input type="text" id="name2_input" name="name2_input" required>
@@ -154,23 +155,23 @@
 
             <label for="danger_class_input">Клас небезпеки:</label>
             <input type="text" id="danger_class_input" name="danger_class_input" required>
+
+            <label for="tax_rate_aw_input">Ставка податку, грн/т (повітря, вода):</label>
+            <input type="text" id="tax_rate_aw_input" name="tax_rate_aw_input" required>
+
+            <label for="tax_rate_p_input">Ставка податку, грн/т (за розміщенням):</label>
+            <input type="text" id="tax_rate_p_input" name="tax_rate_p_input" required>
+
             <button id="add_data2_button" type="submit"></button>
         </form>
     </div>
 
     <div class="block4" id="pollutions">
-        <div class="overlay-text">
-            <h1>РОЗРАХУНКИ</h1>
-        </div>
+        <div class="overlay-text"><h1>РОЗРАХУНКИ</h1></div>
 
         <div class="buttons_aw" id="air-water">
-            <div class="button_air">
-                <button id="button_air">Повітря</button>
-            </div>
-
-            <div class="button_water">
-                <button id="button_water">Вода</button>
-            </div>
+            <div class="button_air"><button id="button_air">Повітря</button></div>
+            <div class="button_water"><button id="button_water">Вода</button></div>
         </div>
 
         <div class="search">
@@ -179,8 +180,10 @@
                 <option value="Pollutants_id">Назва забруднюючої речовини</option>
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
             </select>
             <input placeholder="Уведіть пошукове значення" id="search_input4">
+
             <button id="search_button4">Знайти</button>
             <button id="reset_button4">Скинути</button>
         </div>
@@ -190,12 +193,15 @@
             <select id="sort_column4">
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
             </select>
+
             <label for="sort_order4">Порядок сортування:</label>
             <select id="sort_order4">
                 <option value="asc">Зростання</option>
                 <option value="desc">Спадання</option>
             </select>
+
             <button id="sort_button4">Сортувати</button>
             <button id="reset_button4_2">Скинути</button>
         </div>
@@ -203,34 +209,34 @@
         <div class="tax">
             <label for="tax_type">Тип податку:</label>
             <select id="tax_type">
-                <option value="tax_air">Податок за викиди в атмосферне повітря</option>
-                <option value="tax_water">Податок за скиди у водні об'єкти</option>
-                <option value="tax_placement">Податок за розміщення відходів</option>
-                <option value="tax_generation_radioactive">Податок за утворення радіоактивних відходів</option>
-                <option value="tax_temporary_storage">Податок за тимчасове зберігання радіоактивних відходів</option>
+                <option value="tax_air">За викиди в атмосферне повітря</option>
+                <option value="tax_water">За скиди у водні об'єкти</option>
+                <option value="tax_placement">За розміщення відходів</option>
+                <option value="tax_generation_radioactive">За утворення радіоактивних відходів</option>
+                <option value="tax_temporary_storage">За тимчасове зберігання радіоактивних відходів</option>
             </select>
+
             <button class="tax_button" id="tax_button">Розрахувати</button>
             <button id="reset_button4_3">Скинути</button>
         </div>
 
         <div class="water_coef hidden" id="water_coef">
-            <label for="water_coef">Оберіть коефіцієнт</label><br>
-
+            <label for="water_coef">Оберіть коефіцієнт:</label><br>
             <div class="coef-option">
                 <input type="checkbox" id="coef_lake" name="coef_lake" value="1.5">
-                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки і
+                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки й
                     озера)</label>
             </div>
 
             <div class="coef-option">
                 <input type="checkbox" id="coef_river" name=coef_river" value="1">
-                <label for="coef_river">Коефіцієнт 1 (застосовується у інших випадках)</label>
+                <label for="coef_river">Коефіцієнт 1 (застосовується в інших випадках)</label>
             </div>
 
             <button id="calculate_water_button" type="submit">Розрахувати</button>
         </div>
 
-        <div class="table-container4">
+        <div class="table-container4 hidden" id="table-container4">
             <table id="table4">
                 <thead>
                 <th>№</th>
@@ -238,7 +244,7 @@
                 <th>Назва забруднюючої речовини</th>
                 <th>Усього викидів, т/рік</th>
                 <th>Період</th>
-                <th>Ставка податку, гривень за 1 тонну</th>
+                <th>Ставка податку, грн/т</th>
                 <th>Сума податку, грн</th>
                 <th>Дії</th>
                 </thead>
@@ -246,13 +252,12 @@
             </table>
         </div>
 
-        <div class="button-container">
-            <button id="show_form_button4">Додати нове забруднення</button>
-        </div>
+        <div class="button-container"><button id="show_form_button4">Додати нове забруднення</button></div>
     </div>
 
     <div class="form-container hidden" id="form_container4">
         <h2 id="form_title4"></h2>
+
         <form id="add-pollutions-form">
             <label for="Objects_id_input">ID підприємства:</label>
             <input type="text" id="Objects_id_input" name="Objects_id_input" required>
@@ -265,14 +270,16 @@
 
             <label for="date_input">Період:</label>
             <input type="text" id="date_input" name="date_input" required>
+
+            <label for="tax_input">Сума податку:</label>
+            <input type="text" id="tax_input" name="tax_input" required>
+
             <button id="add_data4_button" type="submit"></button>
         </form>
     </div>
 
     <div class="block3" id="calculations">
-        <div class="overlay-text">
-            <h1>ЗАБРУДНЕННЯ</h1>
-        </div>
+        <div class="overlay-text"><h1>ЗАБРУДНЕННЯ</h1></div>
 
         <div class="table-container3">
             <table id="table3">
