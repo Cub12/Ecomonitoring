@@ -280,7 +280,7 @@ class DBService {
     async calculateTax(type_tax_button) {
         let query;
 
-        if (type_tax_button === 'calculate_water_button') {
+        if (type_tax_button === 'calculate_air_button') {
             query = `UPDATE calculations_air c JOIN pollutants p ON c.Pollutants_id = p.id 
         SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw, 2);`;
         }

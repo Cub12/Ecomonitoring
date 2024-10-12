@@ -261,8 +261,10 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
                     date: values[3], tax: values[4]
                 } : {}
 
-    fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(requestData)})
+    fetch(endpoint, {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(requestData)
+    })
         .then(response => response.json()).catch(error => {
         throw error;
     }).then(data => insertRowFunction(data.data));
@@ -441,14 +443,23 @@ document.addEventListener('click', function (event) {
     if (event.target.classList.contains('tax_button')) {
         const selectedTaxType = document.querySelector('#tax_type').value;
 
-        if (selectedTaxType === 'tax_water') {
+        if (selectedTaxType === 'tax_air') {
+            const taxButton = document.querySelector('#tax_button');
+            taxButton.id = 'calculate_air_button';
+        } else if (selectedTaxType === 'tax_water') {
             document.querySelector('#water_coef').classList.toggle('hidden');
         }
     }
 });
 
-document.getElementById('button_air').addEventListener('click', function() {
+document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#table-container4').classList.toggle('hidden');
+    document.querySelector('#show_form_button4').classList.toggle('hidden');
+});
+
+document.getElementById('button_water').addEventListener('click', function () {
+    document.querySelector('#table-container5').classList.toggle('hidden');
+    document.querySelector('#show_form_button5').classList.toggle('hidden');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -465,18 +476,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.getElementById('calculate_water_button').addEventListener('click', function() {
-    calculateTax('calculate_water_button');
+document.getElementById('calculate_air_button').addEventListener('click', function () {
+    calculateTax('calculate_air_button');
 });
 
 function calculateTax(type_tax_button) {
-    fetch(`http://localhost:5000/calculateTax`, {method: 'POST', headers: {'Content-Type': 'application/json'},
+    fetch(`http://localhost:5000/calculateTax`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({type_tax_button: type_tax_button}),
     }).then(response => response.json()).then(data => {
-            console.log('Податок успішно обчислено:', data);
-            alert('Податок обчислено');
-        }).catch((error) => {
-            console.error('Помилка при обчисленні податку:', error);
-            alert('Не вдалося обчислити податок');
-        });
+        console.log('Податок успішно обчислено:', data);
+        alert('Податок обчислено');
+    }).catch((error) => {
+        console.error('Помилка при обчисленні податку:', error);
+        alert('Не вдалося обчислити податок');
+    });
 }

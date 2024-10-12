@@ -115,8 +115,8 @@ app.post('/calculateTax', async (req, res) => {
     try {
         let result;
 
-        if (type_tax_button === 'calculate_water_button') {
-            result = await db.calculateTax('calculate_water_button');
+        if (type_tax_button === 'calculate_air_button') {
+            result = await db.calculateTax('calculate_air_button');
         }
 
         res.json({ success: true, data: result });
