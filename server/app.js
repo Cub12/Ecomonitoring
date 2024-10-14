@@ -75,11 +75,11 @@ app.post('/insert/:table', (request, response) => {
         const {name, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p} = request.body;
         result = db.insertNewRowInTable2(name, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p);
     } else if (table === 'table4') {
-        const {Objects_id, Pollutants_id, general_emissions, date, tax} = request.body;
-        result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date, tax);
+        const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
+        result = db.insertNewRowInTable4(Objects_id, Pollutants_id, general_emissions, date);
     } else if (table === 'table5') {
-        const {Objects_id, Pollutants_id, general_emissions, date, tax} = request.body;
-        result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date, tax);
+        const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
+        result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date);
     }  else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -103,12 +103,10 @@ app.patch('/update/:table', (request, response) => {
                 data.tax_rate_p);
             break;
         case 'table4':
-            result = db.updateRowInTable4(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date,
-                data.tax);
+            result = db.updateRowInTable4(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date);
             break;
         case 'table5':
-            result = db.updateRowInTable5(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date,
-                data.tax);
+            result = db.updateRowInTable5(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});

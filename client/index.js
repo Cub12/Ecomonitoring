@@ -193,13 +193,13 @@ addButton2.onclick = function () {
 const addButton4 = document.querySelector('#add_data4_button');
 addButton4.onclick = function () {
     handleAddButton(4, ['#Objects_id_input', '#Pollutants_id_input', '#general_emissions_input',
-        '#date_input', '#tax_input'], 'http://localhost:5000/insert/table4', insertRowIntoTable4);
+        '#date_input'], 'http://localhost:5000/insert/table4', insertRowIntoTable4);
 };
 
 const addButton5 = document.querySelector('#add_data5_button');
 addButton5.onclick = function () {
     handleAddButton(5, ['#Objects_id2_input', '#Pollutants_id2_input', '#general_emissions2_input',
-        '#date2_input', '#tax2_input'], 'http://localhost:5000/insert/table5', insertRowIntoTable5);
+        '#date2_input'], 'http://localhost:5000/insert/table5', insertRowIntoTable5);
 };
 
 function loadHTMLTable(data, tableId) {
@@ -289,8 +289,7 @@ function handleEditRow(id, tableId) {
             fields: [
                 {name: 'Pollutants_id', selector: '.Pollutants_id'},
                 {name: 'general_emissions', selector: '.general_emissions'},
-                {name: 'date', selector: '.date'},
-                {name: 'tax', selector: '.tax'}
+                {name: 'date', selector: '.date'}
             ]
         },
         5: {
@@ -298,8 +297,7 @@ function handleEditRow(id, tableId) {
             fields: [
                 {name: 'Pollutants_id', selector: '.Pollutants_id'},
                 {name: 'general_emissions', selector: '.general_emissions'},
-                {name: 'date', selector: '.date'},
-                {name: 'tax', selector: '.tax'}
+                {name: 'date', selector: '.date'}
             ]
         }
     };
@@ -326,11 +324,11 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
                 }
                 : tableId === 4 ? {
                         Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
-                        date: values[3], tax: values[4]
+                        date: values[3]
                     }
                     : {
                         Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
-                        date: values[3], tax: values[4]
+                        date: values[3]
                     }
 
     fetch(endpoint, {
@@ -362,15 +360,13 @@ function handleUpdate(tableId) {
             {name: 'Objects_id', id: 'Objects_id_input'},
             {name: 'Pollutants_id', id: 'Pollutants_id_input'},
             {name: 'general_emissions', id: 'general_emissions_input'},
-            {name: 'date', id: 'date_input'},
-            {name: 'tax', id: 'tax_input'}
+            {name: 'date', id: 'date_input'}
         ],
         table5: [
             {name: 'Objects_id', id: 'Objects_id2_input'},
             {name: 'Pollutants_id', id: 'Pollutants_id2_input'},
             {name: 'general_emissions', id: 'general_emissions2_input'},
-            {name: 'date', id: 'date2_input'},
-            {name: 'tax', id: 'tax2_input'}
+            {name: 'date', id: 'date2_input'}
         ]
     };
 
@@ -431,12 +427,12 @@ function insertRowIntoTable2(data) {
 
 function insertRowIntoTable4(data) {
     insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
-        'date', 'tax']);
+        'date']);
 }
 
 function insertRowIntoTable5(data) {
     insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
-        'date', 'tax']);
+        'date']);
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
