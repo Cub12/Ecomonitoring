@@ -333,9 +333,12 @@ class DBService {
             const query = `UPDATE calculations_air c JOIN pollutants p ON c.Pollutants_id = p.id 
         SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw, 2);`;
             try {
-                return await this.getData(query);
+                await this.getData(query);
+                // Повертаємо оновлені дані
+                return await this.getAllDataForTable4();
             } catch (error) {
                 console.error('Error updating tax in calculations:', error);
+                throw error;
             }
         }
     }

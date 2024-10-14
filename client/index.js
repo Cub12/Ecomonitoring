@@ -179,13 +179,15 @@ sortButton5.onclick = function () {
 };
 
 const addButton1 = document.querySelector('#add_data1_button');
-addButton1.onclick = function () {
+addButton1.onclick = function (e) {
+    e.preventDefault();
     handleAddButton(1, ['#name_input', '#head_input', '#address_input', '#economic_activity_input',
         '#form_of_ownership_input'], 'http://localhost:5000/insert/table1', insertRowIntoTable1);
 };
 
 const addButton2 = document.querySelector('#add_data2_button');
-addButton2.onclick = function () {
+addButton2.onclick = function (e) {
+    e.preventDefault();
     handleAddButton(2, ['#name2_input', '#permissible_emissions_input', '#danger_class_input',
         '#tax_rate_aw_input', '#tax_rate_p_input'], 'http://localhost:5000/insert/table2', insertRowIntoTable2);
 };
@@ -216,7 +218,8 @@ addButton4.onclick = function (e) {
 };
 
 const addButton5 = document.querySelector('#add_data5_button');
-addButton5.onclick = function () {
+addButton5.onclick = function (e) {
+    e.preventDefault();
     handleAddButton(5, ['#Objects_id2_input', '#Pollutants_id2_input', '#general_emissions2_input',
         '#date2_input'], 'http://localhost:5000/insert/table5', insertRowIntoTable5);
 };
@@ -231,8 +234,13 @@ function loadHTMLTable(data, tableId) {
         Object.keys(row).forEach(function (key) {
             let value = row[key];
 
-            if (typeof value === 'number' && value === -1) {
-                value = '-';
+            if (typeof value === 'number') {
+                if (value === -1) {
+                    value = '-';
+                } else if (key === 'tax' || key === 'tax_rate_aw') {
+                    // Форматуємо числові значення з двома десятковими знаками
+                    value = value.toFixed(2);
+                }
             }
 
             tableHTML += `<td>${value}</td>`;
@@ -241,8 +249,8 @@ function loadHTMLTable(data, tableId) {
         if (tableId !== 'table3') {
             tableHTML += `<td class="button"><button class="edit_row_button" data-id=${row.id}>Редагувати</button>
             <button class="delete_row_button" data-id=${row.id}>Видалити</button></td>`;
-            tableHTML += "</tr>";
         }
+        tableHTML += "</tr>";
     });
 
     table.innerHTML = tableHTML;
@@ -702,15 +710,25 @@ document.addEventListener('click', function (event) {
 
 function calculateTax(type_tax_button) {
     fetch(`http://localhost:5000/calculateTax`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({type_tax_button: type_tax_button}),
-    }).then(response => response.json()).then(data => {
-        console.log('Податок успішно обчислено:', data);
-        alert('Податок обчислено');
-    }).catch((error) => {
-        console.error('Помилка при обчисленні податку:', error);
-        alert('Не вдалося обчислити податок');
-    });
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Податок успішно обчислено:', data);
+            alert('Податок обчислено');
+            // Оновлюємо таблицю після розрахунку податку
+            if (type_tax_button === 'calculate_air_button') {
+                fetch('http://localhost:5000/getAll/table4')
+                    .then(response => response.json())
+                    .then(data => loadHTMLTable(data['data'], 'table4'));
+            }
+        })
+        .catch((error) => {
+            console.error('Помилка при обчисленні податку:', error);
+            alert('Не вдалося обчислити податок');
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
