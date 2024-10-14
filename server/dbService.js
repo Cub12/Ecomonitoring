@@ -245,7 +245,7 @@ class DBService {
                 query = `UPDATE calculations_air SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ? 
                 WHERE id = ?;`;
             } else if (table === 'calculations_water') {
-                query = `UPDATE calculations_water SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ? 
+                query = `UPDATE calculations_water SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ?
                 WHERE id = ?;`;
             }
 
