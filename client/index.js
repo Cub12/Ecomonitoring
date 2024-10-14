@@ -322,9 +322,12 @@ function handleEditRow(id, tableId) {
 
     if (tableId === 4) {
         const row = document.querySelector(`#table4 tr[data-id="${id}"]`);
-        document.querySelector('#Objects_name_select').value = row.querySelector('.Objects_name_select').textContent;
-        document.querySelector('#Pollutants_name_select').value = row.querySelector('.Pollutants_name_select').textContent;
-        document.querySelector('#general_emissions_input').value = row.querySelector('.general_emissions').textContent;
+        document.querySelector('#Objects_name_select').value = row.querySelector('.Objects_name_select')
+            .textContent;
+        document.querySelector('#Pollutants_name_select').value = row.querySelector('.Pollutants_name_select')
+            .textContent;
+        document.querySelector('#general_emissions_input').value = row.querySelector('.general_emissions')
+            .textContent;
         document.querySelector('#date_input').value = row.querySelector('.date').textContent;
 
         document.querySelector('#Objects_name_select').dataset.id = id;
@@ -377,6 +380,12 @@ function handleUpdate(tableId) {
             {name: 'tax_rate_aw', id: 'tax_rate_aw_input'},
             {name: 'tax_rate_p', id: 'tax_rate_p_input'}
         ],
+        table4: [
+            {name: 'Objects_id', id: 'Objects_name_select'},
+            {name: 'Pollutants_id', id: 'Pollutants_name_select'},
+            {name: 'general_emissions', id: 'general_emissions_input'},
+            {name: 'date', id: 'date_input'}
+        ],
         table5: [
             {name: 'Objects_id', id: 'Objects_id2_input'},
             {name: 'Pollutants_id', id: 'Pollutants_id2_input'},
@@ -394,49 +403,21 @@ function handleUpdate(tableId) {
     });
 
     fetch(`http://localhost:5000/update/${tableId}`, {
-        method: 'PATCH', headers: {
+        method: 'PATCH',
+        headers: {
             'Content-Type': 'application/json'
-        }, body: JSON.stringify({id: id, ...formData})
+        },
+        body: JSON.stringify({id: id, ...formData})
     })
-        .then(response => response.json()).then(data => {
-        if (data.success) {
-            location.reload();
-        }
-    }).catch(error => {
-        console.error('Update error:', error);
-    });
-
-    if (tableId === 'table4') {
-        const id = document.querySelector('#Objects_name_select').dataset.id;
-        const objectId = document.querySelector('#Objects_name_select').value;
-        const pollutantId = document.querySelector('#Pollutants_name_select').value;
-        const generalEmissions = document.querySelector('#general_emissions_input').value.trim();
-        const date = document.querySelector('#date_input').value.trim();
-
-        const formData = {
-            Objects_id: objectId,
-            Pollutants_id: pollutantId,
-            general_emissions: generalEmissions,
-            date: date
-        };
-
-        fetch(`http://localhost:5000/update/${tableId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id: id, ...formData})
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                }
-            })
-            .catch(error => {
-                console.error('Update error:', error);
-            });
-    }
+        .catch(error => {
+            console.error('Update error:', error);
+        });
 }
 
 function insertRowIntoTable(tableSelector, data, columnMapping) {
@@ -544,47 +525,81 @@ showFormButton5.onclick = async function () {
 
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('edit_row_button')) {
+        let formContainer;
+        let button;
+        let updateButton;
+
         if (event.target.closest('#table1')) {
-            changeForm('#form_title1', 'Редагувати дані підприємства');
-            changeForm('#add_data1_button', 'Зберегти зміни');
+            formContainer = document.querySelector('#form_container1');
+            button = document.querySelector('#add_data1_button');
+            updateButton = document.querySelector('#update_row1_button') || button;
 
-            const button = document.querySelector('#add_data1_button');
-            button.id = 'update_row1_button';
-
-            const updateButton1 = document.querySelector('#update_row1_button');
-            updateButton1.onclick = () => handleUpdate('table1');
-            document.querySelector('#form_container1').classList.toggle('hidden');
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title1', 'Редагувати дані підприємства');
+                changeForm('#add_data1_button', 'Зберегти зміни');
+                button.id = 'update_row1_button';
+                updateButton.onclick = () => handleUpdate('table1');
+            } else {
+                changeForm('#form_title1', 'Додати нове підприємство');
+                changeForm('#update_row1_button', 'Додати нове підприємство');
+                updateButton.id = 'add_data1_button';
+                document.querySelector('#add-enterprise-form').reset();
+            }
         } else if (event.target.closest('#table2')) {
-            changeForm('#form_title2', 'Редагувати дані речовини');
-            changeForm('#add_data2_button', 'Зберегти зміни');
+            formContainer = document.querySelector('#form_container2');
+            button = document.querySelector('#add_data2_button');
+            updateButton = document.querySelector('#update_row2_button') || button;
 
-            const button2 = document.querySelector('#add_data2_button');
-            button2.id = 'update_row2_button';
-
-            const updateButton2 = document.querySelector('#update_row2_button');
-            updateButton2.onclick = () => handleUpdate('table2');
-            document.querySelector('#form_container2').classList.toggle('hidden');
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title2', 'Редагувати дані речовини');
+                changeForm('#add_data2_button', 'Зберегти зміни');
+                button.id = 'update_row2_button';
+                updateButton.onclick = () => handleUpdate('table2');
+            } else {
+                changeForm('#form_title2', 'Додати нову речовину');
+                changeForm('#update_row2_button', 'Додати нову речовину');
+                updateButton.id = 'add_data2_button';
+                document.querySelector('#add-substance-form').reset();
+            }
         } else if (event.target.closest('#table4')) {
-            changeForm('#form_title4', 'Редагувати дані забруднення');
-            changeForm('#add_data4_button', 'Зберегти зміни');
+            formContainer = document.querySelector('#form_container4');
+            button = document.querySelector('#add_data4_button');
+            updateButton = document.querySelector('#update_row4_button') || button;
 
-            const button4 = document.querySelector('#add_data4_button');
-            button4.id = 'update_row4_button';
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title4', 'Редагувати дані забруднення');
+                changeForm('#add_data4_button', 'Зберегти зміни');
+                button.id = 'update_row4_button';
+                updateButton.onclick = () => handleUpdate('table4');
 
-            const updateButton4 = document.querySelector('#update_row4_button');
-            updateButton4.onclick = () => handleUpdate('table4');
-            document.querySelector('#form_container4').classList.toggle('hidden');
+                document.querySelector('#Objects_name_select').dataset.id = event.target.dataset.id;
+            } else {
+                changeForm('#form_title4', 'Додати нове забруднення');
+                changeForm('#update_row4_button', 'Додати нове забруднення');
+                updateButton.id = 'add_data4_button';
+                document.querySelector('#add-pollutions-form').reset();
+            }
         } else if (event.target.closest('#table5')) {
-            changeForm('#form_title5', 'Редагувати дані забруднення');
-            changeForm('#add_data5_button', 'Зберегти зміни');
+            formContainer = document.querySelector('#form_container5');
+            button = document.querySelector('#add_data5_button');
+            updateButton = document.querySelector('#update_row5_button') || button;
 
-            const button5 = document.querySelector('#add_data5_button');
-            button5.id = 'update_row5_button';
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title5', 'Редагувати дані забруднення');
+                changeForm('#add_data5_button', 'Зберегти зміни');
+                button.id = 'update_row5_button';
+                updateButton.onclick = () => handleUpdate('table5');
 
-            const updateButton5 = document.querySelector('#update_row5_button');
-            updateButton5.onclick = () => handleUpdate('table5');
-            document.querySelector('#form_container5').classList.toggle('hidden');
+                document.querySelector('#Objects_id2_input').dataset.id = event.target.dataset.id;
+            } else {
+                changeForm('#form_title5', 'Додати нове забруднення');
+                changeForm('#update_row5_button', 'Додати нове забруднення');
+                updateButton.id = 'add_data5_button';
+                document.querySelector('#add-pollutions2-form').reset();
+            }
         }
+
+        formContainer.classList.toggle('hidden');
     }
 });
 
