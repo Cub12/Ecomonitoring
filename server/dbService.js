@@ -127,17 +127,17 @@ class DBService {
     }
 
     async getAllDataForTable3() {
-        const query = `SELECT c.id, o.name AS object_name, p.name AS pollutant_name, c.general_emissions, 
+        const query = `SELECT o.name AS object_name, p.name AS pollutant_name, c.general_emissions, 
         p.permissible_emissions, p.danger_class, c.date, c.tax
         FROM calculations_air c
         JOIN objects o ON c.Objects_id = o.id 
         JOIN pollutants p ON c.Pollutants_id = p.id
         UNION ALL
-        SELECT c.id, o.name AS object_name, p.name AS pollutant_name, c.general_emissions, p.permissible_emissions, 
+        SELECT o.name AS object_name, p.name AS pollutant_name, c.general_emissions, p.permissible_emissions, 
         p.danger_class, c.date, c.tax
         FROM calculations_water c
         JOIN objects o ON c.Objects_id = o.id 
-        JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY id;`;
+        JOIN pollutants p ON c.Pollutants_id = p.id;`;
 
         return this.getData(query);
     }
@@ -217,7 +217,7 @@ class DBService {
         return this.insertNewRow('objects', [name, head, address, economic_activity, form_of_ownership]);
     }
 
-    async insertNewRowInTable2(name, mass_flow_rate, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p) {
+    async insertNewRowInTable2(name, permissible_emissions, danger_class, tax_rate_aw, tax_rate_p) {
         return this.insertNewRow('pollutants', [name, permissible_emissions, danger_class, tax_rate_aw,
             tax_rate_p]);
     }

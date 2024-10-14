@@ -204,7 +204,9 @@ th {
     text-align: center;
 }
 
-td:nth-child(1), th:nth-child(1) {
+.table-container1 td:nth-child(1), .table-container1 th:nth-child(1), .table-container2 td:nth-child(1),
+.table-container2 th:nth-child(1), .table-container4 td:nth-child(1), .table-container4 th:nth-child(1),
+.table-container5 td:nth-child(1), .table-container5 th:nth-child(1) {
     width: 3%;
     text-align: center;
 }
@@ -532,6 +534,11 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
 }
 
 #button_air:hover, #button_water:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+#button_air.active, #button_water.active {
     background-color: #45a049;
     color: black;
 }

@@ -355,8 +355,8 @@ function handleUpdate(tableId) {
             {name: 'name', id: 'name2_input'},
             {name: 'permissible_emissions', id: 'permissible_emissions_input'},
             {name: 'danger_class', id: 'danger_class_input'},
-            {name: 'tax_rate_aw', selector: 'tax_rate_aw_input'},
-            {name: 'tax_rate_p', selector: 'tax_rate_p_input'}
+            {name: 'tax_rate_aw', id: 'tax_rate_aw_input'},
+            {name: 'tax_rate_p', id: 'tax_rate_p_input'}
         ],
         table4: [
             {name: 'Objects_id', id: 'Objects_id_input'},
@@ -425,7 +425,7 @@ function insertRowIntoTable1(data) {
 }
 
 function insertRowIntoTable2(data) {
-    insertRowIntoTable('#table2', data, ['id', 'name', 'mass_flow_rate', 'permissible_emissions',
+    insertRowIntoTable('#table2', data, ['id', 'name', 'permissible_emissions',
         'danger_class', 'tax_rate_aw', 'tax_rate_p']);
 }
 
@@ -577,6 +577,20 @@ document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#tax_type').classList.toggle('hidden');
     document.querySelector('#tax_button').classList.toggle('hidden');
     document.querySelector('#reset_button4_3').classList.toggle('hidden');
+
+    document.querySelector('#table-container5').classList.add('hidden');
+    document.querySelector('#show_form_button5').classList.add('hidden');
+    document.querySelector('#search_column5').classList.add('hidden');
+    document.querySelector('#search_input5').classList.add('hidden');
+    document.querySelector('#search_button5').classList.add('hidden');
+    document.querySelector('#reset_button5').classList.add('hidden');
+    document.querySelector('#sort_column5').classList.add('hidden');
+    document.querySelector('#sort_order5').classList.add('hidden');
+    document.querySelector('#sort_button5').classList.add('hidden');
+    document.querySelector('#reset_button5_2').classList.add('hidden');
+    document.querySelector('#tax_type2').classList.add('hidden');
+    document.querySelector('#tax_button2').classList.add('hidden');
+    document.querySelector('#reset_button5_3').classList.add('hidden');
 });
 
 document.getElementById('button_water').addEventListener('click', function () {
@@ -593,6 +607,20 @@ document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#tax_type2').classList.toggle('hidden');
     document.querySelector('#tax_button2').classList.toggle('hidden');
     document.querySelector('#reset_button5_3').classList.toggle('hidden');
+
+    document.querySelector('#table-container4').classList.add('hidden');
+    document.querySelector('#show_form_button4').classList.add('hidden');
+    document.querySelector('#search_column4').classList.add('hidden');
+    document.querySelector('#search_input4').classList.add('hidden');
+    document.querySelector('#search_button4').classList.add('hidden');
+    document.querySelector('#reset_button4').classList.add('hidden');
+    document.querySelector('#sort_column4').classList.add('hidden');
+    document.querySelector('#sort_order4').classList.add('hidden');
+    document.querySelector('#sort_button4').classList.add('hidden');
+    document.querySelector('#reset_button4_2').classList.add('hidden');
+    document.querySelector('#tax_type').classList.add('hidden');
+    document.querySelector('#tax_button').classList.add('hidden');
+    document.querySelector('#reset_button4_3').classList.add('hidden');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -627,3 +655,21 @@ function calculateTax(type_tax_button) {
         alert('Не вдалося обчислити податок');
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const airButton = document.getElementById('button_air');
+    const waterButton = document.getElementById('button_water');
+
+    function setActiveButton(activeButton, inactiveButton) {
+        activeButton.classList.add('active');
+        inactiveButton.classList.remove('active');
+    }
+
+    airButton.addEventListener('click', function() {
+        setActiveButton(airButton, waterButton);
+    });
+
+    waterButton.addEventListener('click', function() {
+        setActiveButton(waterButton, airButton);
+    });
+});
