@@ -202,7 +202,12 @@ class DBService {
                     id: insertId, name: values[0], permissible_emissions: values[1], danger_class: values[2],
                     tax_rate_aw: values[3], tax_rate_p: values[4]
                 };
-            } else if (table === 'calculations_air' || table === 'calculations_water') {
+            } else if (table === 'calculations_air') {
+                return {
+                    id: insertId, Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
+                    date: values[3]
+                };
+            } else if (table === 'calculations_water') {
                 return {
                     id: insertId, Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
                     date: values[3]
