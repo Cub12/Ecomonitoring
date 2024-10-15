@@ -113,9 +113,9 @@ app.patch('/update/:table', (request, response) => {
     }
 
     result.then(data => response.json({success: data})).catch(err => {
-            console.error(err);
-            response.status(500).json({error: 'Internal server error'});
-        });
+        console.error(err);
+        response.status(500).json({error: 'Internal server error'});
+    });
 });
 
 app.post('/calculateTax', async (req, res) => {
