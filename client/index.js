@@ -639,12 +639,20 @@ document.addEventListener('click', function (event) {
         if (selectedTaxType === 'tax_air') {
             const taxButton = document.querySelector('#tax_button');
             taxButton.id = 'calculate_air_button';
+        } else if (selectedTaxType === 'tax_placement') {
+            const taxButton = document.querySelector('#tax_button');
+            taxButton.id = 'calculate_place_button';
+            document.querySelector('#place_coef').classList.toggle('hidden');
         }
     } else if (event.target.classList.contains('tax_button2')) {
         const selectedTaxType = document.querySelector('#tax_type2').value;
 
         if (selectedTaxType === 'tax_water') {
             document.querySelector('#water_coef').classList.toggle('hidden');
+        } else if (selectedTaxType === 'tax_placement') {
+            const taxButton = document.querySelector('#tax_button2');
+            taxButton.id = 'calculate_place_button';
+            document.querySelector('#place_coef').classList.toggle('hidden');
         }
     }
 });
@@ -709,17 +717,36 @@ document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#reset_button4_3').classList.add('hidden');
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.water_coef input[type="checkbox"]');
+const checkboxes1 = document.querySelectorAll('.water_coef input[type="checkbox"]')
+checkboxes1.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes1.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+    });
+});
 
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            if (this.checked) {
-                checkboxes.forEach(cb => {
-                    if (cb !== this) cb.checked = false;
-                });
-            }
-        });
+const checkboxes2 = document.querySelectorAll('.place_coef1 input[type="checkbox"]');
+checkboxes2.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes2.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+    });
+});
+
+const checkboxes3 = document.querySelectorAll('.place_coef2 input[type="checkbox"]');
+checkboxes3.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes3.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
     });
 });
 

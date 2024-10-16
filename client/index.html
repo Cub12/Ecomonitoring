@@ -281,6 +281,41 @@
             <button id="calculate_water_button" type="submit">Розрахувати</button>
         </div>
 
+        <div class="place_coef hidden" id="place_coef">
+            <div class="place_coef1">
+                <label><span style="color: #00ff0d;"><strong>Оберіть Кт</strong></span>
+                    <span style="color: #9aff00;"><br>(Коригуючий коефіцієнт, який враховує розташування місця розміщення відходів)</span><br></label><br>
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_in_city" name="coef_in_city" value="3">
+                    <label for="coef_in_city">Коефіцієнт 3 (розміщення відходів у межах населеного пункту або на
+                        відстані менш як 3 км від таких меж)</label>
+                </div>
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_out_city" name="coef_out_city" value="1">
+                    <label for="coef_out_city">Коефіцієнт 1 (розміщення відходів на відстані від 3 км і більше від меж
+                        населеного пункту)</label>
+                </div>
+            </div>
+
+            <br><br>
+            <br><br>
+
+            <div class="place_coef2">
+                <label><span style="color: #00ff0d;"><strong>Оберіть Ко</strong></span><span
+                        style="color: #9aff00;"><br>(Відходи розміщені на звалищах, які не забезпечують повного виключення забруднення атмосферного повітря або водних об'єктів?)</span><br></label><br>
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_yes" name="coef_yes" value="3">
+                    <label for="coef_yes">Так</label>
+                </div>
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_no" name="coef_no" value="1">
+                    <label for="coef_no">Ні</label>
+                </div>
+            </div>
+
+            <button id="calculate_place_button" type="submit">Розрахувати</button>
+        </div>
+
         <div class="table-container4 hidden" id="table-container4">
             <table id="table4">
                 <thead>

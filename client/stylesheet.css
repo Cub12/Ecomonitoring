@@ -441,7 +441,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     color: black;
 }
 
-.water_coef {
+.water_coef, .place_coef {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
@@ -453,7 +453,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     border-radius: 10px;
 }
 
-.water_coef > label {
+.water_coef > label, .place_coef1 > label, .place_coef2 > label {
     display: block;
     text-align: center;
     font-size: 18px;
@@ -493,7 +493,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     cursor: pointer;
 }
 
-#calculate_water_button {
+#calculate_water_button, #calculate_place_button {
     display: block;
     width: 200px;
     margin: 20px auto 0;
@@ -507,7 +507,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     transition: background-color 0.3s, color 0.3s;
 }
 
-#calculate_water_button:hover {
+#calculate_water_button:hover, #calculate_place_button:hover {
     background-color: #45a049;
     color: black;
 }
