@@ -80,7 +80,7 @@ app.post('/insert/:table', (request, response) => {
     } else if (table === 'table5') {
         const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
         result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date);
-    }  else {
+    } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
 
@@ -119,20 +119,22 @@ app.patch('/update/:table', (request, response) => {
 });
 
 app.post('/calculateTax', async (req, res) => {
-    const { type_tax_button } = req.body;
+    const {type_tax_button, coef} = req.body;
     const db = dbService.getDBServiceInstance();
 
     try {
         let result;
 
         if (type_tax_button === 'calculate_air_button') {
-            result = await db.calculateTax('calculate_air_button');
+            result = await db.calculateTax('calculate_air_button', 1);
+        } else if (type_tax_button === 'calculate_water_button') {
+            result = await db.calculateTax('calculate_water_button', coef);
         }
 
-        res.json({ success: true, data: result });
+        res.json({success: true, data: result});
     } catch (error) {
         console.error('Error in calculateTax route:', error);
-        res.status(500).json({ message: 'Error calculating tax' });
+        res.status(500).json({message: 'Error calculating tax'});
     }
 });
 

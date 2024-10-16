@@ -726,24 +726,40 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('click', function (event) {
     if (event.target.id === 'calculate_air_button') {
         calculateTax('calculate_air_button');
+    } else if (event.target.id === 'calculate_water_button') {
+        let coef = 1;
+
+        const coefLake = document.querySelector('#coef_lake');
+        const coefRiver = document.querySelector('#coef_river');
+
+        if (coefLake.checked) {
+            coef = parseFloat(coefLake.value);
+        } else if (coefRiver.checked) {
+            coef = parseFloat(coefRiver.value);
+        }
+
+        calculateTax('calculate_water_button', coef);
     }
 });
 
-function calculateTax(type_tax_button) {
+function calculateTax(type_tax_button, coef) {
     fetch(`http://localhost:5000/calculateTax`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({type_tax_button: type_tax_button}),
+        body: JSON.stringify({type_tax_button: type_tax_button, coef: coef}),
     })
         .then(response => response.json())
         .then(data => {
             console.log('Податок успішно обчислено:', data);
             alert('Податок обчислено');
-            // Оновлюємо таблицю після розрахунку податку
             if (type_tax_button === 'calculate_air_button') {
                 fetch('http://localhost:5000/getAll/table4')
                     .then(response => response.json())
                     .then(data => loadHTMLTable(data['data'], 'table4'));
+            } else if (type_tax_button === 'calculate_water_button') {
+                fetch('http://localhost:5000/getAll/table5')
+                    .then(response => response.json())
+                    .then(data => loadHTMLTable(data['data'], 'table5'));
             }
         })
         .catch((error) => {

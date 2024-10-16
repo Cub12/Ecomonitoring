@@ -333,14 +333,25 @@ class DBService {
         return this.deleteRowById('calculations_water', id);
     }
 
-    async calculateTax(type_tax_button) {
+    async calculateTax(type_tax_button, coef) {
         if (type_tax_button === 'calculate_air_button') {
             const query = `UPDATE calculations_air c JOIN pollutants p ON c.Pollutants_id = p.id 
-        SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw, 2);`;
+            SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw, 2);`;
+
             try {
                 await this.getData(query);
-                // Повертаємо оновлені дані
                 return await this.getAllDataForTable4();
+            } catch (error) {
+                console.error('Error updating tax in calculations:', error);
+                throw error;
+            }
+        } else if (type_tax_button === 'calculate_water_button') {
+            const query = `UPDATE calculations_water c JOIN pollutants p ON c.Pollutants_id = p.id 
+            SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw * ${coef}, 2);`;
+
+            try {
+                await this.getData(query);
+                return await this.getAllDataForTable5();
             } catch (error) {
                 console.error('Error updating tax in calculations:', error);
                 throw error;
