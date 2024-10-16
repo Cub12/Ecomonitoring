@@ -117,6 +117,21 @@ resetButton4_3.addEventListener('click', function () {
     document.querySelector('#search_input4').value = '';
     document.querySelector('#tax_type').selectedIndex = 0;
     document.querySelector('#water_coef').classList.add('hidden');
+    document.querySelector('#place_coef').classList.add('hidden');
+
+    const coefInCity = document.getElementById('coef_in_city');
+    const coefOutCity = document.getElementById('coef_out_city');
+    const coefYes = document.getElementById('coef_yes');
+    const coefNo = document.getElementById('coef_no');
+
+    const resetButton = document.getElementById('reset_button4_3');
+
+    resetButton.addEventListener('click', function () {
+        coefInCity.checked = false;
+        coefOutCity.checked = false;
+        coefYes.checked = false;
+        coefNo.checked = false;
+    });
 });
 resetButton4_3.onclick = function () {
     fetch(`http://localhost:5000/getAll/table4`).then(response => response.json())
@@ -146,6 +161,29 @@ resetButton5_3.addEventListener('click', function () {
     document.querySelector('#search_input5').value = '';
     document.querySelector('#tax_type2').selectedIndex = 0;
     document.querySelector('#water_coef').classList.add('hidden');
+    document.querySelector('#place_coef').classList.add('hidden');
+
+    const coefLake = document.getElementById('coef_lake');
+    const coefRiver = document.getElementById('coef_river');
+
+    const coefInCity = document.getElementById('coef_in_city');
+    const coefOutCity = document.getElementById('coef_out_city');
+
+    const coefYes = document.getElementById('coef_yes');
+    const coefNo = document.getElementById('coef_no');
+
+    const resetButton = document.getElementById('reset_button5_3');
+
+    resetButton.addEventListener('click', function () {
+        coefLake.checked = false;
+        coefRiver.checked = false;
+
+        coefInCity.checked = false;
+        coefOutCity.checked = false;
+
+        coefYes.checked = false;
+        coefNo.checked = false;
+    });
 });
 resetButton5_3.onclick = function () {
     fetch(`http://localhost:5000/getAll/table5`).then(response => response.json())
