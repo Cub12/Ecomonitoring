@@ -119,17 +119,12 @@ app.patch('/update/:table', (request, response) => {
 });
 
 app.post('/calculateTax', async (req, res) => {
-    const {type_tax_button, coef} = req.body;
+    const {table, type_tax_button, coef1, coef2} = req.body;
     const db = dbService.getDBServiceInstance();
 
     try {
         let result;
-
-        if (type_tax_button === 'calculate_air_button') {
-            result = await db.calculateTax('calculate_air_button', 1);
-        } else if (type_tax_button === 'calculate_water_button') {
-            result = await db.calculateTax('calculate_water_button', coef);
-        }
+        result = await db.calculateTax(table, type_tax_button, coef1, coef2);
 
         res.json({success: true, data: result});
     } catch (error) {

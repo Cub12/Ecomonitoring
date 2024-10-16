@@ -653,7 +653,7 @@ document.addEventListener('click', function (event) {
     }
 });
 
-document.getElementById('button_air').addEventListener('click', function () {
+document.getElementById('button_air').addEventListener('click', function (event) {
     document.querySelector('#table-container4').classList.toggle('hidden');
     document.querySelector('#show_form_button4').classList.toggle('hidden');
     document.querySelector('#search_column4').classList.toggle('hidden');
@@ -667,6 +667,8 @@ document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#tax_type').classList.toggle('hidden');
     document.querySelector('#tax_button').classList.toggle('hidden');
     document.querySelector('#reset_button4_3').classList.toggle('hidden');
+    document.querySelector('#water_coef').classList.toggle('hidden');
+    document.querySelector('#place_coef').classList.toggle('hidden');
 
     document.querySelector('#table-container5').classList.add('hidden');
     document.querySelector('#show_form_button5').classList.add('hidden');
@@ -681,9 +683,11 @@ document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#tax_type2').classList.add('hidden');
     document.querySelector('#tax_button2').classList.add('hidden');
     document.querySelector('#reset_button5_3').classList.add('hidden');
+    document.querySelector('#water_coef').classList.add('hidden');
+    document.querySelector('#place_coef').classList.add('hidden');
 });
 
-document.getElementById('button_water').addEventListener('click', function () {
+document.getElementById('button_water').addEventListener('click', function (event) {
     document.querySelector('#table-container5').classList.toggle('hidden');
     document.querySelector('#show_form_button5').classList.toggle('hidden');
     document.querySelector('#search_column5').classList.toggle('hidden');
@@ -697,6 +701,8 @@ document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#tax_type2').classList.toggle('hidden');
     document.querySelector('#tax_button2').classList.toggle('hidden');
     document.querySelector('#reset_button5_3').classList.toggle('hidden');
+    document.querySelector('#water_coef').classList.toggle('hidden');
+    document.querySelector('#place_coef').classList.toggle('hidden');
 
     document.querySelector('#table-container4').classList.add('hidden');
     document.querySelector('#show_form_button4').classList.add('hidden');
@@ -711,6 +717,8 @@ document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#tax_type').classList.add('hidden');
     document.querySelector('#tax_button').classList.add('hidden');
     document.querySelector('#reset_button4_3').classList.add('hidden');
+    document.querySelector('#water_coef').classList.add('hidden');
+    document.querySelector('#place_coef').classList.add('hidden');
 });
 
 const checkboxes1 = document.querySelectorAll('.water_coef input[type="checkbox"]')
@@ -748,10 +756,9 @@ checkboxes3.forEach(checkbox => {
 
 document.addEventListener('click', function (event) {
     if (event.target.id === 'calculate_air_button') {
-        calculateTax('calculate_air_button');
+        calculateTax('table1', 'calculate_air_button', 1, 1);
     } else if (event.target.id === 'calculate_water_button') {
         let coef = 1;
-
         const coefLake = document.querySelector('#coef_lake');
         const coefRiver = document.querySelector('#coef_river');
 
@@ -761,20 +768,50 @@ document.addEventListener('click', function (event) {
             coef = parseFloat(coefRiver.value);
         }
 
-        calculateTax('calculate_water_button', coef);
+        calculateTax('table2', 'calculate_water_button', coef, 1);
+    } else if (event.target.id === 'calculate_place_button') {
+        let coef1 = 1;
+        const coefInCity = document.querySelector('#coef_in_city');
+        const coefOutCity = document.querySelector('#coef_out_city');
+
+        if (coefInCity.checked) {
+            coef1 = parseFloat(coefInCity.value);
+        } else if (coefOutCity.checked) {
+            coef1 = parseFloat(coefOutCity.value);
+        }
+
+        let coef2 = 1;
+        const coefYes = document.querySelector('#coef_yes');
+        const coefNo = document.querySelector('#coef_no');
+
+        if (coefYes.checked) {
+            coef2 = parseFloat(coefYes.value);
+        } else if (coefNo.checked) {
+            coef2 = parseFloat(coefNo.value);
+        }
+
+        const buttonAir = document.getElementById('button_air');
+        const buttonWater = document.getElementById('button_water');
+
+        if (buttonAir && buttonAir.classList.contains('active')) {
+            calculateTax('table4', 'calculate_place_button', coef1, coef2);
+        } else if (buttonWater && buttonWater.classList.contains('active')) {
+            calculateTax('table5', 'calculate_place_button', coef1, coef2);
+        }
     }
 });
 
-function calculateTax(type_tax_button, coef) {
+function calculateTax(table, type_tax_button, coef1, coef2) {
     fetch(`http://localhost:5000/calculateTax`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({type_tax_button: type_tax_button, coef: coef}),
+        body: JSON.stringify({table: table, type_tax_button: type_tax_button, coef1: coef1, coef2: coef2}),
     })
         .then(response => response.json())
         .then(data => {
             console.log('Податок успішно обчислено:', data);
             alert('Податок обчислено');
+
             if (type_tax_button === 'calculate_air_button') {
                 fetch('http://localhost:5000/getAll/table4')
                     .then(response => response.json())
@@ -783,12 +820,21 @@ function calculateTax(type_tax_button, coef) {
                 fetch('http://localhost:5000/getAll/table5')
                     .then(response => response.json())
                     .then(data => loadHTMLTable(data['data'], 'table5'));
+            } else if (type_tax_button === 'calculate_place_button') {
+                if (table === 'table4') {
+                    fetch('http://localhost:5000/getAll/table4')
+                        .then(response => response.json())
+                        .then(data => loadHTMLTable(data['data'], 'table4'));
+                } else if (table === 'table5') {
+                    fetch('http://localhost:5000/getAll/table5')
+                        .then(response => response.json())
+                        .then(data => loadHTMLTable(data['data'], 'table5'));
+                }
             }
-        })
-        .catch((error) => {
-            console.error('Помилка при обчисленні податку:', error);
-            alert('Не вдалося обчислити податок');
-        });
+        }).catch((error) => {
+        console.error('Помилка при обчисленні податку:', error);
+        alert('Не вдалося обчислити податок');
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
