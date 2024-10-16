@@ -640,8 +640,6 @@ document.addEventListener('click', function (event) {
             const taxButton = document.querySelector('#tax_button');
             taxButton.id = 'calculate_air_button';
         } else if (selectedTaxType === 'tax_placement') {
-            const taxButton = document.querySelector('#tax_button');
-            taxButton.id = 'calculate_place_button';
             document.querySelector('#place_coef').classList.toggle('hidden');
         }
     } else if (event.target.classList.contains('tax_button2')) {
@@ -650,8 +648,6 @@ document.addEventListener('click', function (event) {
         if (selectedTaxType === 'tax_water') {
             document.querySelector('#water_coef').classList.toggle('hidden');
         } else if (selectedTaxType === 'tax_placement') {
-            const taxButton = document.querySelector('#tax_button2');
-            taxButton.id = 'calculate_place_button';
             document.querySelector('#place_coef').classList.toggle('hidden');
         }
     }
