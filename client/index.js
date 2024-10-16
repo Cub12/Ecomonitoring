@@ -792,6 +792,28 @@ checkboxes3.forEach(checkbox => {
     });
 });
 
+const checkboxes4 = document.querySelectorAll('.coef-option_rw1 input[type="checkbox"]');
+checkboxes4.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes4.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+    });
+});
+
+const checkboxes5 = document.querySelectorAll('.coef-option_rw2 input[type="checkbox"]');
+checkboxes5.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes5.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+    });
+});
+
 document.addEventListener('click', function (event) {
     if (event.target.id === 'calculate_air_button') {
         calculateTax('table1', 'calculate_air_button', 1, 1);

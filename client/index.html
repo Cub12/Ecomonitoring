@@ -396,6 +396,77 @@
         </form>
     </div>
 
+    <div class="generation_radio">
+        <form class="form-container_rw" id="radio_waste">
+            <h2>Розрахунок податку, який справляється за утворення радіоактивних відходів</h2>
+
+            <div class="form-content">
+                <div class="left-side">
+                    <label for="on">Фактичний обсяг електричної енергії (кВт-год):</label>
+                    <input type="number" id="on" name="on" min="0" required>
+
+                    <label>Радіоактивні відходи накопичені до 1 квітня 2009 року?</label>
+                    <div class="coef-option_rw1">
+                        <input type="checkbox" id="coef_yes_rw1" name="coef_yes_rw1" value="1/32">
+                        <label for="coef_yes_rw1">Так</label>
+                    </div>
+                    <div class="coef-option_rw1">
+                        <input type="checkbox" id="coef_no_rw1" name="coef_no_rw1" value="1">
+                        <label for="coef_no_rw1">Ні</label>
+                    </div>
+
+                    <label>Ви розраховуєте податок в період з 1 квітня 2011 року до 1 квітня 2019 року?</label>
+                    <div class="coef-option_rw2">
+                        <input type="checkbox" id="coef_yes_rw2" name="coef_yes_rw2" value="1">
+                        <label for="coef_yes_rw2">Так</label>
+                    </div>
+                    <div class="coef-option_rw2">
+                        <input type="checkbox" id="coef_no_rw2" name="coef_no_rw2" value="0">
+                        <label for="coef_no_rw2">Ні</label>
+                    </div>
+
+                    <label for="c1ns">Cобівартість зберігання 1 м³ низькоактивних і середньоактивних
+                        радіоактивних відходів за базовий податковий період (грн):</label>
+                    <input type="number" id="c1ns" name="c1ns" step="0.01" min="0">
+
+                    <label for="c1v">Собівартість зберігання 1 м³ високоактивних радіоактивних відходів за базовий
+                        податковий період (грн):</label>
+                    <input type="number" id="c1v" name="c1v" step="0.01" min="0">
+                </div>
+
+                <div class="right-side">
+                    <label for="c2ns">Cобівартість зберігання 1 м³ низькоактивних і середньоактивних
+                        радіоактивних відходів до 1 квітня 2009 року (грн):</label>
+                    <input type="number" id="c2ns" name="c2ns" step="0.01" min="0">
+
+                    <label for="c2v">Собівартість зберігання 1 м³ високоактивних радіоактивних відходів до 1 квітня
+                        2009 року (грн):</label>
+                    <input type="number" id="c2v" name="c2v" step="0.01" min="0">
+
+                    <label for="v1ns">Фактичний об'єм низькоактивних і середньоактивних радіоактивних відходів за
+                        базовий податковий період (м³):</label>
+                    <input type="number" id="v1ns" name="v1ns" step="0.01" min="0">
+
+                    <label for="v1v">Фактичний об'єм високоактивних радіоактивних відходів за базовий податковий
+                        період (м³):</label>
+                    <input type="number" id="v1v" name="v1v" step="0.01" min="0">
+
+                    <label for="v2ns">Фактичний об'єм низькоактивних і середньоактивних радіоактивних відходів до 1
+                        квітня 2009 року (м³):</label>
+                    <input type="number" id="v2ns" name="v2ns" step="0.01" min="0">
+
+                    <label for="v2v">Фактичний об'єм високоактивних радіоактивних відходів до 1 квітня 2009 року
+                        (м³):</label>
+                    <input type="number" id="v2v" name="v2v" step="0.01" min="0">
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Розрахувати</button>
+            </div>
+        </form>
+    </div>
+
     <div class="block3" id="calculations">
         <div class="overlay-text"><h1>ЗАБРУДНЕННЯ</h1></div>
 

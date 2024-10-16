@@ -554,3 +554,118 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     background-color: rgba(44, 44, 44, 0.65);
     color: white;
 }
+
+.generation_radio {
+    position: relative;
+    height: 100vh;
+    background: black;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.form-container_rw {
+    width: 90%;
+    padding: 20px;
+    background-color: #49885c;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.form-container_rw h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 35px;
+    color: #9aff00;
+}
+
+.form-container_rw label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+.form-container_rw input {
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container_rw button {
+    width: 30%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2b452b;
+    color: #00ff12;
+    border: none;
+}
+
+.form-container_rw button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.form-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-side, .right-side {
+    flex: 1;
+    margin: 10px;
+}
+
+.left-side label, .right-side label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 32px;
+}
+
+.left-side input, .right-side input {
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.coef-option_rw1, .coef-option_rw2 {
+    margin-left: 32px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.coef-option_rw1 input[type="checkbox"], .coef-option_rw2 input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ff12;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.coef-option_rw1 input[type="checkbox"]:checked::before, .coef-option_rw2 input[type="checkbox"]:checked::before {
+    content: '\2714';
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff12;
+    font-size: 16px;
+}
+
+.coef-option_rw1 label, .coef-option_rw2 label {
+    cursor: pointer;
+    vertical-align: middle;
+}
