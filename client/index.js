@@ -297,50 +297,48 @@ addButton5.onclick = function (e) {
 const addButton6 = document.querySelector('#add_data6_button');
 addButton6.onclick = function (e) {
     e.preventDefault();
-    const objectId = document.querySelector('#Objects_name2_select').value;
-    const pollutantId = document.querySelector('#Pollutants_name2_select').value;
-    const generalEmissions = document.querySelector('#general_emissions2_input').value.trim();
-    const date = document.querySelector('#date2_input').value.trim();
+    const objectId = document.querySelector('#Object_name1').value;
+    const on = document.querySelector('#on').value.trim();
+    const c1ns = document.querySelector('#c1ns').value.trim();
+    const c1v = document.querySelector('#c1v').value.trim();
+    const c2ns = document.querySelector('#c2ns').value.trim();
+    const c2v = document.querySelector('#c2v').value.trim();
+    const v1ns = document.querySelector('#v1ns').value.trim();
+    const v1v = document.querySelector('#v1v').value.trim();
+    const v2ns = document.querySelector('#v2ns').value.trim();
+    const v2v = document.querySelector('#v2v').value.trim();
 
     const requestData = {
-        Objects_id: objectId,
-        Pollutants_id: pollutantId,
-        general_emissions: generalEmissions,
-        date: date
+        Objects_id: objectId, Electricity: on, C1ns: c1ns, C1v: c1v, C2ns: c2ns, C2v: c2v,
+        V1ns: v1ns, V1v: v1v, V2ns: v2ns, V2v: v2v
     };
 
-    fetch('http://localhost:5000/insert/table5', {
+    fetch('http://localhost:5000/insert/table6', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(requestData)
     })
         .then(response => response.json())
-        .then(data => insertRowIntoTable5(data.data))
+        .then(data => insertRowIntoTable6(data.data))
         .catch(error => console.error('Error:', error));
 };
 
 const addButton7 = document.querySelector('#add_data7_button');
 addButton7.onclick = function (e) {
     e.preventDefault();
-    const objectId = document.querySelector('#Objects_name2_select').value;
-    const pollutantId = document.querySelector('#Pollutants_name2_select').value;
-    const generalEmissions = document.querySelector('#general_emissions2_input').value.trim();
-    const date = document.querySelector('#date2_input').value.trim();
+    const objectId = document.querySelector('#Object_name2').value;
+    const radio = document.querySelector('#radio_v').value.trim();
+    const date_tp = document.querySelector('#date_tp').value.trim();
 
-    const requestData = {
-        Objects_id: objectId,
-        Pollutants_id: pollutantId,
-        general_emissions: generalEmissions,
-        date: date
-    };
+    const requestData = {Objects_id: objectId, V: radio, T: date_tp};
 
-    fetch('http://localhost:5000/insert/table5', {
+    fetch('http://localhost:5000/insert/table7', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(requestData)
     })
         .then(response => response.json())
-        .then(data => insertRowIntoTable5(data.data))
+        .then(data => insertRowIntoTable7(data.data))
         .catch(error => console.error('Error:', error));
 };
 
@@ -358,7 +356,6 @@ function loadHTMLTable(data, tableId) {
                 if (value === -1) {
                     value = '-';
                 } else if (key === 'tax' || key === 'tax_rate_aw') {
-                    // Форматуємо числові значення з двома десятковими знаками
                     value = value.toFixed(2);
                 }
             }
@@ -395,6 +392,10 @@ function deleteRowById(id, tableId) {
         table = 'table4';
     } else if (tableId === 5) {
         table = 'table5';
+    } else if (tableId === 6) {
+        table = 'table6';
+    } else if (tableId === 7) {
+        table = 'table7';
     }
 
     const url = `http://localhost:5000/delete/${table}/${id}`;
@@ -408,7 +409,7 @@ function deleteRowById(id, tableId) {
 
 function handleEditRow(id, tableId) {
     const row = document.querySelector(`table${tableId === 1 ? '' : tableId === 2 ? '#table2' :
-        '#table4' ? '#table5' : ''} tr[data-id="${id}"]`);
+        '#table4' ? '#table5' : '#table6' ? '#table7' : ''} tr[data-id="${id}"]`);
 
     const fields = {
         1: {
@@ -462,6 +463,29 @@ function handleEditRow(id, tableId) {
         document.querySelector('#date2_input').value = row.querySelector('.date2').textContent;
 
         document.querySelector('#Objects_name2_select').dataset.id = id;
+    } else if (tableId === 6) {
+        const row = document.querySelector(`#table6 tr[data-id="${id}"]`);
+
+        document.querySelector('#Object_name1').value = row.querySelector('.Object_name1').textContent;
+        document.querySelector('#on').value = row.querySelector('.on').textContent;
+        document.querySelector('#c1ns').value = row.querySelector('.c1ns').textContent;
+        document.querySelector('#c1v').value = row.querySelector('.c1v').textContent;
+        document.querySelector('#c2ns').value = row.querySelector('.c2ns').textContent;
+        document.querySelector('#c2v').value = row.querySelector('.c2v').textContent;
+        document.querySelector('#v1ns').value = row.querySelector('.v1ns').textContent;
+        document.querySelector('#v1v').value = row.querySelector('.v1v').textContent;
+        document.querySelector('#v2ns').value = row.querySelector('.v2ns').textContent;
+        document.querySelector('#v2v').value = row.querySelector('.v2v').textContent;
+
+        document.querySelector('#Object_name1').dataset.id = id;
+    } else if (tableId === 7) {
+        const row = document.querySelector(`#table7 tr[data-id="${id}"]`);
+
+        document.querySelector('#Object_name2').value = row.querySelector('.Object_name2').textContent;
+        document.querySelector('#radio_v').value = row.querySelector('.radio_v').textContent;
+        document.querySelector('#date_tp').value = row.querySelector('.date_tp').textContent;
+
+        document.querySelector('#Object_name2').dataset.id = id;
     }
 }
 
@@ -470,21 +494,21 @@ function handleAddButton(tableId, inputSelectors, endpoint, insertRowFunction) {
 
     const requestData =
         tableId === 1 ? {
-                name: values[0], head: values[1], address: values[2], economic_activity: values[3],
-                form_of_ownership: values[4]
-            }
-            : tableId === 2 ? {
-                    name: values[0], permissible_emissions: values[1], danger_class: values[2],
-                    tax_rate_aw: values[3], tax_rate_p: values[4]
-                }
-                : tableId === 4 ? {
-                        Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
-                        date: values[3]
-                    }
-                    : {
-                        Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
-                        date: values[3]
-                    }
+            name: values[0], head: values[1], address: values[2], economic_activity: values[3],
+            form_of_ownership: values[4]
+        } : tableId === 2 ? {
+            name: values[0], permissible_emissions: values[1], danger_class: values[2], tax_rate_aw: values[3],
+            tax_rate_p: values[4]
+        } : tableId === 4 ? {
+            Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2], date: values[3]
+        } : tableId === 5 ? {
+            Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2], date: values[3]
+        } : tableId === 6 ? {
+            Objects_id: values[0], Electricity: values[1], C1ns: values[2], C1v: values[3], C2ns: values[4],
+            C2v: values[5], V1ns: values[6], V1v: values[7], V2ns: values[8], V2v: values[9]
+        } : tableId === 7 ? {
+            Objects_id: values[0], V: values[1], T: values[2]
+        } : {}
 
     fetch(endpoint, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
@@ -522,6 +546,23 @@ function handleUpdate(tableId) {
             {name: 'Pollutants_id', id: 'Pollutants_name2_select'},
             {name: 'general_emissions', id: 'general_emissions2_input'},
             {name: 'date', id: 'date2_input'}
+        ],
+        table6: [
+            {name: 'Objects_id', id: 'Object_name1'},
+            {name: 'Electricity', id: 'on'},
+            {name: 'C1ns', id: 'c1ns'},
+            {name: 'C1v', id: 'c1v'},
+            {name: 'C2ns', id: 'c2ns'},
+            {name: 'C2v', id: 'c2v'},
+            {name: 'V1ns', id: 'v1ns'},
+            {name: 'V1v', id: 'v1v'},
+            {name: 'V2ns', id: 'v2ns'},
+            {name: 'V2v', id: 'v2v'}
+        ],
+        table7: [
+            {name: 'Objects_id', id: 'Object_name2'},
+            {name: 'V', id: 'radio_v'},
+            {name: 'T', id: 'date_tp'}
         ]
     };
 
@@ -592,6 +633,15 @@ function insertRowIntoTable4(data) {
 function insertRowIntoTable5(data) {
     insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id',
         'general_emissions', 'date']);
+}
+
+function insertRowIntoTable6(data) {
+    insertRowIntoTable('#table6', data, ['id', 'Objects_id', 'Electricity', 'C1ns', 'C1v',
+        'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v']);
+}
+
+function insertRowIntoTable7(data) {
+    insertRowIntoTable('#table7', data, ['id', 'Objects_id', 'V', 'T']);
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
@@ -727,6 +777,42 @@ document.addEventListener('click', function (event) {
                 changeForm('#update_row5_button', 'Додати нове забруднення');
                 updateButton.id = 'add_data5_button';
                 document.querySelector('#add-pollutions2-form').reset();
+            }
+        } else if (event.target.closest('#table6')) {
+            formContainer = document.querySelector('#form_container_rw');
+            button = document.querySelector('#add_data6_button');
+            updateButton = document.querySelector('#update_row6_button') || button;
+
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title6', 'Редагувати дані забруднення');
+                changeForm('#add_data6_button', 'Зберегти зміни');
+                button.id = 'update_row6_button';
+                updateButton.onclick = () => handleUpdate('table6');
+
+                document.querySelector('#Object_name1').dataset.id = event.target.dataset.id;
+            } else {
+                changeForm('#form_title6', 'Додати нове забруднення');
+                changeForm('#update_row6_button', 'Додати нове забруднення');
+                updateButton.id = 'add_data6_button';
+                document.querySelector('#form-content').reset();
+            }
+        } else if (event.target.closest('#table7')) {
+            formContainer = document.querySelector('#form_container_tp');
+            button = document.querySelector('#add_data7_button');
+            updateButton = document.querySelector('#update_row7_button') || button;
+
+            if (formContainer.classList.contains('hidden')) {
+                changeForm('#form_title7', 'Редагувати дані забруднення');
+                changeForm('#add_data7_button', 'Зберегти зміни');
+                button.id = 'update_row7_button';
+                updateButton.onclick = () => handleUpdate('table7');
+
+                document.querySelector('#Object_name2').dataset.id = event.target.dataset.id;
+            } else {
+                changeForm('#form_title7', 'Додати нове забруднення');
+                changeForm('#update_row7_button', 'Додати нове забруднення');
+                updateButton.id = 'add_data7_button';
+                document.querySelector('#form_container_tp').reset();
             }
         }
 

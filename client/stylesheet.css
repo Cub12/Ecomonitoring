@@ -713,7 +713,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     table-layout: fixed;
 }
 
-#table6 th, #table6 td {
+#table6 th, #table6 td, #table7 th, #table7 td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
@@ -728,7 +728,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
 }
 
 #table6 th:nth-child(2), #table6 td:nth-child(2) {
-    width: 150px;
+    width: 155px;
 }
 
 #table6 th:nth-child(n+3), #table6 td:nth-child(n+3) {

@@ -179,13 +179,18 @@ class DBService {
     }
 
     async getAllDataForTable6() {
-        const query = "SELECT * FROM radio_creation;";
+        const query = `SELECT r.id, o.name, r.Electricity, r.C1ns, r.C1v, r.C2ns, r.C2v, r.V1ns, r.V1v, r.V2ns, 
+                r.V2v, r.Tax
+        FROM radio_creation r
+        JOIN objects o ON r.Objects_id = o.id ORDER BY r.id;`;
 
         return this.getData(query);
     }
 
     async getAllDataForTable7() {
-        const query = "SELECT * FROM temp_place;";
+        const query = `SELECT t.id, o.name, t.N, t.V, t.T, t.Tax
+        FROM temp_place t
+        JOIN objects o ON t.Objects_id = o.id ORDER BY t.id;`;
 
         return this.getData(query);
     }
