@@ -380,21 +380,21 @@ function handleEditRow(id, tableId) {
         const row = document.querySelector(`#table4 tr[data-id="${id}"]`);
         document.querySelector('#Objects_name_select').value = row.querySelector('.Objects_name_select')
             .textContent;
-        document.querySelector('#Pollutants_name_select').value = row.querySelector('.Pollutants_name_select')
-            .textContent;
-        document.querySelector('#general_emissions_input').value = row.querySelector('.general_emissions')
-            .textContent;
+        document.querySelector('#Pollutants_name_select').value = row
+            .querySelector('.Pollutants_name_select').textContent;
+        document.querySelector('#general_emissions_input').value = row
+            .querySelector('.general_emissions').textContent;
         document.querySelector('#date_input').value = row.querySelector('.date').textContent;
 
         document.querySelector('#Objects_name_select').dataset.id = id;
     } else if (tableId === 5) {
         const row = document.querySelector(`#table5 tr[data-id="${id}"]`);
-        document.querySelector('#Objects_name2_select').value = row.querySelector('.Objects_name2_select')
-            .textContent;
-        document.querySelector('#Pollutants_name2_select').value = row.querySelector('.Pollutants_name2_select')
-            .textContent;
-        document.querySelector('#general_emissions2_input').value = row.querySelector('.general_emissions2')
-            .textContent;
+        document.querySelector('#Objects_name2_select').value = row
+            .querySelector('.Objects_name2_select').textContent;
+        document.querySelector('#Pollutants_name2_select').value = row
+            .querySelector('.Pollutants_name2_select').textContent;
+        document.querySelector('#general_emissions2_input').value = row
+            .querySelector('.general_emissions2').textContent;
         document.querySelector('#date2_input').value = row.querySelector('.date2').textContent;
 
         document.querySelector('#Objects_name2_select').dataset.id = id;
@@ -521,13 +521,13 @@ function insertRowIntoTable2(data) {
 }
 
 function insertRowIntoTable4(data) {
-    insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
-        'date']);
+    insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id',
+        'general_emissions', 'date']);
 }
 
 function insertRowIntoTable5(data) {
-    insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id', 'general_emissions',
-        'date']);
+    insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id',
+        'general_emissions', 'date']);
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
@@ -691,7 +691,7 @@ document.addEventListener('click', function (event) {
     }
 });
 
-document.getElementById('button_air').addEventListener('click', function (event) {
+document.getElementById('button_air').addEventListener('click', function () {
     document.querySelector('#table-container4').classList.toggle('hidden');
     document.querySelector('#show_form_button4').classList.toggle('hidden');
     document.querySelector('#search_column4').classList.toggle('hidden');
@@ -725,7 +725,7 @@ document.getElementById('button_air').addEventListener('click', function (event)
     document.querySelector('#place_coef').classList.add('hidden');
 });
 
-document.getElementById('button_water').addEventListener('click', function (event) {
+document.getElementById('button_water').addEventListener('click', function () {
     document.querySelector('#table-container5').classList.toggle('hidden');
     document.querySelector('#show_form_button5').classList.toggle('hidden');
     document.querySelector('#search_column5').classList.toggle('hidden');
@@ -808,6 +808,17 @@ checkboxes5.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         if (this.checked) {
             checkboxes5.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+    });
+});
+
+const checkboxes6 = document.querySelectorAll('.tax_rate_option_tp input[type="checkbox"]');
+checkboxes6.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            checkboxes6.forEach(cb => {
                 if (cb !== this) cb.checked = false;
             });
         }
@@ -967,5 +978,35 @@ function populateDropdowns2() {
         });
 }
 
+function populateDropdowns3() {
+    fetch('http://localhost:5000/getAll/table1')
+        .then(response => response.json())
+        .then(data => {
+            const objectSelect = document.querySelector('#Object_name1');
+            data.data.forEach(object => {
+                const option = document.createElement('option');
+                option.value = object.id;
+                option.textContent = object.name;
+                objectSelect.appendChild(option);
+            });
+        });
+}
+
+function populateDropdowns4() {
+    fetch('http://localhost:5000/getAll/table1')
+        .then(response => response.json())
+        .then(data => {
+            const objectSelect = document.querySelector('#Object_name2');
+            data.data.forEach(object => {
+                const option = document.createElement('option');
+                option.value = object.id;
+                option.textContent = object.name;
+                objectSelect.appendChild(option);
+            });
+        });
+}
+
 document.addEventListener('DOMContentLoaded', populateDropdowns);
 document.addEventListener('DOMContentLoaded', populateDropdowns2);
+document.addEventListener('DOMContentLoaded', populateDropdowns3);
+document.addEventListener('DOMContentLoaded', populateDropdowns4);

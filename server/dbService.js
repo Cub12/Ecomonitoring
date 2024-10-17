@@ -27,7 +27,9 @@ class DBService {
             'table1': ['name', 'head', 'address', 'economic_activity', 'form_of_ownership'],
             'table2': ['name', 'permissible_emissions', 'danger_class', 'tax_rate_aw', 'tax_rate_p'],
             'table4': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax'],
-            'table5': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax']
+            'table5': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax'],
+            'table6': ['Objects_id', 'Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v', 'Tax'],
+            'table7': ['Objects_id', 'N', 'V', 'T', 'Tax']
         };
 
         if (!validColumns[table]) {
@@ -39,10 +41,8 @@ class DBService {
 
         try {
             return await new Promise((resolve, reject) => {
-                const tableMapping = {
-                    table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
-                    table5: 'calculations_water'
-                };
+                const tableMapping = {table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
+                    table5: 'calculations_water', table6: 'radio_creation', table7: 'temp_place'};
                 const selectedTable = tableMapping[table] || 'objects';
                 const query = `SELECT * FROM ${selectedTable} WHERE ${column} LIKE ?;`;
                 const searchValue = `${value}%`;
@@ -99,6 +99,22 @@ class DBService {
         const numericColumns = ['general_emissions', 'date', 'tax'];
 
         return this.sortTableGeneric('calculations_water', validColumns, numericColumns, column, sortOrder);
+    }
+
+    async sortTable6(column, sortOrder) {
+        const validColumns = ['Objects_id', 'Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns',
+            'V2v', 'Tax'];
+        const numericColumns = ['Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v',
+            'Tax'];
+
+        return this.sortTableGeneric('radio_creation', validColumns, numericColumns, column, sortOrder);
+    }
+
+    async sortTable7(column, sortOrder) {
+        const validColumns = ['Objects_id', 'N', 'V', 'T', 'Tax'];
+        const numericColumns = ['N', 'V', 'T', 'Tax'];
+
+        return this.sortTableGeneric('temp_place', validColumns, numericColumns, column, sortOrder);
     }
 
     async getData(query) {
@@ -162,6 +178,18 @@ class DBService {
         return this.getData(query);
     }
 
+    async getAllDataForTable6() {
+        const query = "SELECT * FROM radio_creation;";
+
+        return this.getData(query);
+    }
+
+    async getAllDataForTable7() {
+        const query = "SELECT * FROM temp_place;";
+
+        return this.getData(query);
+    }
+
     async insertNewRow(table, values) {
         try {
             let query;
@@ -181,6 +209,15 @@ class DBService {
                 params = values;
             } else if (table === 'calculations_water') {
                 query = `INSERT INTO calculations_water (Objects_id, Pollutants_id, general_emissions, date, tax)
+                VALUES (?, ?, ?, ?, 0);`;
+                params = values;
+            } else if (table === 'radio_creation') {
+                query = `INSERT INTO radio_creation (Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, 
+                V2v, Tax)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);`;
+                params = values;
+            } else if (table === 'temp_place') {
+                query = `INSERT INTO temp_place (Objects_id, N, V, T, Tax)
                 VALUES (?, ?, ?, ?, 0);`;
                 params = values;
             }
@@ -212,6 +249,16 @@ class DBService {
                     id: insertId, Objects_id: values[0], Pollutants_id: values[1], general_emissions: values[2],
                     date: values[3]
                 };
+            } else if (table === 'radio_creation') {
+                return {
+                    id: insertId, Objects_id: values[0], Electricity: values[1], C1ns: values[2], C1v: values[3],
+                    C2ns: values[4], C2v: values[5], V1ns: values[6], V1v: values[7], V2ns: values[8], V2v: values[9],
+                    Tax: values[10]
+                };
+            } else if (table === 'temp_place') {
+                return {
+                    id: insertId, Objects_id: values[0], N: values[1], V: values[2], T: values[3], Tax: values[4]
+                };
             }
         } catch (error) {
             console.log(error);
@@ -232,7 +279,8 @@ class DBService {
     }
 
     async insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date) {
-        return this.insertNewRow('calculations_water', [Objects_id, Pollutants_id, general_emissions, date]);
+        return this.insertNewRow('calculations_water', [Objects_id, Pollutants_id, general_emissions,
+            date]);
     }
 
     async updateRow(table, id, values) {
@@ -241,7 +289,8 @@ class DBService {
 
             let query;
             if (table === 'objects') {
-                query = `UPDATE objects SET name = ?, head = ?, address = ?, economic_activity = ?, form_of_ownership = ? 
+                query = `UPDATE objects SET name = ?, head = ?, address = ?, economic_activity = ?, 
+                form_of_ownership = ? 
                 WHERE id = ?;`;
             } else if (table === 'pollutants') {
                 query = `UPDATE pollutants SET name = ?, permissible_emissions = ?, danger_class = ?, tax_rate_aw = ?, 
@@ -250,7 +299,8 @@ class DBService {
                 query = `UPDATE calculations_air SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ? 
                 WHERE id = ?;`;
             } else if (table === 'calculations_water') {
-                query = `UPDATE calculations_water SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, date = ?
+                query = `UPDATE calculations_water SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, 
+                date = ?
                 WHERE id = ?;`;
             }
 
@@ -285,7 +335,8 @@ class DBService {
     }
 
     async updateRowInTable5(id, Objects_id, Pollutants_id, general_emissions, date) {
-        return this.updateRow('calculations_water', id, [Objects_id, Pollutants_id, general_emissions, date]);
+        return this.updateRow('calculations_water', id, [Objects_id, Pollutants_id, general_emissions,
+            date]);
     }
 
     async deleteRowById(table, id) {

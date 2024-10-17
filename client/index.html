@@ -17,6 +17,8 @@
                 <li><a href="#objects">ОБ'ЄКТИ</a></li>
                 <li><a href="#pollutants">ЗАБРУДНЮВАЧІ</a></li>
                 <li><a href="#pollutions">РОЗРАХУНКИ</a></li>
+                <li><a href="#radio_waste">УТВОРЕННЯ РАДІОВІДХОДІВ</a></li>
+                <li><a href="#temp_place">ТИМЧАСОВЕ ЗБЕРІГАННЯ РАДІОВІДХОДІВ</a></li>
                 <li><a href="#calculations">ЗАБРУДНЕННЯ</a></li>
             </ul>
         </nav>
@@ -35,6 +37,7 @@
         <div class="overlay-text"><h1>ОБ'ЄКТИ</h1></div>
 
         <div class="search">
+            <label for="search_column1"></label>
             <select id="search_column1">
                 <option value="name">Назва підприємства</option>
                 <option value="head">Керівник підприємства</option>
@@ -42,6 +45,8 @@
                 <option value="economic_activity">Вид економічної діяльності</option>
                 <option value="form_of_ownership">Форма власності</option>
             </select>
+
+            <label for="search_input1"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input1">
 
             <button id="search_button1">Знайти</button>
@@ -95,6 +100,7 @@
         <div class="overlay-text"><h1>ЗАБРУДНЮВАЧІ</h1></div>
 
         <div class="search">
+            <label for="search_column2"></label>
             <select id="search_column2">
                 <option value="name">Назва забруднюючої речовини</option>
                 <option value="permissible_emissions">Гранично допустимі викиди</option>
@@ -102,6 +108,7 @@
                 <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
                 <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
+            <label for="search_input2"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input2">
 
             <button id="search_button2">Знайти</button>
@@ -183,6 +190,7 @@
         </div>
 
         <div class="search">
+            <label for="search_column4"></label>
             <select id="search_column4" class="hidden">
                 <option value="Objects_id">Назва підприємства</option>
                 <option value="Pollutants_id">Назва забруднюючої речовини</option>
@@ -190,11 +198,13 @@
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
+            <label for="search_input4"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input4" class="hidden">
 
             <button id="search_button4" class="hidden">Знайти</button>
             <button id="reset_button4" class="hidden">Скинути</button>
 
+            <label for="search_column5"></label>
             <select id="search_column5" class="hidden">
                 <option value="Objects_id">Назва підприємства</option>
                 <option value="Pollutants_id">Назва забруднюючої речовини</option>
@@ -202,6 +212,7 @@
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
+            <label for="search_input5"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input5" class="hidden">
 
             <button id="search_button5" class="hidden">Знайти</button>

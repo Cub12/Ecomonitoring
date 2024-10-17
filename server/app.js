@@ -99,8 +99,8 @@ app.patch('/update/:table', (request, response) => {
                 data.form_of_ownership);
             break;
         case 'table2':
-            result = db.updateRowInTable2(id, data.name, data.permissible_emissions, data.danger_class, data.tax_rate_aw,
-                data.tax_rate_p);
+            result = db.updateRowInTable2(id, data.name, data.permissible_emissions, data.danger_class,
+                data.tax_rate_aw, data.tax_rate_p);
             break;
         case 'table4':
             result = db.updateRowInTable4(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date);
