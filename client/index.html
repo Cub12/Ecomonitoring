@@ -402,6 +402,9 @@
 
             <div class="form-content">
                 <div class="left-side">
+                    <label for="Object_name1">Назва підприємства:</label>
+                    <select id="Object_name1" name="Object_name1" required></select>
+
                     <label for="on">Фактичний обсяг електричної енергії (кВт-год):</label>
                     <input type="number" id="on" name="on" min="0" required>
 
@@ -462,9 +465,85 @@
             </div>
 
             <div class="button-container">
-                <button type="submit">Розрахувати</button>
+                <button id="add_data6_button" type="submit">Розрахувати</button>
             </div>
         </form>
+    </div>
+
+    <div class="table-container_rw" id="table-container6">
+        <table id="table6">
+            <thead>
+            <th>№</th>
+            <th>Назва підприємства</th>
+            <th>On</th>
+            <th>С1нс</th>
+            <th>С1в</th>
+            <th>С2нс</th>
+            <th>С2в</th>
+            <th>V1нс</th>
+            <th>V1в</th>
+            <th>V2нс</th>
+            <th>V2в</th>
+            <th>Сума податку</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="temp_place">
+        <form class="form-container_tp" id="temp_place">
+            <h2 id="form_title">Розрахунок податку за тимчасове зберігання радіоактивних відходів</h2>
+
+            <label for="Object_name2">Назва підприємства:</label>
+            <select id="Object_name2" name="Object_name2" required></select>
+
+            <label>Оберіть категорію відходів:</label>
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp1" name="tax_rate_tp1" value="632539.66">
+                <label for="tax_rate_tp1">Високоактивні</label>
+            </div>
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp2" name="tax_rate_tp2" value="11807.40">
+                <label for="tax_rate_tp2">Середньоактивні та низькоактивні</label>
+            </div>
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp3" name="tax_rate_tp3" value="21084,66">
+                <label for="tax_rate_tp3">Високоактивні відходи, представлені у вигляді джерел іонізуючого
+                    випромінювання</label>
+            </div>
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp4" name="tax_rate_tp4" value="4216,92">
+                <label for="tax_rate_tp4">Середньоактивні та низькоактивні відходи, представлені у вигляді джерел
+                    іонізуючого випромінювання</label>
+            </div>
+
+            <label for="radio_v">Фактичний об'єм радіоактивних відходів, які зберігаються у виробника
+                таких відходів понад установлений особливими умовами ліцензії строк, (м³) або (см³ для іонізуючого
+                випромінювання):</label>
+            <input type="text" id="radio_v" name="radio_v" required>
+
+            <label for="date_tp">Кількість повних календарних кварталів, протягом яких радіоактивні відходи
+                зберігаються понад установлений особливими умовами ліцензії строк:</label>
+            <input type="text" id="date_tp" name="date_tp" required>
+
+            <div class="button-container">
+                <button id="add_data7_button" type="submit">Розрахувати</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-container_tp" id="table-container7">
+        <table id="table7">
+            <thead>
+            <th>№</th>
+            <th>Назва підприємства</th>
+            <th>N</th>
+            <th>V</th>
+            <th>T</th>
+            <th>Сума податку</th>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
     <div class="block3" id="calculations">

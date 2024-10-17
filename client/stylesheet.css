@@ -242,12 +242,13 @@ button:hover {
 }
 
 .form-container {
+    margin: 0 auto 150px auto;
     width: 50%;
-    margin: 20px auto;
     padding: 20px;
     background-color: #49885c;
     border-radius: 10px;
     color: white;
+
 }
 
 .form-container h2 {
@@ -555,7 +556,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     color: white;
 }
 
-.generation_radio {
+.generation_radio, .temp_place {
     position: relative;
     height: 100vh;
     background: black;
@@ -575,20 +576,28 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     text-align: center;
 }
 
-.form-container_rw h2 {
+.form-container_tp {
+    width: 60%;
+    padding: 20px;
+    background-color: #49885c;
+    border-radius: 10px;
+    color: white;
+}
+
+.form-container_rw h2, .form-container_tp h2 {
     text-align: center;
     margin-bottom: 40px;
     font-size: 35px;
     color: #9aff00;
 }
 
-.form-container_rw label {
+.form-container_rw label, .form-container_tp label {
     display: block;
     margin: 10px 0 5px;
     font-size: 18px;
 }
 
-.form-container_rw input {
+.form-container_rw input, .form-container_tp input {
     width: 100%;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -598,7 +607,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     font-size: 16px;
 }
 
-.form-container_rw button {
+.form-container_rw button, .form-container_tp button {
     width: 30%;
     padding: 15px;
     font-size: 18px;
@@ -609,7 +618,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     border: none;
 }
 
-.form-container_rw button:hover {
+.form-container_rw button:hover, .form-container_tp button:hover {
     background-color: #45a049;
     color: black;
 }
@@ -643,7 +652,13 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     vertical-align: middle;
 }
 
-.coef-option_rw1 input[type="checkbox"], .coef-option_rw2 input[type="checkbox"] {
+.tax_rate_option_tp {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.coef-option_rw1 input[type="checkbox"], .coef-option_rw2 input[type="checkbox"], .tax_rate_option_tp input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     width: 20px;
@@ -656,7 +671,8 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     margin-top: 20px;
 }
 
-.coef-option_rw1 input[type="checkbox"]:checked::before, .coef-option_rw2 input[type="checkbox"]:checked::before {
+.coef-option_rw1 input[type="checkbox"]:checked::before, .coef-option_rw2 input[type="checkbox"]:checked::before,
+.tax_rate_option_tp input[type="checkbox"]:checked::before{
     content: '\2714';
     position: absolute;
     left: 50%;
@@ -668,4 +684,38 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
 .coef-option_rw1 label, .coef-option_rw2 label {
     cursor: pointer;
     vertical-align: middle;
+}
+
+.table-container_rw {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 100px;
+}
+
+#table6 {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#table6 th, #table6 td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#table6 th {
+    font-weight: bold;
+}
+
+#table6 th:first-child, #table6 td:first-child, #table7 th:first-child, #table6 td:first-child {
+    width: 40px;
+}
+
+#table6 th:nth-child(2), #table6 td:nth-child(2) {
+    width: 150px;
+}
+
+#table6 th:nth-child(n+3), #table6 td:nth-child(n+3) {
+    width: calc((100% - 340px) / 10);
 }
