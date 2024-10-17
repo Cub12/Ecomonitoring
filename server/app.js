@@ -38,6 +38,12 @@ app.get('/getAll/:table', (request, response) => {
         case 'table5':
             result = db.getAllDataForTable5();
             break;
+        case 'table6':
+            result = db.getAllDataForTable6();
+            break;
+        case 'table7':
+            result = db.getAllDataForTable7();
+            break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
     }
@@ -56,6 +62,10 @@ app.get('/sort/:table/:column/:sortOrder', (request, response) => {
         result = db.sortTable4(column, sortOrder);
     } else if (table === 'table5') {
         result = db.sortTable5(column, sortOrder);
+    } else if (table === 'table6') {
+        result = db.sortTable6(column, sortOrder);
+    } else if (table === 'table7') {
+        result = db.sortTable7(column, sortOrder);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -80,6 +90,12 @@ app.post('/insert/:table', (request, response) => {
     } else if (table === 'table5') {
         const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
         result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date);
+    }  else if (table === 'table6') {
+        const {Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v} = request.body;
+        result = db.insertNewRowInTable6(Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v);
+    }  else if (table === 'table7') {
+        const {Objects_id, N, V, T} = request.body;
+        result = db.insertNewRowInTable7(Objects_id, N, V, T);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -107,6 +123,13 @@ app.patch('/update/:table', (request, response) => {
             break;
         case 'table5':
             result = db.updateRowInTable5(id, data.Objects_id, data.Pollutants_id, data.general_emissions, data.date);
+            break;
+        case 'table6':
+            result = db.updateRowInTable6(id, data.Objects_id, data.Electricity, data.C1ns, data.C1v, data.C2ns,
+                data.C2v, data.V1ns, data.V1v, data.V2ns, data.V2v);
+            break;
+        case 'table7':
+            result = db.updateRowInTable7(id, data.Objects_id, data.N, data.V, data.T);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
@@ -150,6 +173,12 @@ app.delete('/delete/:table/:id', (request, response) => {
             break;
         case 'table5':
             result = db.deleteRowByIdTable5(id);
+            break;
+        case 'table6':
+            result = db.deleteRowByIdTable6(id);
+            break;
+        case 'table7':
+            result = db.deleteRowByIdTable7(id);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});

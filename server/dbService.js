@@ -283,6 +283,15 @@ class DBService {
             date]);
     }
 
+    async insertNewRowInTable6(Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v, Tax) {
+        return this.insertNewRow('radio_creation', [Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns,
+            V1v, V2ns, V2v, Tax]);
+    }
+
+    async insertNewRowInTable7(Objects_id, N, V, T, Tax) {
+        return this.insertNewRow('temp_place', [Objects_id, N, V, T, Tax]);
+    }
+
     async updateRow(table, id, values) {
         try {
             id = parseInt(id, 10);
@@ -301,6 +310,13 @@ class DBService {
             } else if (table === 'calculations_water') {
                 query = `UPDATE calculations_water SET Objects_id = ?, Pollutants_id = ?, general_emissions = ?, 
                 date = ?
+                WHERE id = ?;`;
+            } else if (table === 'radio_creation') {
+                query = `UPDATE radio_creation SET Objects_id = ?, Electricity = ?, C1ns = ?, C1v = ?, C2ns = ?, 
+                C2v = ?, V1ns = ?, V1v = ?, V2ns = ?, V2v = ?
+                WHERE id = ?;`;
+            } else if (table === 'temp_place') {
+                query = `UPDATE temp_place SET Objects_id = ?, N = ?, V = ?, T = ?
                 WHERE id = ?;`;
             }
 
@@ -339,6 +355,15 @@ class DBService {
             date]);
     }
 
+    async updateRowInTable6(id, Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v, Tax) {
+        return this.updateRow('radio_creation', id, [Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns,
+            V1v, V2ns, V2v, Tax]);
+    }
+
+    async updateRowInTable7(id, Objects_id, N, V, T, Tax) {
+        return this.updateRow('temp_place', id, [Objects_id, N, V, T, Tax]);
+    }
+
     async deleteRowById(table, id) {
         try {
             id = parseInt(id, 10);
@@ -352,6 +377,10 @@ class DBService {
                 query = "DELETE FROM calculations_air WHERE id = ?;";
             } else if (table === 'calculations_water') {
                 query = "DELETE FROM calculations_water WHERE id = ?;";
+            } else if (table === 'radio_creation') {
+                query = "DELETE FROM radio_creation WHERE id = ?;";
+            } else if (table === 'temp_place') {
+                query = "DELETE FROM temp_place WHERE id = ?;";
             }
 
             const response = await new Promise((resolve, reject) => {
@@ -382,6 +411,14 @@ class DBService {
 
     async deleteRowByIdTable5(id) {
         return this.deleteRowById('calculations_water', id);
+    }
+
+    async deleteRowByIdTable6(id) {
+        return this.deleteRowById('radio_creation', id);
+    }
+
+    async deleteRowByIdTable7(id) {
+        return this.deleteRowById('temp_place', id);
     }
 
     async calculateTax(table, type_tax_button, coef1, coef2) {

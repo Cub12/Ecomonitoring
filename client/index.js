@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('http://localhost:5000/getAll/table5').then(response => response.json())
         .then(data => loadHTMLTable(data['data'], 'table5'));
+
+    fetch('http://localhost:5000/getAll/table6').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table6'));
+
+    fetch('http://localhost:5000/getAll/table7').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table7'));
 });
 
 document.querySelector('#table1 tbody').addEventListener('click', function (event) {
@@ -33,6 +39,14 @@ document.querySelector('#table4 tbody').addEventListener('click', function (even
 
 document.querySelector('#table5 tbody').addEventListener('click', function (event) {
     handleTableClick(5, event);
+});
+
+document.querySelector('#table6 tbody').addEventListener('click', function (event) {
+    handleTableClick(6, event);
+});
+
+document.querySelector('#table7 tbody').addEventListener('click', function (event) {
+    handleTableClick(7, event);
 });
 
 const searchButton1 = document.querySelector('#search_button1');
@@ -257,6 +271,56 @@ addButton4.onclick = function (e) {
 
 const addButton5 = document.querySelector('#add_data5_button');
 addButton5.onclick = function (e) {
+    e.preventDefault();
+    const objectId = document.querySelector('#Objects_name2_select').value;
+    const pollutantId = document.querySelector('#Pollutants_name2_select').value;
+    const generalEmissions = document.querySelector('#general_emissions2_input').value.trim();
+    const date = document.querySelector('#date2_input').value.trim();
+
+    const requestData = {
+        Objects_id: objectId,
+        Pollutants_id: pollutantId,
+        general_emissions: generalEmissions,
+        date: date
+    };
+
+    fetch('http://localhost:5000/insert/table5', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => insertRowIntoTable5(data.data))
+        .catch(error => console.error('Error:', error));
+};
+
+const addButton6 = document.querySelector('#add_data6_button');
+addButton6.onclick = function (e) {
+    e.preventDefault();
+    const objectId = document.querySelector('#Objects_name2_select').value;
+    const pollutantId = document.querySelector('#Pollutants_name2_select').value;
+    const generalEmissions = document.querySelector('#general_emissions2_input').value.trim();
+    const date = document.querySelector('#date2_input').value.trim();
+
+    const requestData = {
+        Objects_id: objectId,
+        Pollutants_id: pollutantId,
+        general_emissions: generalEmissions,
+        date: date
+    };
+
+    fetch('http://localhost:5000/insert/table5', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => insertRowIntoTable5(data.data))
+        .catch(error => console.error('Error:', error));
+};
+
+const addButton7 = document.querySelector('#add_data7_button');
+addButton7.onclick = function (e) {
     e.preventDefault();
     const objectId = document.querySelector('#Objects_name2_select').value;
     const pollutantId = document.querySelector('#Pollutants_name2_select').value;

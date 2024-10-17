@@ -543,7 +543,7 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     color: black;
 }
 
-#form_container4 select {
+#form_container4 select, .form-container_tp select {
     width: 100%;
     padding: 10px;
     background-color: #ffffff;
@@ -554,7 +554,18 @@ button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3
     margin-bottom: 20px;
 }
 
-#form_container4 option {
+.form-container_rw select {
+    width: 90%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#form_container4 option, .form-container_rw option, .form-container_tp option {
     background-color: rgba(44, 44, 44, 0.65);
     color: white;
 }
