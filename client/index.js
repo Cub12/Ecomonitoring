@@ -628,20 +628,28 @@ function insertRowIntoTable2(data) {
 function insertRowIntoTable4(data) {
     insertRowIntoTable('#table4', data, ['id', 'Objects_id', 'Pollutants_id',
         'general_emissions', 'date']);
+    fetch('http://localhost:5000/getAll/table4').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table4'));
 }
 
 function insertRowIntoTable5(data) {
     insertRowIntoTable('#table5', data, ['id', 'Objects_id', 'Pollutants_id',
         'general_emissions', 'date']);
+    fetch('http://localhost:5000/getAll/table5').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table5'));
 }
 
 function insertRowIntoTable6(data) {
     insertRowIntoTable('#table6', data, ['id', 'Objects_id', 'Electricity', 'C1ns', 'C1v',
         'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v']);
+    fetch('http://localhost:5000/getAll/table6').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table6'));
 }
 
 function insertRowIntoTable7(data) {
     insertRowIntoTable('#table7', data, ['id', 'Objects_id', 'V', 'T']);
+    fetch('http://localhost:5000/getAll/table7').then(response => response.json())
+        .then(data => loadHTMLTable(data['data'], 'table7'));
 }
 
 document.querySelectorAll('nav ul li a').forEach(link => {
@@ -806,7 +814,6 @@ document.addEventListener('click', function (event) {
                 changeForm('#add_data7_button', 'Зберегти зміни');
                 button.id = 'update_row7_button';
                 updateButton.onclick = () => handleUpdate('table7');
-
                 document.querySelector('#Object_name2').dataset.id = event.target.dataset.id;
             } else {
                 changeForm('#form_title7', 'Додати нове забруднення');
@@ -1026,7 +1033,7 @@ function calculateTax(table, type_tax_button, coef1, coef2) {
     fetch(`http://localhost:5000/calculateTax`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({table: table, type_tax_button: type_tax_button, coef1: coef1, coef2: coef2}),
+        body: JSON.stringify({table: table, type_tax_button: type_tax_button, coef1: coef1, coef2: coef2})
     })
         .then(response => response.json())
         .then(data => {

@@ -205,7 +205,7 @@ class DBService {
                 params = values;
             } else if (table === 'temp_place') {
                 query = `INSERT INTO temp_place (Objects_id, N, V, T, Tax)
-                VALUES (?, ?, ?, ?, 0);`;
+                VALUES (?, 0, ?, ?, 0);`;
                 params = values;
             }
 
@@ -239,12 +239,11 @@ class DBService {
             } else if (table === 'radio_creation') {
                 return {
                     id: insertId, Objects_id: values[0], Electricity: values[1], C1ns: values[2], C1v: values[3],
-                    C2ns: values[4], C2v: values[5], V1ns: values[6], V1v: values[7], V2ns: values[8], V2v: values[9],
-                    Tax: values[10]
+                    C2ns: values[4], C2v: values[5], V1ns: values[6], V1v: values[7], V2ns: values[8], V2v: values[9]
                 };
             } else if (table === 'temp_place') {
                 return {
-                    id: insertId, Objects_id: values[0], N: values[1], V: values[2], T: values[3], Tax: values[4]
+                    id: insertId, Objects_id: values[0], V: values[1], T: values[2]
                 };
             }
         } catch (error) {
@@ -275,8 +274,8 @@ class DBService {
             V1v, V2ns, V2v]);
     }
 
-    async insertNewRowInTable7(Objects_id, N, V, T) {
-        return this.insertNewRow('temp_place', [Objects_id, N, V, T]);
+    async insertNewRowInTable7(Objects_id, V, T) {
+        return this.insertNewRow('temp_place', [Objects_id, V, T]);
     }
 
     async updateRow(table, id, values) {
@@ -303,7 +302,7 @@ class DBService {
                 C2v = ?, V1ns = ?, V1v = ?, V2ns = ?, V2v = ?
                 WHERE id = ?;`;
             } else if (table === 'temp_place') {
-                query = `UPDATE temp_place SET Objects_id = ?, N = ?, V = ?, T = ?
+                query = `UPDATE temp_place SET Objects_id = ?, V = ?, T = ?
                 WHERE id = ?;`;
             }
 
@@ -347,8 +346,8 @@ class DBService {
             V1v, V2ns, V2v]);
     }
 
-    async updateRowInTable7(id, Objects_id, N, V, T) {
-        return this.updateRow('temp_place', id, [Objects_id, N, V, T]);
+    async updateRowInTable7(id, Objects_id, V, T) {
+        return this.updateRow('temp_place', id, [Objects_id, V, T]);
     }
 
     async deleteRowById(table, id) {
