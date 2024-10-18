@@ -62,10 +62,6 @@ app.get('/sort/:table/:column/:sortOrder', (request, response) => {
         result = db.sortTable4(column, sortOrder);
     } else if (table === 'table5') {
         result = db.sortTable5(column, sortOrder);
-    } else if (table === 'table6') {
-        result = db.sortTable6(column, sortOrder);
-    } else if (table === 'table7') {
-        result = db.sortTable7(column, sortOrder);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }

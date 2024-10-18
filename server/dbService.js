@@ -27,9 +27,7 @@ class DBService {
             'table1': ['name', 'head', 'address', 'economic_activity', 'form_of_ownership'],
             'table2': ['name', 'permissible_emissions', 'danger_class', 'tax_rate_aw', 'tax_rate_p'],
             'table4': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax'],
-            'table5': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax'],
-            'table6': ['Objects_id', 'Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v', 'Tax'],
-            'table7': ['Objects_id', 'N', 'V', 'T', 'Tax']
+            'table5': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax']
         };
 
         if (!validColumns[table]) {
@@ -42,7 +40,7 @@ class DBService {
         try {
             return await new Promise((resolve, reject) => {
                 const tableMapping = {table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
-                    table5: 'calculations_water', table6: 'radio_creation', table7: 'temp_place'};
+                    table5: 'calculations_water'};
                 const selectedTable = tableMapping[table] || 'objects';
                 const query = `SELECT * FROM ${selectedTable} WHERE ${column} LIKE ?;`;
                 const searchValue = `${value}%`;
@@ -99,22 +97,6 @@ class DBService {
         const numericColumns = ['general_emissions', 'date', 'tax'];
 
         return this.sortTableGeneric('calculations_water', validColumns, numericColumns, column, sortOrder);
-    }
-
-    async sortTable6(column, sortOrder) {
-        const validColumns = ['Objects_id', 'Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns',
-            'V2v', 'Tax'];
-        const numericColumns = ['Electricity', 'C1ns', 'C1v', 'C2ns', 'C2v', 'V1ns', 'V1v', 'V2ns', 'V2v',
-            'Tax'];
-
-        return this.sortTableGeneric('radio_creation', validColumns, numericColumns, column, sortOrder);
-    }
-
-    async sortTable7(column, sortOrder) {
-        const validColumns = ['Objects_id', 'N', 'V', 'T', 'Tax'];
-        const numericColumns = ['N', 'V', 'T', 'Tax'];
-
-        return this.sortTableGeneric('temp_place', validColumns, numericColumns, column, sortOrder);
     }
 
     async getData(query) {
@@ -288,13 +270,13 @@ class DBService {
             date]);
     }
 
-    async insertNewRowInTable6(Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v, Tax) {
+    async insertNewRowInTable6(Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v) {
         return this.insertNewRow('radio_creation', [Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns,
-            V1v, V2ns, V2v, Tax]);
+            V1v, V2ns, V2v]);
     }
 
-    async insertNewRowInTable7(Objects_id, N, V, T, Tax) {
-        return this.insertNewRow('temp_place', [Objects_id, N, V, T, Tax]);
+    async insertNewRowInTable7(Objects_id, N, V, T) {
+        return this.insertNewRow('temp_place', [Objects_id, N, V, T]);
     }
 
     async updateRow(table, id, values) {
@@ -360,13 +342,13 @@ class DBService {
             date]);
     }
 
-    async updateRowInTable6(id, Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v, Tax) {
+    async updateRowInTable6(id, Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v) {
         return this.updateRow('radio_creation', id, [Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns,
-            V1v, V2ns, V2v, Tax]);
+            V1v, V2ns, V2v]);
     }
 
-    async updateRowInTable7(id, Objects_id, N, V, T, Tax) {
-        return this.updateRow('temp_place', id, [Objects_id, N, V, T, Tax]);
+    async updateRowInTable7(id, Objects_id, N, V, T) {
+        return this.updateRow('temp_place', id, [Objects_id, N, V, T]);
     }
 
     async deleteRowById(table, id) {
