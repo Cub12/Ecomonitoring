@@ -12,9 +12,7 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    if (err) {
-        console.log(err.message);
-    }
+    if (err) console.log(err.message);
 });
 
 class DBService {
@@ -30,16 +28,13 @@ class DBService {
             'table5': ['Objects_id', 'Pollutants_id', 'general_emissions', 'date', 'tax']
         };
 
-        if (!validColumns[table]) {
-            throw new Error('Invalid table name');
-        }
-        if (!validColumns[table].includes(column)) {
-            throw new Error(`Invalid column name for ${table}`);
-        }
+        if (!validColumns[table]) throw new Error('Invalid table name');
+        if (!validColumns[table].includes(column)) throw new Error(`Invalid column name for ${table}`);
 
         try {
             return await new Promise((resolve, reject) => {
-                const tableMapping = {table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
+                const tableMapping = {
+                    table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
                     table5: 'calculations_water'
                 };
                 const selectedTable = tableMapping[table] || 'objects';
@@ -74,9 +69,7 @@ class DBService {
     }
 
     async sortTableGeneric(tableName, validColumns, numericColumns, column, sortOrder) {
-        if (!validColumns.includes(column)) {
-            throw new Error(`Invalid column name for ${tableName}`);
-        }
+        if (!validColumns.includes(column)) throw new Error(`Invalid column name for ${tableName}`);
 
         const orderBy = numericColumns.includes(column) ?
             `CASE WHEN ${column} = -1 THEN NULL ELSE ${column} END` : column;
@@ -239,7 +232,7 @@ class DBService {
                 params = values;
             } else if (table === 'temp_place') {
                 query = `INSERT INTO temp_place (Objects_id, N, V, T, Tax)
-                VALUES (?, 0, ?, ?, 0);`;
+                VALUES (?, ?, ?, ?, 0);`;
                 params = values;
             }
 
@@ -277,7 +270,7 @@ class DBService {
                 };
             } else if (table === 'temp_place') {
                 return {
-                    id: insertId, Objects_id: values[0], V: values[1], T: values[2]
+                    id: insertId, Objects_id: values[0], N: values[1], V: values[2], T: values[3]
                 };
             }
         } catch (error) {
@@ -308,15 +301,15 @@ class DBService {
             V1v, V2ns, V2v]);
     }
 
-    async insertNewRowInTable7(Objects_id, V, T) {
-        return this.insertNewRow('temp_place', [Objects_id, V, T]);
+    async insertNewRowInTable7(Objects_id, N, V, T) {
+        return this.insertNewRow('temp_place', [Objects_id, N, V, T]);
     }
 
     async updateRow(table, id, values) {
         try {
             id = parseInt(id, 10);
-
             let query;
+
             if (table === 'objects') {
                 query = `UPDATE objects SET name = ?, head = ?, address = ?, economic_activity = ?, 
                 form_of_ownership = ? 
@@ -336,7 +329,7 @@ class DBService {
                 C2v = ?, V1ns = ?, V1v = ?, V2ns = ?, V2v = ?
                 WHERE id = ?;`;
             } else if (table === 'temp_place') {
-                query = `UPDATE temp_place SET Objects_id = ?, V = ?, T = ?
+                query = `UPDATE temp_place SET Objects_id = ?, N = ?, V = ?, T = ?
                 WHERE id = ?;`;
             }
 
@@ -380,15 +373,15 @@ class DBService {
             V1v, V2ns, V2v]);
     }
 
-    async updateRowInTable7(id, Objects_id, V, T) {
-        return this.updateRow('temp_place', id, [Objects_id, V, T]);
+    async updateRowInTable7(id, Objects_id, N, V, T) {
+        return this.updateRow('temp_place', id, [Objects_id, N, V, T]);
     }
 
     async deleteRowById(table, id) {
         try {
             id = parseInt(id, 10);
-
             let query;
+
             if (table === 'objects') {
                 query = "DELETE FROM objects WHERE id = ?;";
             } else if (table === 'pollutants') {
@@ -466,7 +459,7 @@ class DBService {
             }
         } else if (table === 'table4' && type_tax_button === 'calculate_place_button') {
             const query = `UPDATE calculations_air c JOIN pollutants p ON c.Pollutants_id = p.id 
-            SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw * ${coef1} * ${coef2}, 2);`;
+            SET c.tax = ROUND(c.general_emissions * p.tax_rate_p * ${coef1} * ${coef2}, 2);`;
 
             try {
                 await this.getData(query);
@@ -477,11 +470,32 @@ class DBService {
             }
         } else if (table === 'table5' && type_tax_button === 'calculate_place_button') {
             const query = `UPDATE calculations_water c JOIN pollutants p ON c.Pollutants_id = p.id 
-            SET c.tax = ROUND(c.general_emissions * p.tax_rate_aw * ${coef1} * ${coef2}, 2);`;
+            SET c.tax = ROUND(c.general_emissions * p.tax_rate_p * ${coef1} * ${coef2}, 2);`;
 
             try {
                 await this.getData(query);
                 return await this.getAllDataForTable5();
+            } catch (error) {
+                console.error('Error updating tax in calculations:', error);
+                throw error;
+            }
+        } else if (type_tax_button === 'calculate_radio_creation_button') {
+            const query = `UPDATE radio_creation SET Tax = ROUND(Electricity * 0.0133 + (2 * C1ns * V1ns + 50 * 
+            C1v * V1v) + ${coef1} * ${coef2} * (2 * C2ns * V2ns + 50 * C2v * V2v), 2);`;
+
+            try {
+                await this.getData(query);
+                return await this.getAllDataForTable6();
+            } catch (error) {
+                console.error('Error updating tax in calculations:', error);
+                throw error;
+            }
+        } else if (type_tax_button === 'calculate_temp_place_button') {
+            const query = `UPDATE temp_place SET Tax = ROUND(N * V * T, 2);`;
+
+            try {
+                await this.getData(query);
+                return await this.getAllDataForTable7();
             } catch (error) {
                 console.error('Error updating tax in calculations:', error);
                 throw error;

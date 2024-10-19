@@ -108,6 +108,7 @@
                 <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
                 <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
+
             <label for="search_input2"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input2">
 
@@ -198,6 +199,7 @@
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
+
             <label for="search_input4"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input4" class="hidden">
 
@@ -212,6 +214,7 @@
                 <option value="date">Період</option>
                 <option value="tax">Сума податку</option>
             </select>
+
             <label for="search_input5"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input5" class="hidden">
 
@@ -258,8 +261,6 @@
             <select id="tax_type" class="hidden">
                 <option value="tax_air">За викиди в атмосферне повітря</option>
                 <option value="tax_placement">За розміщення відходів</option>
-                <option value="tax_generation_radioactive">За утворення радіоактивних відходів</option>
-                <option value="tax_temporary_storage">За тимчасове зберігання радіоактивних відходів</option>
             </select>
 
             <button class="tax_button hidden" id="tax_button">Розрахувати</button>
@@ -269,8 +270,6 @@
             <select id="tax_type2" class="hidden">
                 <option value="tax_water">За скиди у водні об'єкти</option>
                 <option value="tax_placement">За розміщення відходів</option>
-                <option value="tax_generation_radioactive">За утворення радіоактивних відходів</option>
-                <option value="tax_temporary_storage">За тимчасове зберігання радіоактивних відходів</option>
             </select>
 
             <button class="tax_button2 hidden" id="tax_button2">Розрахувати</button>
@@ -279,11 +278,13 @@
 
         <div class="water_coef hidden" id="water_coef">
             <label>Оберіть коефіцієнт:</label><br>
+
             <div class="coef-option">
                 <input type="checkbox" id="coef_lake" name="coef_lake" value="1.5">
                 <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки й
                     озера)</label>
             </div>
+
             <div class="coef-option">
                 <input type="checkbox" id="coef_river" name="coef_river" value="1">
                 <label for="coef_river">Коефіцієнт 1 (застосовується в інших випадках)</label>
@@ -295,12 +296,15 @@
         <div class="place_coef hidden" id="place_coef">
             <div class="place_coef1">
                 <label><span style="color: #00ff0d;"><strong>Оберіть Кт</strong></span>
-                    <span style="color: #9aff00;"><br>(Коригуючий коефіцієнт, який враховує розташування місця розміщення відходів)</span><br></label><br>
+                    <span style="color: #9aff00;"><br>(Коригуючий коефіцієнт, який враховує розташування місця
+                        розміщення відходів)</span><br></label><br>
+
                 <div class="coef-option">
                     <input type="checkbox" id="coef_in_city" name="coef_in_city" value="3">
                     <label for="coef_in_city">Коефіцієнт 3 (розміщення відходів у межах населеного пункту або на
                         відстані менш як 3 км від таких меж)</label>
                 </div>
+
                 <div class="coef-option">
                     <input type="checkbox" id="coef_out_city" name="coef_out_city" value="1">
                     <label for="coef_out_city">Коефіцієнт 1 (розміщення відходів на відстані від 3 км і більше від меж
@@ -313,11 +317,14 @@
 
             <div class="place_coef2">
                 <label><span style="color: #00ff0d;"><strong>Оберіть Ко</strong></span><span
-                        style="color: #9aff00;"><br>(Відходи розміщені на звалищах, які не забезпечують повного виключення забруднення атмосферного повітря або водних об'єктів?)</span><br></label><br>
+                        style="color: #9aff00;"><br>(Відходи розміщені на звалищах, які не забезпечують повного
+                    виключення забруднення атмосферного повітря або водних об'єктів?)</span><br></label><br>
+
                 <div class="coef-option">
                     <input type="checkbox" id="coef_yes" name="coef_yes" value="3">
                     <label for="coef_yes">Так</label>
                 </div>
+
                 <div class="coef-option">
                     <input type="checkbox" id="coef_no" name="coef_no" value="1">
                     <label for="coef_no">Ні</label>
@@ -423,6 +430,7 @@
                     <div class="coef-option_rw1">
                         <input type="checkbox" id="coef_yes_rw1" name="coef_yes_rw1" value="1/32">
                         <label for="coef_yes_rw1">Так</label>
+
                     </div>
                     <div class="coef-option_rw1">
                         <input type="checkbox" id="coef_no_rw1" name="coef_no_rw1" value="1">
@@ -434,6 +442,7 @@
                         <input type="checkbox" id="coef_yes_rw2" name="coef_yes_rw2" value="1">
                         <label for="coef_yes_rw2">Так</label>
                     </div>
+
                     <div class="coef-option_rw2">
                         <input type="checkbox" id="coef_no_rw2" name="coef_no_rw2" value="0">
                         <label for="coef_no_rw2">Ні</label>
@@ -514,17 +523,20 @@
                 <input type="checkbox" id="tax_rate_tp1" name="tax_rate_tp1" value="632539.66">
                 <label for="tax_rate_tp1">Високоактивні</label>
             </div>
+
             <div class="tax_rate_option_tp">
                 <input type="checkbox" id="tax_rate_tp2" name="tax_rate_tp2" value="11807.40">
                 <label for="tax_rate_tp2">Середньоактивні та низькоактивні</label>
             </div>
+
             <div class="tax_rate_option_tp">
-                <input type="checkbox" id="tax_rate_tp3" name="tax_rate_tp3" value="21084,66">
+                <input type="checkbox" id="tax_rate_tp3" name="tax_rate_tp3" value="21084.66">
                 <label for="tax_rate_tp3">Високоактивні відходи, представлені у вигляді джерел іонізуючого
                     випромінювання</label>
             </div>
+
             <div class="tax_rate_option_tp">
-                <input type="checkbox" id="tax_rate_tp4" name="tax_rate_tp4" value="4216,92">
+                <input type="checkbox" id="tax_rate_tp4" name="tax_rate_tp4" value="4216.92">
                 <label for="tax_rate_tp4">Середньоактивні та низькоактивні відходи, представлені у вигляді джерел
                     іонізуючого випромінювання</label>
             </div>

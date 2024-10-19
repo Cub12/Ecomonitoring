@@ -86,12 +86,12 @@ app.post('/insert/:table', (request, response) => {
     } else if (table === 'table5') {
         const {Objects_id, Pollutants_id, general_emissions, date} = request.body;
         result = db.insertNewRowInTable5(Objects_id, Pollutants_id, general_emissions, date);
-    }  else if (table === 'table6') {
+    } else if (table === 'table6') {
         const {Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v} = request.body;
         result = db.insertNewRowInTable6(Objects_id, Electricity, C1ns, C1v, C2ns, C2v, V1ns, V1v, V2ns, V2v);
-    }  else if (table === 'table7') {
-        const {Objects_id, V, T} = request.body;
-        result = db.insertNewRowInTable7(Objects_id, V, T);
+    } else if (table === 'table7') {
+        const {Objects_id, N, V, T} = request.body;
+        result = db.insertNewRowInTable7(Objects_id, N, V, T);
     } else {
         return response.status(400).json({error: 'Invalid table name'});
     }
@@ -125,7 +125,7 @@ app.patch('/update/:table', (request, response) => {
                 data.C2v, data.V1ns, data.V1v, data.V2ns, data.V2v);
             break;
         case 'table7':
-            result = db.updateRowInTable7(id, data.Objects_id, data.V, data.T);
+            result = db.updateRowInTable7(id, data.Objects_id, data.N, data.V, data.T);
             break;
         default:
             return response.status(400).json({error: 'Invalid table name'});
@@ -144,7 +144,6 @@ app.post('/calculateTax', async (req, res) => {
     try {
         let result;
         result = await db.calculateTax(table, type_tax_button, coef1, coef2);
-
         res.json({success: true, data: result});
     } catch (error) {
         console.error('Error in calculateTax route:', error);
