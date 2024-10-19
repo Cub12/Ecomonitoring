@@ -40,9 +40,27 @@ class DBService {
         try {
             return await new Promise((resolve, reject) => {
                 const tableMapping = {table1: 'objects', table2: 'pollutants', table4: 'calculations_air',
-                    table5: 'calculations_water'};
+                    table5: 'calculations_water'
+                };
                 const selectedTable = tableMapping[table] || 'objects';
-                const query = `SELECT * FROM ${selectedTable} WHERE ${column} LIKE ?;`;
+                let query = '';
+
+                if (selectedTable === 'objects' || selectedTable === 'pollutants') {
+                    query = `SELECT * FROM ${selectedTable} WHERE ${column} LIKE ?;`;
+                } else if (selectedTable === 'calculations_air') {
+                    query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+                    c.date, p.tax_rate_aw, c.tax
+                    FROM calculations_air c
+                    JOIN objects o ON c.Objects_id = o.id
+                    JOIN pollutants p ON c.Pollutants_id = p.id WHERE ${column} LIKE ?;`;
+                } else if (selectedTable === 'calculations_water') {
+                    query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+                    c.date, p.tax_rate_aw, c.tax
+                    FROM calculations_water c
+                    JOIN objects o ON c.Objects_id = o.id
+                    JOIN pollutants p ON c.Pollutants_id = p.id WHERE ${column} LIKE ?;`;
+                }
+
                 const searchValue = `${value}%`;
 
                 connection.query(query, [searchValue], (err, results) => {
@@ -66,7 +84,23 @@ class DBService {
 
         try {
             return await new Promise((resolve, reject) => {
-                const query = `SELECT * FROM ${tableName} ORDER BY ${orderBy} ${orderDirection};`;
+                let query = '';
+
+                if (tableName === 'pollutants') {
+                    query = `SELECT * FROM ${tableName} ORDER BY ${orderBy} ${orderDirection};`;
+                } else if (tableName === 'calculations_air') {
+                    query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+                    c.date, p.tax_rate_aw, c.tax
+                    FROM calculations_air c
+                    JOIN objects o ON c.Objects_id = o.id
+                    JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY ${orderBy} ${orderDirection};`;
+                } else if (tableName === 'calculations_water') {
+                    query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+                    c.date, p.tax_rate_aw, c.tax
+                    FROM calculations_water c
+                    JOIN objects o ON c.Objects_id = o.id
+                    JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY ${orderBy} ${orderDirection};`;
+                }
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
