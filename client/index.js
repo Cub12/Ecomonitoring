@@ -791,36 +791,22 @@ document.addEventListener('click', function (event) {
             button = document.querySelector('#add_data6_button');
             updateButton = document.querySelector('#update_row6_button') || button;
 
-            if (formContainer.classList.contains('hidden')) {
-                changeForm('#form_title6', 'Редагувати дані забруднення');
-                changeForm('#add_data6_button', 'Зберегти зміни');
-                button.id = 'update_row6_button';
-                updateButton.onclick = () => handleUpdate('table6');
+            changeForm('#add_data6_button', 'Зберегти зміни');
+            button.id = 'update_row6_button';
+            updateButton.onclick = () => handleUpdate('table6');
 
-                document.querySelector('#Object_name1').dataset.id = event.target.dataset.id;
-            } else {
-                changeForm('#form_title6', 'Додати нове забруднення');
-                changeForm('#update_row6_button', 'Додати нове забруднення');
-                updateButton.id = 'add_data6_button';
-                document.querySelector('#form-content').reset();
-            }
+            document.querySelector('#Object_name1').dataset.id = event.target.dataset.id;
+
         } else if (event.target.closest('#table7')) {
             formContainer = document.querySelector('#form_container_tp');
             button = document.querySelector('#add_data7_button');
             updateButton = document.querySelector('#update_row7_button') || button;
 
-            if (formContainer.classList.contains('hidden')) {
-                changeForm('#form_title7', 'Редагувати дані забруднення');
-                changeForm('#add_data7_button', 'Зберегти зміни');
-                button.id = 'update_row7_button';
-                updateButton.onclick = () => handleUpdate('table7');
-                document.querySelector('#Object_name2').dataset.id = event.target.dataset.id;
-            } else {
-                changeForm('#form_title7', 'Додати нове забруднення');
-                changeForm('#update_row7_button', 'Додати нове забруднення');
-                updateButton.id = 'add_data7_button';
-                document.querySelector('#form_container_tp').reset();
-            }
+            changeForm('#add_data7_button', 'Зберегти зміни');
+            button.id = 'update_row7_button';
+            updateButton.onclick = () => handleUpdate('table7');
+
+            document.querySelector('#Object_name2').dataset.id = event.target.dataset.id;
         }
 
         formContainer.classList.toggle('hidden');
