@@ -169,7 +169,7 @@ class DBService {
 
     async getAllDataForTable4() {
         const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
-        c.date, p.tax_rate_aw, c.tax
+        c.date, p.tax_rate_p, c.tax
         FROM calculations_air c
         JOIN objects o ON c.Objects_id = o.id
         JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY c.id;`;
@@ -179,7 +179,7 @@ class DBService {
 
     async getAllDataForTable5() {
         const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
-        c.date, p.tax_rate_aw, c.tax
+        c.date, p.tax_rate_p, c.tax
         FROM calculations_water c
         JOIN objects o ON c.Objects_id = o.id
         JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY c.id;`;
