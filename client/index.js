@@ -319,6 +319,27 @@ addButton6.onclick = function (e) {
         }, body: JSON.stringify(requestData)
     }).then(response => response.json()).then(data => insertRowIntoTable6(data.data)).catch(error => console
         .error('Error:', error));
+
+    document.querySelector('#Object_name1').value = '';
+    document.querySelector('#on').value = '';
+    document.querySelector('#c1ns').value = '';
+    document.querySelector('#c1v').value = '';
+    document.querySelector('#c2ns').value = '';
+    document.querySelector('#c2v').value = '';
+    document.querySelector('#v1ns').value = '';
+    document.querySelector('#v1v').value = '';
+    document.querySelector('#v2ns').value = '';
+    document.querySelector('#v2v').value = '';
+
+    const coefYes1 = document.getElementById('coef_yes_rw1');
+    const coefNo1 = document.getElementById('coef_no_rw1');
+    const coefYes2 = document.getElementById('coef_yes_rw2');
+    const coefNo2 = document.getElementById('coef_no_rw2');
+
+    coefYes1.checked = false;
+    coefNo1.checked = false;
+    coefYes2.checked = false;
+    coefNo2.checked = false;
 };
 
 const addButton7 = document.querySelector('#add_data7_button');
@@ -338,6 +359,20 @@ addButton7.onclick = function (e) {
         }, body: JSON.stringify(requestData)
     }).then(response => response.json()).then(data => insertRowIntoTable7(data.data)).catch(error => console
         .error('Error:', error));
+
+    document.querySelector('#Object_name2').value = '';
+    document.querySelector('#radio_v').value = '';
+    document.querySelector('#date_tp').value = '';
+
+    const coef_tp1 = document.getElementById('tax_rate_tp1');
+    const coef_tp2 = document.getElementById('tax_rate_tp2');
+    const coef_tp3 = document.getElementById('tax_rate_tp3');
+    const coef_tp4 = document.getElementById('tax_rate_tp4');
+
+    coef_tp1.checked = false;
+    coef_tp2.checked = false;
+    coef_tp3.checked = false;
+    coef_tp4.checked = false;
 };
 
 function getSelectedTaxRate() {
