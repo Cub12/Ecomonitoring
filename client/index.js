@@ -1126,11 +1126,11 @@ function calculateTax(table, type_tax_button, coef1, coef2) {
                 .then(data => loadHTMLTable(data['data'], 'table5'));
         } else if (type_tax_button === 'calculate_place_button') {
             if (table === 'table4') {
-                fetch('http://localhost:5000/getAll/table4').then(response => response.json())
-                    .then(data => loadHTMLTable(data['data'], 'table4'));
+                fetch('http://localhost:5000/getAll/table4/placement').then(response => response.json())
+                    .then(data => loadHTMLTable(data.data, 'table4'));
             } else if (table === 'table5') {
-                fetch('http://localhost:5000/getAll/table5').then(response => response.json())
-                    .then(data => loadHTMLTable(data['data'], 'table5'));
+                fetch('http://localhost:5000/getAll/table5/placement').then(response => response.json())
+                    .then(data => loadHTMLTable(data.data, 'table5'));
             }
         } else if (type_tax_button === 'calculate_radio_creation_button') {
             fetch('http://localhost:5000/getAll/table6').then(response => response.json())

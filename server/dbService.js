@@ -169,6 +169,16 @@ class DBService {
 
     async getAllDataForTable4() {
         const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+        c.date, p.tax_rate_aw, c.tax
+        FROM calculations_air c
+        JOIN objects o ON c.Objects_id = o.id
+        JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY c.id;`;
+
+        return this.getData(query);
+    }
+
+    async getAllDataForTable4_place() {
+        const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
         c.date, p.tax_rate_p, c.tax
         FROM calculations_air c
         JOIN objects o ON c.Objects_id = o.id
@@ -178,6 +188,16 @@ class DBService {
     }
 
     async getAllDataForTable5() {
+        const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
+        c.date, p.tax_rate_aw, c.tax
+        FROM calculations_water c
+        JOIN objects o ON c.Objects_id = o.id
+        JOIN pollutants p ON c.Pollutants_id = p.id ORDER BY c.id;`;
+
+        return this.getData(query);
+    }
+
+    async getAllDataForTable5_place() {
         const query = `SELECT c.id, o.name AS Objects_name, p.name AS Pollutants_name, c.general_emissions, 
         c.date, p.tax_rate_p, c.tax
         FROM calculations_water c
@@ -463,7 +483,7 @@ class DBService {
 
             try {
                 await this.getData(query);
-                return await this.getAllDataForTable4();
+                return await this.getAllDataForTable4_place();
             } catch (error) {
                 console.error('Error updating tax in calculations:', error);
                 throw error;
@@ -474,7 +494,7 @@ class DBService {
 
             try {
                 await this.getData(query);
-                return await this.getAllDataForTable5();
+                return await this.getAllDataForTable5_place();
             } catch (error) {
                 console.error('Error updating tax in calculations:', error);
                 throw error;

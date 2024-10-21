@@ -51,6 +51,36 @@ app.get('/getAll/:table', (request, response) => {
     result.then(data => response.json({data: data})).catch(err => console.log(err));
 });
 
+app.get('/getAll/:table/:calculationType', (request, response) => {
+    const { table, calculationType } = request.params;
+    const db = dbService.getDBServiceInstance();
+    let result;
+
+    switch (table) {
+        case 'table4':
+            if (calculationType === 'placement') {
+                result = db.getAllDataForTable4_place();
+            } else {
+                result = db.getAllDataForTable4();
+            }
+            break;
+        case 'table5':
+            if (calculationType === 'placement') {
+                result = db.getAllDataForTable5_place();
+            } else {
+                result = db.getAllDataForTable5();
+            }
+            break;
+        default:
+            return response.status(400).send('Invalid table');
+    }
+
+    result.then(data => response.json({ data: data })).catch(err => {
+            console.error('Error retrieving data:', err);
+            response.status(500).send('Error retrieving data');
+        });
+});
+
 app.get('/sort/:table/:column/:sortOrder', (request, response) => {
     const {table, column, sortOrder} = request.params;
     const db = dbService.getDBServiceInstance();
