@@ -48,6 +48,7 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-size: 14px;
 }
 
 .content {
@@ -110,7 +111,6 @@ p {
 }
 
 .block3 {
-    position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 3.7), rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0) 30%,
     rgba(0, 0, 0, 3.7)),
     url(https://e0.pxfuel.com/wallpapers/742/189/desktop-wallpaper-mossy-green-forest.jpg) no-repeat center center;
@@ -118,7 +118,7 @@ p {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 0;
     padding-top: 80px;
 }
 
@@ -128,12 +128,12 @@ p {
     rgba(0, 0, 0, 3.7)),
     url(https://b6.3ddd.ru/media/images/tinymce_images/09f35937452425678e22d126e8421538.jpeg) no-repeat center center;
     background-size: cover;
-    height: 100vh;
+    height: auto;
+    min-height: 120vh;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
     padding-top: 80px;
-    margin-bottom: 80px;
+    padding-bottom: 80px;
 }
 
 .overlay-text {
@@ -148,22 +148,22 @@ p {
     font-family: "Times New Roman", serif;
 }
 
-.table-container1, .table-container2, .table-container4 {
-    max-height: 400px;
-    overflow-y: auto;
-    margin: 20px auto;
-    width: 80%;
-}
-
-.table-container3 {
+.table-container1, .table-container2, .table-container4, .table-container5 {
     max-height: 400px;
     overflow-y: auto;
     margin: 20px auto;
     width: 90%;
 }
 
+.table-container3 {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px auto;
+    width: 95%;
+}
+
 .table-container2 table th, .table-container2 table td, .table-container3 table th, .table-container3 table td,
-    .table-container4 table th, .table-container4 table td {
+.table-container4 table th, .table-container4 table td, .table-container5 table th, .table-container5 table td {
     text-align: center;
     padding: 10px;
     border: 1px solid #ddd;
@@ -203,7 +203,9 @@ th {
     text-align: center;
 }
 
-td:nth-child(1), th:nth-child(1) {
+.table-container1 td:nth-child(1), .table-container1 th:nth-child(1), .table-container2 td:nth-child(1),
+.table-container2 th:nth-child(1), .table-container4 td:nth-child(1), .table-container4 th:nth-child(1),
+.table-container5 td:nth-child(1), .table-container5 th:nth-child(1) {
     width: 3%;
     text-align: center;
 }
@@ -235,6 +237,7 @@ button {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 50px;
 }
 
 button:hover {
@@ -243,12 +246,13 @@ button:hover {
 }
 
 .form-container {
+    margin: 0 auto 150px auto;
     width: 50%;
-    margin: 20px auto;
     padding: 20px;
     background-color: #49885c;
     border-radius: 10px;
     color: white;
+
 }
 
 .form-container h2 {
@@ -341,14 +345,16 @@ button:hover {
 }
 
 .search button#reset_button1, button#reset_button2, button#reset_button3, button#reset_button4, button#reset_button2_2,
-button#reset_button3_2, button#reset_button4_2 {
+button#reset_button3_2, button#reset_button4_2, button#reset_button4_3, button#reset_button5, button#reset_button5_2,
+button#reset_button5_3 {
     margin-left: 10px;
     background-color: #64ffae;
     color: black;
 }
 
 .search button#reset_button1:hover, button#reset_button2:hover, button#reset_button3:hover, button#reset_button4:hover,
-button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover {
+button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4_2:hover, button#reset_button4_3:hover,
+button#reset_button5:hover, button#reset_button5_2:hover, button#reset_button5_3:hover {
     background-color: #21aa64;
     color: black;
 }
@@ -393,4 +399,339 @@ button#reset_button2_2:hover, button#reset_button3_2:hover, button#reset_button4
 .sort button:hover {
     background-color: #45a049;
     color: black;
+}
+
+.tax {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    width: 77%;
+    margin: 20px auto;
+}
+
+.tax label {
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.tax select {
+    margin-right: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.tax button {
+    background-color: #2b452b;
+    color: #00ff12;
+    border-color: #00ff12;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tax button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.water_coef, .place_coef {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: Georgia, sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+.water_coef > label, .place_coef1 > label, .place_coef2 > label {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.coef-option {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.coef-option input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ff12;
+    border-radius: 4px;
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.coef-option input[type="checkbox"]:checked::before {
+    content: '\2714';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff12;
+    font-size: 16px;
+}
+
+.coef-option label {
+    cursor: pointer;
+}
+
+#calculate_water_button, #calculate_place_button {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 10px;
+    font-size: 16px;
+    color: #00ff12;
+    background-color: #2b452b;
+    border: 1px solid #00ff12;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#calculate_water_button:hover, #calculate_place_button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.buttons_aw {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+#button_air, #button_water {
+    margin: 0 10px;
+    background-color: #062006;
+    color: #00ff12;
+    width: 200px;
+    padding: 20px 30px;
+    font-size: 18px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#button_air:hover, #button_water:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+#button_air.active, #button_water.active {
+    background-color: #45a049;
+    color: black;
+}
+
+#form_container4 select, .form-container_tp select {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form-container_rw select {
+    width: 90%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#form_container4 option, .form-container_rw option, .form-container_tp option {
+    background-color: rgba(44, 44, 44, 0.65);
+    color: white;
+}
+
+.generation_radio, .temp_place {
+    position: relative;
+    height: 100vh;
+    background: black;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.form-container_rw {
+    width: 90%;
+    padding: 20px;
+    background-color: #49885c;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.form-container_tp {
+    width: 60%;
+    padding: 20px;
+    background-color: #49885c;
+    border-radius: 10px;
+    color: white;
+}
+
+.form-container_rw h2, .form-container_tp h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 35px;
+    color: #9aff00;
+}
+
+.form-container_rw label, .form-container_tp label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+.form-container_rw input, .form-container_tp input {
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container_rw button, .form-container_tp button {
+    width: 30%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2b452b;
+    color: #00ff12;
+    border: none;
+}
+
+.form-container_rw button:hover, .form-container_tp button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+.form-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-side, .right-side {
+    flex: 1;
+    margin: 10px;
+}
+
+.left-side label, .right-side label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 32px;
+}
+
+.left-side input, .right-side input {
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.coef-option_rw1, .coef-option_rw2 {
+    margin-left: 32px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.tax_rate_option_tp {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.coef-option_rw1 input[type="checkbox"], .coef-option_rw2 input[type="checkbox"],
+.tax_rate_option_tp input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ff12;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.coef-option_rw1 input[type="checkbox"]:checked::before, .coef-option_rw2 input[type="checkbox"]:checked::before,
+.tax_rate_option_tp input[type="checkbox"]:checked::before {
+    content: '\2714';
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff12;
+    font-size: 16px;
+}
+
+.coef-option_rw1 label, .coef-option_rw2 label {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.table-container_rw {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 100px;
+}
+
+#table6 {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#table6 th, #table6 td, #table7 th, #table7 td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#table6 th {
+    font-weight: bold;
+}
+
+#table6 th:first-child, #table6 td:first-child, #table7 th:first-child, #table6 td:first-child {
+    width: 40px;
+}
+
+#table6 th:nth-child(2), #table6 td:nth-child(2) {
+    width: 155px;
+}
+
+#table6 th:nth-child(n+3), #table6 td:nth-child(n+3) {
+    width: calc((100% - 340px) / 10);
 }

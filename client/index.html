@@ -11,16 +11,19 @@
 
 <div class="container">
     <header>
-        <div class="logo">Лабораторна робота №1</div>
+        <div class="logo">Лабораторна робота №2</div>
         <nav>
             <ul>
                 <li><a href="#objects">ОБ'ЄКТИ</a></li>
                 <li><a href="#pollutants">ЗАБРУДНЮВАЧІ</a></li>
                 <li><a href="#pollutions">РОЗРАХУНКИ</a></li>
+                <li><a href="#radio_waste">УТВОРЕННЯ РАДІОВІДХОДІВ</a></li>
+                <li><a href="#temp_place">ТИМЧАСОВЕ ЗБЕРІГАННЯ РАДІОВІДХОДІВ</a></li>
                 <li><a href="#calculations">ЗАБРУДНЕННЯ</a></li>
             </ul>
         </nav>
     </header>
+
     <div class="content">
         <div class="text-content">
             <h1>ЕКО<span class="color">ЛОГІЧНИЙ</span><br>МОНІТОРИНГ</h1>
@@ -30,13 +33,11 @@
 </div>
 
 <main>
-
     <div class="block1" id="objects">
-        <div class="overlay-text">
-            <h1>ОБ'ЄКТИ</h1>
-        </div>
+        <div class="overlay-text"><h1>ОБ'ЄКТИ</h1></div>
 
         <div class="search">
+            <label for="search_column1"></label>
             <select id="search_column1">
                 <option value="name">Назва підприємства</option>
                 <option value="head">Керівник підприємства</option>
@@ -44,7 +45,10 @@
                 <option value="economic_activity">Вид економічної діяльності</option>
                 <option value="form_of_ownership">Форма власності</option>
             </select>
+
+            <label for="search_input1"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input1">
+
             <button id="search_button1">Знайти</button>
             <button id="reset_button1">Скинути</button>
         </div>
@@ -93,18 +97,21 @@
     </div>
 
     <div class="block2" id="pollutants">
-        <div class="overlay-text">
-            <h1>ЗАБРУДНЮВАЧІ</h1>
-        </div>
+        <div class="overlay-text"><h1>ЗАБРУДНЮВАЧІ</h1></div>
 
         <div class="search">
+            <label for="search_column2"></label>
             <select id="search_column2">
                 <option value="name">Назва забруднюючої речовини</option>
-                <option value="mass_flow_rate">Величина масової витрати</option>
                 <option value="permissible_emissions">Гранично допустимі викиди</option>
                 <option value="danger_class">Клас небезпеки</option>
+                <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
+                <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
+
+            <label for="search_input2"></label>
             <input placeholder="Уведіть пошукове значення" id="search_input2">
+
             <button id="search_button2">Знайти</button>
             <button id="reset_button2">Скинути</button>
         </div>
@@ -112,15 +119,18 @@
         <div class="sort">
             <label for="sort_column2">Стовпець для сортування:</label>
             <select id="sort_column2">
-                <option value="mass_flow_rate">Величина масової витрати</option>
                 <option value="permissible_emissions">Гранично допустимі викиди</option>
                 <option value="danger_class">Клас небезпеки</option>
+                <option value="tax_rate_aw">Ставка податку (повітря, вода)</option>
+                <option value="tax_rate_p">Ставка податку (за розміщенням)</option>
             </select>
+
             <label for="sort_order2">Порядок сортування:</label>
             <select id="sort_order2">
                 <option value="asc">Зростання</option>
                 <option value="desc">Спадання</option>
             </select>
+
             <button id="sort_button2">Сортувати</button>
             <button id="reset_button2_2">Скинути</button>
         </div>
@@ -130,9 +140,10 @@
                 <thead>
                 <th>ID</th>
                 <th>Назва забруднюючої речовини</th>
-                <th>Величина масової витрати, г/год</th>
                 <th>Гранично допустимі викиди, мг/м^3</th>
                 <th>Клас небезпеки</th>
+                <th>Ставка податку, грн/т <br>(повітря, вода)<br></th>
+                <th>Ставка податку, грн/т <br>(за розміщенням)<br></th>
                 <th>Дії</th>
                 </thead>
                 <tbody></tbody>
@@ -146,62 +157,209 @@
 
     <div class="form-container hidden" id="form_container2">
         <h2 id="form_title2"></h2>
+
         <form id="add-substance-form">
             <label for="name2_input">Назва забруднюючої речовини:</label>
             <input type="text" id="name2_input" name="name2_input" required>
-
-            <label for="mass_flow_rate_input">Величина масової витрати, г/год:</label>
-            <input type="text" id="mass_flow_rate_input" name="mass_flow_rate_input" required>
 
             <label for="permissible_emissions_input">Гранично допустимі викиди, мг/м^3:</label>
             <input type="text" id="permissible_emissions_input" name="permissible_emissions_input" required>
 
             <label for="danger_class_input">Клас небезпеки:</label>
             <input type="text" id="danger_class_input" name="danger_class_input" required>
+
+            <label for="tax_rate_aw_input">Ставка податку, грн/т (повітря, вода):</label>
+            <input type="text" id="tax_rate_aw_input" name="tax_rate_aw_input" required>
+
+            <label for="tax_rate_p_input">Ставка податку, грн/т (за розміщенням):</label>
+            <input type="text" id="tax_rate_p_input" name="tax_rate_p_input" required>
+
             <button id="add_data2_button" type="submit"></button>
         </form>
     </div>
 
     <div class="block4" id="pollutions">
-        <div class="overlay-text">
-            <h1>РОЗРАХУНКИ</h1>
+        <div class="overlay-text"><h1>РОЗРАХУНКИ</h1></div>
+
+        <div class="buttons_aw" id="air-water">
+            <div class="button_air">
+                <button id="button_air">Повітря</button>
+            </div>
+            <div class="button_water">
+                <button id="button_water">Вода</button>
+            </div>
         </div>
 
         <div class="search">
-            <select id="search_column4">
+            <label for="search_column4"></label>
+            <select id="search_column4" class="hidden">
                 <option value="Objects_id">Назва підприємства</option>
                 <option value="Pollutants_id">Назва забруднюючої речовини</option>
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
             </select>
-            <input placeholder="Уведіть пошукове значення" id="search_input4">
-            <button id="search_button4">Знайти</button>
-            <button id="reset_button4">Скинути</button>
+
+            <label for="search_input4"></label>
+            <input placeholder="Уведіть пошукове значення" id="search_input4" class="hidden">
+
+            <button id="search_button4" class="hidden">Знайти</button>
+            <button id="reset_button4" class="hidden">Скинути</button>
+
+            <label for="search_column5"></label>
+            <select id="search_column5" class="hidden">
+                <option value="Objects_id">Назва підприємства</option>
+                <option value="Pollutants_id">Назва забруднюючої речовини</option>
+                <option value="general_emissions">Усього викидів</option>
+                <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
+            </select>
+
+            <label for="search_input5"></label>
+            <input placeholder="Уведіть пошукове значення" id="search_input5" class="hidden">
+
+            <button id="search_button5" class="hidden">Знайти</button>
+            <button id="reset_button5" class="hidden">Скинути</button>
         </div>
 
         <div class="sort">
-            <label for="sort_column4">Стовпець для сортування:</label>
-            <select id="sort_column4">
+            <label for="sort_column4" class="hidden">Стовпець для сортування:</label>
+            <select id="sort_column4" class="hidden">
                 <option value="general_emissions">Усього викидів</option>
                 <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
             </select>
-            <label for="sort_order4">Порядок сортування:</label>
-            <select id="sort_order4">
+
+            <label for="sort_order4" class="hidden">Порядок сортування:</label>
+            <select id="sort_order4" class="hidden">
                 <option value="asc">Зростання</option>
                 <option value="desc">Спадання</option>
             </select>
-            <button id="sort_button4">Сортувати</button>
-            <button id="reset_button4_2">Скинути</button>
+
+            <button id="sort_button4" class="hidden">Сортувати</button>
+            <button id="reset_button4_2" class="hidden">Скинути</button>
+
+            <label for="sort_column5" class="hidden">Стовпець для сортування:</label>
+            <select id="sort_column5" class="hidden">
+                <option value="general_emissions">Усього викидів</option>
+                <option value="date">Період</option>
+                <option value="tax">Сума податку</option>
+            </select>
+
+            <label for="sort_order5" class="hidden">Порядок сортування:</label>
+            <select id="sort_order5" class="hidden">
+                <option value="asc">Зростання</option>
+                <option value="desc">Спадання</option>
+            </select>
+
+            <button id="sort_button5" class="hidden">Сортувати</button>
+            <button id="reset_button5_2" class="hidden">Скинути</button>
         </div>
 
-        <div class="table-container4">
+        <div class="tax">
+            <label for="tax_type" class="hidden">Тип податку:</label>
+            <select id="tax_type" class="hidden">
+                <option value="tax_air">За викиди в атмосферне повітря</option>
+                <option value="tax_placement">За розміщення відходів</option>
+            </select>
+
+            <button class="tax_button hidden" id="tax_button">Розрахувати</button>
+            <button id="reset_button4_3" class="hidden">Скинути</button>
+
+            <label for="tax_type2" class="hidden">Тип податку:</label>
+            <select id="tax_type2" class="hidden">
+                <option value="tax_water">За скиди у водні об'єкти</option>
+                <option value="tax_placement">За розміщення відходів</option>
+            </select>
+
+            <button class="tax_button2 hidden" id="tax_button2">Розрахувати</button>
+            <button id="reset_button5_3" class="hidden">Скинути</button>
+        </div>
+
+        <div class="water_coef hidden" id="water_coef">
+            <label>Оберіть коефіцієнт:</label><br>
+
+            <div class="coef-option">
+                <input type="checkbox" id="coef_lake" name="coef_lake" value="1.5">
+                <label for="coef_lake">Коефіцієнт 1,5 (застосовується у разі скидання забруднюючих речовин у ставки й
+                    озера)</label>
+            </div>
+
+            <div class="coef-option">
+                <input type="checkbox" id="coef_river" name="coef_river" value="1">
+                <label for="coef_river">Коефіцієнт 1 (застосовується в інших випадках)</label>
+            </div>
+
+            <button id="calculate_water_button" type="submit">Розрахувати</button>
+        </div>
+
+        <div class="place_coef hidden" id="place_coef">
+            <div class="place_coef1">
+                <label><span style="color: #00ff0d;"><strong>Оберіть Кт</strong></span>
+                    <span style="color: #9aff00;"><br>(Коригуючий коефіцієнт, який враховує розташування місця
+                        розміщення відходів)</span><br></label><br>
+
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_in_city" name="coef_in_city" value="3">
+                    <label for="coef_in_city">Коефіцієнт 3 (розміщення відходів у межах населеного пункту або на
+                        відстані менш як 3 км від таких меж)</label>
+                </div>
+
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_out_city" name="coef_out_city" value="1">
+                    <label for="coef_out_city">Коефіцієнт 1 (розміщення відходів на відстані від 3 км і більше від меж
+                        населеного пункту)</label>
+                </div>
+            </div>
+
+            <br><br>
+            <br><br>
+
+            <div class="place_coef2">
+                <label><span style="color: #00ff0d;"><strong>Оберіть Ко</strong></span><span
+                        style="color: #9aff00;"><br>(Відходи розміщені на звалищах, які не забезпечують повного
+                    виключення забруднення атмосферного повітря або водних об'єктів?)</span><br></label><br>
+
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_yes" name="coef_yes" value="3">
+                    <label for="coef_yes">Так</label>
+                </div>
+
+                <div class="coef-option">
+                    <input type="checkbox" id="coef_no" name="coef_no" value="1">
+                    <label for="coef_no">Ні</label>
+                </div>
+            </div>
+
+            <button id="calculate_place_button" type="submit">Розрахувати</button>
+        </div>
+
+        <div class="table-container4 hidden" id="table-container4">
             <table id="table4">
                 <thead>
                 <th>№</th>
-                <th>ID підприємства</th>
-                <th>ID забруднюючої речовини</th>
-                <th>Усього викидів, т/рік</th>
+                <th>Назва підприємства</th>
+                <th>Назва забруднюючої речовини</th>
+                <th>Усього викидів, <br>т/рік<br></th>
                 <th>Період</th>
+                <th>Ставка податку, <br>грн/т<br></th>
+                <th>Сума податку, <br>грн<br></th>
+                <th>Дії</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="table-container5 hidden" id="table-container5">
+            <table id="table5">
+                <thead>
+                <th>№</th>
+                <th>Назва підприємства</th>
+                <th>Назва забруднюючої речовини</th>
+                <th>Усього викидів, <br>т/рік<br></th>
+                <th>Період</th>
+                <th>Ставка податку, <br>грн/т<br></th>
+                <th>Сума податку, <br>грн<br></th>
                 <th>Дії</th>
                 </thead>
                 <tbody></tbody>
@@ -209,44 +367,223 @@
         </div>
 
         <div class="button-container">
-            <button id="show_form_button4">Додати нове забруднення</button>
+            <button id="show_form_button4" class="hidden">Додати нове забруднення</button>
+        </div>
+        <div class="button-container">
+            <button id="show_form_button5" class="hidden">Додати нове забруднення</button>
         </div>
     </div>
 
     <div class="form-container hidden" id="form_container4">
         <h2 id="form_title4"></h2>
-        <form id="add-pollutions-form">
-            <label for="Objects_id_input">ID підприємства:</label>
-            <input type="text" id="Objects_id_input" name="Objects_id_input" required>
 
-            <label for="Pollutants_id_input">ID забруднюючої речовини:</label>
-            <input type="text" id="Pollutants_id_input" name="Pollutants_id_input" required>
+        <form id="add-pollutions-form">
+            <label for="Objects_name_select">Назва підприємства:</label>
+            <select id="Objects_name_select" name="Objects_name_select" required></select>
+
+            <label for="Pollutants_name_select">Назва забруднюючої речовини:</label>
+            <select id="Pollutants_name_select" name="Pollutants_name_select" required></select>
 
             <label for="general_emissions_input">Усього викидів, т/рік:</label>
             <input type="text" id="general_emissions_input" name="general_emissions_input" required>
 
             <label for="date_input">Період:</label>
             <input type="text" id="date_input" name="date_input" required>
+
             <button id="add_data4_button" type="submit"></button>
         </form>
     </div>
 
+    <div class="form-container hidden" id="form_container5">
+        <h2 id="form_title5"></h2>
+
+        <form id="add-pollutions2-form">
+            <label for="Objects_name2_select">Назва підприємства:</label>
+            <select id="Objects_name2_select" name="Objects_name2_select" required></select>
+
+            <label for="Pollutants_name2_select">Назва забруднюючої речовини:</label>
+            <select id="Pollutants_name2_select" name="Pollutants_name2_select" required></select>
+
+            <label for="general_emissions2_input">Усього викидів, т/рік:</label>
+            <input type="text" id="general_emissions2_input" name="general_emissions2_input" required>
+
+            <label for="date2_input">Період:</label>
+            <input type="text" id="date2_input" name="date2_input" required>
+
+            <button id="add_data5_button" type="submit"></button>
+        </form>
+    </div>
+
+    <div class="generation_radio">
+        <form class="form-container_rw" id="radio_waste">
+            <h2>Розрахунок податку, який справляється за утворення радіоактивних відходів</h2>
+
+            <div class="form-content">
+                <div class="left-side">
+                    <label for="Object_name1">Назва підприємства:</label>
+                    <select id="Object_name1" name="Object_name1" required></select>
+
+                    <label for="on">Фактичний обсяг електричної енергії (кВт-год):</label>
+                    <input type="number" id="on" name="on" min="0" required>
+
+                    <label>Радіоактивні відходи накопичені до 1 квітня 2009 року?</label>
+                    <div class="coef-option_rw1">
+                        <input type="checkbox" id="coef_yes_rw1" name="coef_yes_rw1" value="0.03125">
+                        <label for="coef_yes_rw1">Так</label>
+
+                    </div>
+                    <div class="coef-option_rw1">
+                        <input type="checkbox" id="coef_no_rw1" name="coef_no_rw1" value="1">
+                        <label for="coef_no_rw1">Ні</label>
+                    </div>
+
+                    <label>Ви розраховуєте податок в період з 1 квітня 2011 року до 1 квітня 2019 року?</label>
+                    <div class="coef-option_rw2">
+                        <input type="checkbox" id="coef_yes_rw2" name="coef_yes_rw2" value="1">
+                        <label for="coef_yes_rw2">Так</label>
+                    </div>
+
+                    <div class="coef-option_rw2">
+                        <input type="checkbox" id="coef_no_rw2" name="coef_no_rw2" value="0">
+                        <label for="coef_no_rw2">Ні</label>
+                    </div>
+
+                    <label for="c1ns">Cобівартість зберігання 1 м³ низькоактивних і середньоактивних
+                        радіоактивних відходів за базовий податковий період (грн):</label>
+                    <input type="number" id="c1ns" name="c1ns" step="0.01" min="0">
+
+                    <label for="c1v">Собівартість зберігання 1 м³ високоактивних радіоактивних відходів за базовий
+                        податковий період (грн):</label>
+                    <input type="number" id="c1v" name="c1v" step="0.01" min="0">
+                </div>
+
+                <div class="right-side">
+                    <label for="c2ns">Cобівартість зберігання 1 м³ низькоактивних і середньоактивних
+                        радіоактивних відходів до 1 квітня 2009 року (грн):</label>
+                    <input type="number" id="c2ns" name="c2ns" step="0.01" min="0">
+
+                    <label for="c2v">Собівартість зберігання 1 м³ високоактивних радіоактивних відходів до 1 квітня
+                        2009 року (грн):</label>
+                    <input type="number" id="c2v" name="c2v" step="0.01" min="0">
+
+                    <label for="v1ns">Фактичний об'єм низькоактивних і середньоактивних радіоактивних відходів за
+                        базовий податковий період (м³):</label>
+                    <input type="number" id="v1ns" name="v1ns" step="0.01" min="0">
+
+                    <label for="v1v">Фактичний об'єм високоактивних радіоактивних відходів за базовий податковий
+                        період (м³):</label>
+                    <input type="number" id="v1v" name="v1v" step="0.01" min="0">
+
+                    <label for="v2ns">Фактичний об'єм низькоактивних і середньоактивних радіоактивних відходів до 1
+                        квітня 2009 року (м³):</label>
+                    <input type="number" id="v2ns" name="v2ns" step="0.01" min="0">
+
+                    <label for="v2v">Фактичний об'єм високоактивних радіоактивних відходів до 1 квітня 2009 року
+                        (м³):</label>
+                    <input type="number" id="v2v" name="v2v" step="0.01" min="0">
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button id="add_data6_button" type="submit">Розрахувати</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-container_rw" id="table-container6">
+        <table id="table6">
+            <thead>
+            <th>№</th>
+            <th>Назва підприємства</th>
+            <th>On</th>
+            <th>С1нс</th>
+            <th>С1в</th>
+            <th>С2нс</th>
+            <th>С2в</th>
+            <th>V1нс</th>
+            <th>V1в</th>
+            <th>V2нс</th>
+            <th>V2в</th>
+            <th>Сума податку</th>
+            <th>Дії</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="temp_place">
+        <form class="form-container_tp" id="temp_place">
+            <h2 id="form_title">Розрахунок податку за тимчасове зберігання радіоактивних відходів</h2>
+
+            <label for="Object_name2">Назва підприємства:</label>
+            <select id="Object_name2" name="Object_name2" required></select>
+
+            <label>Оберіть категорію відходів:</label>
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp1" name="tax_rate_tp1" value="632539.66">
+                <label for="tax_rate_tp1">Високоактивні</label>
+            </div>
+
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp2" name="tax_rate_tp2" value="11807.4">
+                <label for="tax_rate_tp2">Середньоактивні та низькоактивні</label>
+            </div>
+
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp3" name="tax_rate_tp3" value="21084.66">
+                <label for="tax_rate_tp3">Високоактивні відходи, представлені у вигляді джерел іонізуючого
+                    випромінювання</label>
+            </div>
+
+            <div class="tax_rate_option_tp">
+                <input type="checkbox" id="tax_rate_tp4" name="tax_rate_tp4" value="4216.92">
+                <label for="tax_rate_tp4">Середньоактивні та низькоактивні відходи, представлені у вигляді джерел
+                    іонізуючого випромінювання</label>
+            </div>
+
+            <label for="radio_v">Фактичний об'єм радіоактивних відходів, які зберігаються у виробника
+                таких відходів понад установлений особливими умовами ліцензії строк, (м³) або (см³ для іонізуючого
+                випромінювання):</label>
+            <input type="text" id="radio_v" name="radio_v" required>
+
+            <label for="date_tp">Кількість повних календарних кварталів, протягом яких радіоактивні відходи
+                зберігаються понад установлений особливими умовами ліцензії строк:</label>
+            <input type="text" id="date_tp" name="date_tp" required>
+
+            <div class="button-container">
+                <button id="add_data7_button" type="submit">Розрахувати</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-container_tp" id="table-container7">
+        <table id="table7">
+            <thead>
+            <th>№</th>
+            <th>Назва підприємства</th>
+            <th>N</th>
+            <th>V</th>
+            <th>T</th>
+            <th>Сума податку</th>
+            <th>Дії</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
     <div class="block3" id="calculations">
-        <div class="overlay-text">
-            <h1>ЗАБРУДНЕННЯ</h1>
-        </div>
+        <div class="overlay-text"><h1>ЗАБРУДНЕННЯ</h1></div>
 
         <div class="table-container3">
             <table id="table3">
                 <thead>
-                <th>№</th>
                 <th>Назва підприємства</th>
                 <th>Назва забруднюючої речовини</th>
                 <th>Усього викидів, т/рік</th>
-                <th>Величина масової витрати, г/год</th>
                 <th>Гранично допустимі викиди, мг/м^3</th>
                 <th>Клас небезпеки</th>
                 <th>Період</th>
+                <th>Сума податку, грн</th>
                 </thead>
                 <tbody></tbody>
             </table>
